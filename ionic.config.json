@@ -1,0 +1,7 @@
+{
+  "name": "energy",
+  "integrations": {
+    "cordova": {}
+  },
+  "type": "ionic-angular"
+}

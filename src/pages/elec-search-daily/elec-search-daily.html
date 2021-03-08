@@ -1,0 +1,163 @@
+<ion-header>
+    <ion-navbar>
+      <!--
+        <button ion-button menuToggle>
+            <ion-icon name="menu"></ion-icon>
+          </button>
+        -->
+             
+      <ion-title style="text-align:center;">
+        <img src="assets/imgs/titlegimg3.png" style="width:150px;margin-top:10px;">
+      </ion-title>
+  
+      <!--
+      <ion-buttons end>
+          <button  ion-button icon-only style="margin-top:10px;">
+              <ion-icon name="ios-notifications"></ion-icon>
+          </button>
+        </ion-buttons>        
+      <ion-buttons end menuToggle="right" right>
+          <button  ion-button icon-only style="margin-top:10px;">
+              <ion-icon name="ios-settings"></ion-icon>
+          </button>           
+        </ion-buttons>  
+-->  
+    </ion-navbar>
+  </ion-header>
+  
+
+<ion-content>
+    <div ion-fixed style="height:255px;width:100%;background-color:#fff;padding-top:0px;">   
+    <div class="calendar-header" style="padding-top:0px;background-color:#dcdcdc;margin-bottom:20px;">
+       <ion-row>
+            <ion-col style="display: flex !important;align-items: center !important;justify-content: right !important;">
+              <div style="text-align:center;width:180px;margin:0 auto;">
+                <!-- 0 전기, 1수도, 2가스, 3난방, 4온수-->
+               <div *ngIf="viewtype==0" style="float:left;font-size:20px;font-weight:700;margin-right:5px;margin-top:4px;">일간 전기사용량</div>
+               <div *ngIf="viewtype==1" style="float:left;font-size:20px;font-weight:700;margin-right:5px;margin-top:4px;">일간 수도사용량</div>
+               <div *ngIf="viewtype==2" style="float:left;font-size:20px;font-weight:700;margin-right:5px;margin-top:4px;">일간 가스사용량</div>
+               <div *ngIf="viewtype==3" style="float:left;font-size:20px;font-weight:700;margin-right:5px;margin-top:4px;">일간 난방사용량</div>
+               <div *ngIf="viewtype==4" style="float:left;font-size:20px;font-weight:700;margin-right:5px;margin-top:4px;">일간 온수사용량</div>
+
+               <div style="text-align:left;margin-top:2px;"><img src="assets/imgs/energy_icon.png" style="width:30px;"></div>
+              </div>
+            </ion-col>
+        </ion-row>
+        <div style="position:absolute;margin-top:-40px;margin-left:0px;">
+            <img *ngIf="viewtype==0 && level_compare==1" src="assets/imgs/energyicon/g5.png" style="width:80px;">
+            <img *ngIf="viewtype==0 && level_compare==2" src="assets/imgs/energyicon/bblue5.png" style="width:80px;">
+            <img *ngIf="viewtype==0 && level_compare==3" src="assets/imgs/energyicon/bbred5.png" style="width:80px;">
+  
+            <img *ngIf="viewtype==1 && level_compare==1" src="assets/imgs/energyicon/g2.png" style="width:80px;">
+            <img *ngIf="viewtype==1 && level_compare==2" src="assets/imgs/energyicon/bblue2.png" style="width:80px;">
+            <img *ngIf="viewtype==1 && level_compare==3" src="assets/imgs/energyicon/bbred2.png" style="width:80px;">
+  
+            <img *ngIf="viewtype==2 && level_compare==1" src="assets/imgs/energyicon/g1.png" style="width:80px;">
+            <img *ngIf="viewtype==2 && level_compare==2" src="assets/imgs/energyicon/bblue1.png" style="width:80px;">
+            <img *ngIf="viewtype==2 && level_compare==3" src="assets/imgs/energyicon/bbred1.png" style="width:80px;">
+  
+            <img *ngIf="viewtype==3 && level_compare==1" src="assets/imgs/energyicon/g3.png" style="width:80px;">
+            <img *ngIf="viewtype==3 && level_compare==2" src="assets/imgs/energyicon/bblue3.png" style="width:80px;">
+            <img *ngIf="viewtype==3 && level_compare==3" src="assets/imgs/energyicon/bbred3.png" style="width:80px;">
+  
+            <img *ngIf="viewtype==4 && level_compare==1" src="assets/imgs/energyicon/g4.png" style="width:80px;">
+            <img *ngIf="viewtype==4 && level_compare==2" src="assets/imgs/energyicon/bblue4.png" style="width:80px;">
+            <img *ngIf="viewtype==4 && level_compare==3" src="assets/imgs/energyicon/bbred4.png" style="width:80px;">
+        </div>                
+      </div>
+
+      <div class="calendar-header" style="padding-top:-10px;background-color:#fff;margin-bottom:5px;width:100%;">
+          <ion-row class="calendar-month">
+              <ion-col style="display: flex !important;align-items: center !important;justify-content: right !important;">
+                <table style="width:100%;text-align:center;margin:60px;margin-top:0px;margin-bottom:0px;">
+                  <tr>
+                    <td style="font-weight:700;border-bottom: 0px !important;height:40px;color:#4c4c4c;text-align:right;font-size:30px;" (click)="goToLastday()">
+                        <ion-icon name="md-arrow-dropleft-circle"></ion-icon>
+                    </td>
+                    <td style="font-weight:700;border-bottom: 0px !important;height:40px;color:#4c4c4c;text-align:center;font-size:30px;"  (click)="calender()">
+                        {{currentYear}}.{{currentMonth}}.{{currentDate}}
+                    </td>
+                    <td style="font-weight:700;border-bottom: 0px !important;height:40px;color:#4c4c4c;text-align:left;font-size:30px;" (click)="goToNextday()">
+                        <ion-icon name="md-arrow-dropright-circle"></ion-icon>
+                    </td>
+                  </tr>
+                </table>
+              </ion-col>
+            </ion-row>
+      </div>                
+      
+      <div style="padding-left:30px;padding-right:30px;margin-top:20px;">
+      <ion-segment class="mainmenu" [(ngModel)]="selectedSegment" (ionChange)="onSegmentChanged($event)">
+          <ion-segment-button value="menu1" *ngIf="viewtype==0">
+              시간별 사용량 (kwh)
+            </ion-segment-button>
+            <ion-segment-button value="menu1" *ngIf="viewtype!=0">
+                시간별 사용량 (㎥)
+              </ion-segment-button>  
+          <ion-segment-button value="menu2">
+            시간별 요금 (원)
+          </ion-segment-button>
+       </ion-segment>
+      </div>
+
+      <div style="background-color:#eeeef0;border-radius:0px;margin:10px;margin-top:-3px;">   
+          <div style="height:75px;padding-top:10px;padding-left:50px;padding-right:50px;">      
+          <table style="width:100%;text-align:center;">
+              <tr>
+                  <td colspan=2 style="text-align:left;padding:5px;font-size:12px;font-weight:700;">조회기간 : {{currentYear}}-{{currentMonth}}-{{currentDate}} 00:00~23:59</td>
+                </tr>                
+            <tr>                
+            <tr>
+              <td style="width:100px;background-color:#16da94;margin:5px;font-weight:700;font-size:14px;padding:5px;">조회일</td>
+              <td style="width:100px;background-color:#b4b4b6;margin:5px;font-weight:700;font-size:14px;padding:5px;">전일</td>
+
+            </tr>
+          </table>
+        </div>    
+      </div>      
+    </div>
+
+    <div style="height:255px;"></div>       
+      
+    <div *ngIf="show_menu1" class="show_menu1">      
+        <div style="background-color:#eeeef0;border-radius:0px;margin:10px;margin-top:-3px;">
+          <div style="height:900px;">
+            <canvas #horizontalcanvas></canvas> 
+          </div>
+        </div>
+    </div>
+
+    <div *ngIf="show_menu2" class="show_menu2">      
+        <div style="background-color:#eeeef0;border-radius:0px;margin:10px;margin-top:-3px;">
+          <div style="height:900px;">
+            <canvas #horizontalcanvas2></canvas> 
+          </div>
+        </div>
+    </div>
+
+    <div style="width:100%;text-align:center;padding:40px;padding-top:0px;margin-top:-10px;padding-bottom:0px;">
+  <table style="width:100%;text-align:center;">
+    <tr>
+      <td style="text-align:center;"><div style="padding:10px;background-color:#fff;text-align:center;"><p style="background-color:#eeeef0;text-align:center;border-radius:5px;line-height:20px;padding-top:10px;padding-bottom:10px;font-size:14px;">일간 누적 사용량<br>
+        <label *ngIf="viewtype==0" style="font-weight:700;font-size:15px;">{{total_usage_curr|number}}kWh</label>
+        <label *ngIf="viewtype!=0" style="font-weight:700;font-size:15px;">{{total_usage_curr|number}}㎥</label>  
+      </p>
+      <p *ngIf="prev_daebi_usage>=0 && viewtype==0" style="color:#e30117;font-size:14px;font-weight:700;">전년 동일 대비<br>{{prev_daebi_usage|number}}kWh ▲</p>
+      <p *ngIf="prev_daebi_usage>=0 && viewtype!=0" style="color:#e30117;font-size:14px;font-weight:700;">전년 동일 대비<br>{{prev_daebi_usage|number}}㎥ ▲</p>
+      <p *ngIf="prev_daebi_usage<0 && viewtype==0" style="color:#0272bb;font-size:14px;font-weight:700;">전년 동일 대비<br>{{prev_daebi_usage|number}}kWh ▼</p>
+      <p *ngIf="prev_daebi_usage<0 && viewtype!=0" style="color:#0272bb;font-size:14px;font-weight:700;">전년 동일 대비<br>{{prev_daebi_usage|number}}㎥ ▼</p>
+
+    </div></td>
+      <td style="text-align:center;"><div style="padding:10px;background-color:#fff;text-align:center;"><p style="background-color:#eeeef0;text-align:center;border-radius:5px;line-height:20px;padding-top:10px;padding-bottom:10px;font-size:14px;">일간 누적 요금<br>
+        <label style="font-weight:700;font-size:15px;">{{total_won_curr|number}}원</label>
+      </p>
+      <p *ngIf="prev_daebi_won>=0" style="color:#e30117;font-size:14px;font-weight:700;">전년 동일 대비<br>{{prev_daebi_won|number}}원 ▲</p>
+      <p *ngIf="prev_daebi_won<0" style="color:#0272bb;font-size:14px;font-weight:700;">전년 동일 대비<br>{{prev_daebi_won|number}}원 ▼</p>
+    </div></td>
+    </tr>
+  </table>  
+    </div>
+
+    <page-bottom-content></page-bottom-content>
+
+</ion-content>

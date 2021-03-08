@@ -1,0 +1,107 @@
+<!--
+  Generated template for the NotifyListPage page.
+
+  See http://ionicframework.com/docs/components/#navigation for more info on
+  Ionic pages and navigation.
+-->
+<ion-header>
+    <ion-navbar>
+        <ion-title style="text-align:center;">
+          <img src="assets/imgs/titlegimg3.png" style="width:150px;margin-top:10px;">
+        </ion-title>
+        <ion-buttons end (click)="notify()">
+          <button  ion-button icon-only style="margin-top:10px;">
+              <ion-icon name="ios-notifications"></ion-icon>
+          </button>
+      </ion-buttons>      
+    </ion-navbar>
+  
+  </ion-header>
+
+<ion-content>
+    <div style="border-top:2px solid #21d694;width:110px;font-weight:700;font-size:18px;color:#333;text-align:right;margin-top:30px;padding-top:5px;">개인정보&nbsp;</div>
+
+    <div style="height:20px;"></div>
+    <div style="margin-left:20px;">
+    <div style="font-size:16px;font-weight:700;color:#333;line-height:30px;">아이디 : {{member_id}}</div>
+    <div style="font-size:16px;font-weight:700;color:#333;float:left;line-height:30px;">비밀번호 변경일 : 2019-05-21</div><div style="margin-top:-3px;">&nbsp;<button type="button" small item-right ion-button style="background-color:#555" (click)="change_pw()">변경하기</button></div>
+    <div style="font-size:16px;font-weight:700;color:#333;line-height:30px;">이름 : {{member_name}}</div>
+    <div style="font-size:16px;font-weight:700;color:#333;line-height:30px;">아파트 : {{site_name}}</div>
+    <div style="font-size:16px;font-weight:700;color:#333;line-height:30px;">동호수 : {{apt_dong_name}}동 {{apt_ho_name}}호</div>
+  </div>
+    <div style="text-align:center;margin-top:20px;"> 
+      <button type="button" small item-right ion-button style="background-color:#555" (click)="userout()">탈퇴하기</button>
+      <button type="button" small item-right ion-button style="background-color:#555" (click)="logout()">로그아웃</button>
+    </div>
+
+
+
+    <div style="height:30px;"></div>
+    <div style="padding-top:0px;background-color:#dcdcdc;margin-bottom:0px;">
+        <ion-row>
+             <ion-col style="width:100%;text-align:center;">
+                <div style="font-size:20px;font-weight:700;margin-right:5px;margin-top:0px;padding:10px;">요금관련 설정 <label (click)="price()" style="padding:5px;background-color:#1dd894;color:#fff;border-radius:10px;">?</label></div>
+             </ion-col>
+         </ion-row>
+    </div>
+
+    <ion-list>
+        <ion-item>
+          <ion-label>대가족/생명<br>유지장치 요금 설정</ion-label>
+          <ion-select [(ngModel)]="life_type" okText="확인" cancelText="취소">
+            <ion-option value="0">해당 없음</ion-option>
+            <ion-option value="1">5인 이상 가구</ion-option>
+            <ion-option value="2">출산가구</ion-option>
+            <ion-option value="3">3자녀 이상 가구</ion-option>
+            <ion-option value="4">생명유지장치</ion-option>
+          </ion-select>
+        </ion-item>
+
+        <ion-item>
+            <ion-label>복지할인 설정</ion-label>
+            <ion-select [(ngModel)]="bokgi_type" okText="확인" cancelText="취소">
+              <ion-option value="0">해당 없음</ion-option>
+              <ion-option value="1">독립유공자</ion-option>
+              <ion-option value="2">국가유공자</ion-option>
+              <ion-option value="3">5.18민주유공자</ion-option>
+              <ion-option value="4">장애인</ion-option>
+              <ion-option value="5">사회복지시설</ion-option>
+              <ion-option value="6">기초생활(생계,의료)</ion-option>
+              <ion-option value="7">기초생활(주거,교육)</ion-option>
+              <ion-option value="8">차상위계층</ion-option>
+            </ion-select>
+          </ion-item>
+
+      </ion-list>     
+      
+      <div style="padding-top:0px;background-color:#dcdcdc;margin-bottom:0px;">
+          <ion-row>
+               <ion-col style="width:100%;text-align:center;">
+                  <div style="font-size:20px;font-weight:700;margin-right:5px;margin-top:0px;padding:10px;">세대 사용자 정보 <label (click)="userinfo()" style="padding:5px;background-color:#1dd894;color:#fff;border-radius:10px;">?</label></div>
+               </ion-col>
+           </ion-row>
+      </div>
+
+      <div style="margin:10px;margin-top:20px;">
+          <div style="padding:10px;border-radius:10px;background-color:#eee;">
+              <table style="width:100%;" >
+                  <tr *ngIf="i==0">
+                      <td style="text-align:center;font-size:16px;color:#000;font-weight:700;padding:5px;">이름</td>
+                      <td style="text-align:center;font-size:16px;color:#000;;font-weight:700;padding:5px;">연락처</td>
+                      <td style="text-align:center;font-size:16px;color:#000;font-weight:700;padding:5px;">마지막 접속</td>
+                      <td style="text-align:center;font-size:16px;color:#000;font-weight:700;padding:5px;"></td>                        
+                  </tr>
+                  <tr *ngFor="let item of family_list; let i=index">
+                      <td style="text-align:center;font-size:12px;color:#333;font-weight:700;padding:5px;">{{item.member_name}}</td>
+                      <td style="text-align:center;font-size:12px;color:#333;font-weight:700;padding:5px;">{{item.member_phone}}</td>
+                      <td *ngIf="item.time_last_login=='' || item.time_last_login==null || item.time_last_login=='null'" style="text-align:center;font-size:12px;color:#333;font-weight:700;padding:5px;">0000-00-00 00:00:00</td>
+                      <td *ngIf="item.time_last_login!=''"                                                               style="text-align:center;font-size:12px;color:#333;font-weight:700;padding:5px;">{{item.time_last_login}}</td>
+                      <td *ngIf="member_main==1 && i!=0" (click)="memberout(item.seq_member)" style="text-align:center;font-size:14px;color:#333;font-weight:700;padding:5px;"><img src="assets/imgs/lefticon/close_icon.png" style="width:25px;"></td>
+                      <td *ngIf="member_main!=1 || i==0" (click)="memberout(item.seq_member)" style="text-align:center;font-size:14px;color:#333;font-weight:700;padding:5px;"></td>                      
+                  </tr>
+               </table>
+            </div>
+      </div>    
+
+    <page-bottom-content></page-bottom-content>    
+</ion-content>

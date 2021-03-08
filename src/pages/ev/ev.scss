@@ -1,0 +1,18 @@
+page-ev {
+    .ev_table {
+        border-top: 1px solid #000000;
+        border-collapse: collapse;
+        th, td {
+            border-bottom: 1px solid #000000;
+            height:50px;
+        }
+        th {
+            background-color: #1dd894;
+        }
+        td {
+            background-color: #eee;
+        }
+    }
+    
+
+}

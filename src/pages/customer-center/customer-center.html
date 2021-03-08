@@ -1,0 +1,193 @@
+<ion-header>
+    <ion-navbar>
+        <ion-title style="text-align:center;">
+          <img src="assets/imgs/titlegimg3.png" style="width:150px;margin-top:10px;">
+        </ion-title>
+        <ion-buttons end (click)="notify()">
+          <button  ion-button icon-only style="margin-top:10px;">
+              <ion-icon name="ios-notifications"></ion-icon>
+          </button>
+      </ion-buttons>        
+    </ion-navbar>
+  </ion-header>
+  
+  
+
+<ion-content>
+
+    <div *ngIf="show_menu1" class="show_menu1"> 
+      <img src="assets/imgs/customer_icon.png" style="width:100%;padding:10px;padding-bottom:0px;">
+    </div>  
+    <div *ngIf="show_menu2" class="show_menu2" style="background-color:#faf491;width:100%;"> 
+        <img src="assets/imgs/customer2_icon.png" style="width:100%;padding:14px;padding-bottom:0px;">
+    </div>  
+    <div *ngIf="show_menu3" class="show_menu3"> 
+          <img src="assets/imgs/customer_icon.png" style="width:100%;padding:10px;padding-bottom:0px;">
+    </div>            
+    <div style="padding-left:30px;padding-right:30px;margin-top:20px;">
+        <ion-segment class="mainmenu" [(ngModel)]="selectedSegment" (ionChange)="onSegmentChanged($event)">
+            <ion-segment-button value="menu1">
+             FAQ
+            </ion-segment-button>
+            <ion-segment-button value="menu2">
+              문의하기
+            </ion-segment-button>
+            <ion-segment-button value="menu3">
+               내 문의
+            </ion-segment-button>            
+         </ion-segment>
+        </div>  
+
+        <div style="border-bottom:3px solid #eee;width:100%;margin-top:10px;"></div>
+       
+      <div *ngIf="show_menu1" class="show_menu1"> 
+        <div style="padding-top:0px;background-color:#dcdcdc;margin-bottom:0px;">
+            <ion-row>
+                 <ion-col style="width:100%;text-align:left;">
+                    <div style="font-size:18px;font-weight:700;margin-right:5px;margin-top:0px;padding:5px;color:#000;margin-left:20px;">일반</div>
+                 </ion-col>
+             </ion-row>
+        </div>
+
+        <ion-list>
+            <ion-item *ngFor="let item of content_list; let i=index" text-wrap (click)="toggleGroup(i)" [ngClass]="{active: isGroupShown(i)}">
+              <!--<div style="float:left;"><ion-icon color="success" [name]="isGroupShown(i) ? 'arrow-dropdown' : 'arrow-dropright'" style="zoom:1.5;margin-top:-1px;"></ion-icon>&nbsp;</div>-->
+
+              <div style="font-weight:700;font-size:17px;" >
+                <div style="float:left;"><img src="assets/imgs/q.png" style="width:30px;"></div> <div style="float:left;border-bottom:3px solid #1dd894;padding-bottom:3px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;width:80%;">{{item.question}}</div>
+                <div>&nbsp;&nbsp;&nbsp;<ion-icon color="success" [name]="isGroupShown(i) ? 'arrow-dropdown' : 'arrow-dropright'" style="zoom:1.5;margin-top:-1px;"></ion-icon></div>
+              </div>
+
+              <div *ngIf="isGroupShown(i)" style="font-size:13px;padding-top:20px;" >
+                <div style="float:left"><img src="assets/imgs/a.png" style="width:30px;"></div>
+                <div style="font-size:17px;padding-left:30px;">{{item.answer}}</div>
+              </div>
+            </ion-item>
+          </ion-list>              
+      </div>
+
+      <div *ngIf="show_menu2" class="show_menu2"> 
+          <div style="padding-top:0px;background-color:#dcdcdc;margin-bottom:0px;">
+             <ion-row>
+                <ion-col style="width:100%;text-align:left;">
+                   <div style="font-size:18px;font-weight:700;margin-right:5px;margin-top:0px;padding:5px;color:#000;margin-left:20px;">모바일로 문의하기</div>
+                </ion-col>
+             </ion-row>
+          </div>
+  
+          <div style="font-size:13px;font-weight:700;color:#333;padding:10px;">
+            서비스 이용시 불편사항이나 문의사항을 보내주시면<br>
+            신속하고 친절하게 안내해 드리겠습니다.<br>
+            아파트 관련 문의는 관리사무소로 직접 하시기 바랍니다.
+          </div>  
+
+<!--
+              <ion-item style="width:100%;">
+                <ion-label style="margin-left:0px;">문의 유형</ion-label>
+                <ion-select [(ngModel)]="contact_type" okText="확인" cancelText="취소" placeholder="선택하세요." style="text-align:left;">
+                  <ion-option value="0">이용문의</ion-option>
+                  <ion-option value="1">오류신고</ion-option>
+                  <ion-option value="2">기타문의</ion-option>
+                </ion-select>
+              </ion-item>  
+            -->
+            
+
+             <ion-textarea placeholder="문의 내용을 입력하세요" id="content" name="content" [(ngModel)]="content"  style="width:100%;border:1px solid #eee;color:#000;" maxLength="1024" rows=5></ion-textarea>
+<!--
+            <div style="font-size:14px;color:#333;margin-left:13px;margin-top:5px">( 0 / 2000자 )</div>
+
+                <ion-item>
+                  <ion-label style="font-size:14px;font-weight:700;color:#333;">파일명</ion-label>
+                  <ion-input style="border-bottom:1px solid #1dd894" id="filename" type="text" readOnly placeholder="xxxx.jpg" name="filename" [(ngModel)]="filename"></ion-input>
+                  <button type="button" item-right ion-button style="background-color:#1dd894">파일첨부</button>
+                </ion-item>
+-->                
+                <div (click)="create_qa()"style="margin:0 auto;padding:10px;padding-left:20px;padding-right:20px;background-color:#1dd894;color:#fff;width:100px;text-align:center;font-size:14px;font-weight:700;border-radius:5px;margin-top:20px;">보내기</div>
+
+        </div>      
+
+        <div *ngIf="show_menu3" class="show_menu3"> 
+          <div *ngIf="bogi==0" style="padding:10px;margin-top:10px;padding-top:10px;">
+          <table style="width:100%;" *ngFor="let item of qa_list; let i=index">
+
+              <tr>
+                  <td style="text-align:center;width:90px;">
+                    <div *ngIf="item.answer=='' || item.answer=='null'" style="background-color:#1dd894;border-radius:10px;padding:5px;font-weight:700;text-align:center;margin-right:5px;margin-bottom:10px;font-size:12px;width:80px;">진행중</div>
+                    <div *ngIf="item.answer!='' && item.answer!='null'" style="background-color:#c52127;border-radius:10px;padding:5px;font-weight:700;text-align:center;margin-right:5px;margin-bottom:10px;font-size:12px;width:80px;">답변완료</div>
+                  </td>
+                  <td style="text-align:center;">
+                    <div style="color:#333;padding:5px;font-weight:700;text-align:right;border-bottom:3px solid #1dd894;margin-bottom:10px;font-size:12px;"><div style="float:left;" *ngIf="item.is_new==true"><img src="assets/imgs/new_icon2.png" style="width:20px;margin-top:0px;margin-right:5px;"></div><div>{{item.time_question}} 문의</div></div></td>
+                  <td style="text-align:center;" (click)="bogi_view(item)"><div [ngStyle]="{'background-color': item.color}" style="background-color:#1dd894;border-radius:10px;padding:5px;font-weight:700;text-align:center;margin-left:5px;margin-bottom:10px;font-size:12px;">보기</div></td>
+              </tr>            
+            <!--
+              <tr>
+                  <td style="text-align:center;"><div style="background-color:#1dd894;border-radius:10px;padding:5px;font-weight:700;text-align:center;margin-right:5px;margin-bottom:10px;font-size:12px;">진행중</div></td>
+                  <td style="text-align:center;"><div style="color:#333;padding:5px;font-weight:700;text-align:right;border-bottom:3px solid #1dd894;margin-bottom:10px;font-size:12px;">2019. 07. 26 13:22 문의</div></td>
+                  <td style="text-align:center;" (click)="bogi_view()"><div style="background-color:#1dd894;border-radius:10px;padding:5px;font-weight:700;text-align:center;margin-left:5px;margin-bottom:10px;font-size:12px;">보기</div></td>
+              </tr>
+              <tr>
+                  <td style="text-align:center;"><div style="background-color:#1dd894;border-radius:10px;padding:5px;font-weight:700;text-align:center;margin-right:5px;margin-bottom:10px;font-size:12px;">진행중</div></td>
+                  <td style="text-align:center;"><div style="color:#333;padding:5px;font-weight:700;text-align:right;border-bottom:3px solid #1dd894;margin-bottom:10px;font-size:12px;">2019. 07. 26 13:22 문의</div></td>
+                  <td style="text-align:center;" (click)="bogi_view()"><div style="background-color:#1dd894;border-radius:10px;padding:5px;font-weight:700;text-align:center;margin-left:5px;margin-bottom:10px;font-size:12px;">보기</div></td>
+              </tr>
+              <tr>
+                  <td style="text-align:center;"><div style="background-color:#df3b28;border-radius:10px;padding:5px;font-weight:700;text-align:center;margin-right:5px;margin-bottom:10px;font-size:12px;">답변완료</div></td>
+                  <td style="text-align:center;vertical-align:middle"><div style="float:left;"><img src="assets/imgs/new_icon.png" style="width:25px;margin-top:2px;margin-right:10px;font-size:12px;"></div><div style="color:#333;padding:5px;font-weight:700;text-align:right;border-bottom:3px solid #1dd894;margin-bottom:10px;vertical-align:middle;font-size:12px;">2019. 07. 26 13:22 문의</div></td>
+                  <td style="text-align:center;" (click)="bogi_view()"><div style="background-color:#1dd894;border-radius:10px;padding:5px;font-weight:700;text-align:center;margin-left:5px;margin-bottom:10px;font-size:12px;">보기</div></td>
+              </tr>                            
+              -->
+          </table>
+
+          <div *ngIf="qa_count==1" style="text-align:center;">
+              <img src="assets/imgs/chat_icon.png" style="width:80px;">
+              <p style="font-size:18px;font-weight:700;color:#333">문의내역이 없습니다.</p>
+            </div>
+<!--
+            <ion-infinite-scroll (ionInfinite)="doInfinite($event)" threshold="0px;" style="height:0px;">
+                <ion-infinite-scroll-content loadingSpinner="bubbles"
+                                              loadingText="로딩중...">
+                </ion-infinite-scroll-content>
+            </ion-infinite-scroll>            
+-->            
+        </div>
+
+        <div *ngIf="bogi!=0">
+            <div style="padding-top:0px;background-color:#dcdcdc;margin-bottom:0px;">
+                <ion-row>
+                   <ion-col style="width:100%;text-align:left;">
+                      <div style="float:left;font-size:18px;font-weight:700;margin-right:5px;margin-top:0px;padding:5px;color:#000;margin-left:20px;">
+                        <div *ngIf="current_answer=='' || current_answer=='null'" style="background-color:#1dd894;border-radius:10px;padding:5px;font-weight:700;text-align:center;margin-right:5px;margin-bottom:0px;font-size:12px;color:#fff">진행중</div>
+                        <div *ngIf="current_answer!='' && current_answer!='null'" style="background-color:#df3b28;border-radius:10px;padding:5px;font-weight:700;text-align:center;margin-right:5px;margin-bottom:0px;font-size:12px;color:#fff">답변완료</div>
+                    </div>
+                      <div style="font-size:16px;font-weight:700;margin-right:5px;margin-top:0px;padding:5px;color:#000;margin-left:20px;">{{time_question}} 문의 </div>
+                   </ion-col>
+                </ion-row>
+             </div>
+             <div style="height:20px;"></div>
+<!--         <div style="float:left;text-align:left;color:#000;margin-left:10px;margin-right:10px;font-size:14px;font-weight:700;">문의 유형</div>-->
+             <!--<div style="text-align:left;color:#333;font-size:14px;padding-left:20px;">일반문의</div>      -->
+             <p style="color:#000;margin-left:10px;font-size:14px;font-weight:700;">문의 내용</p>
+             <div style="border:1px solid #eee;border-radius:10px;font-size:12px;color:#000;padding:10px;margin:10px;background-color:#eee;font-size:14px;white-space: pre-line;" [innerHTML]="current_question">
+             </div>
+
+             <div style="height:20px;"></div>
+             <div *ngIf="current_answer!='' && current_answer!='null'" style="float:left;text-align:left;color:#000;margin-left:10px;font-size:14px;">답변 내용</div>
+             <div *ngIf="current_answer!='' && current_answer!='null'" style="text-align:right;color:#000;margin-left:10px;margin-right:20px;font-size:12px;font-size:14px;">{{time_answer}} 답변</div>             
+             <div *ngIf="current_answer!='' && current_answer!='null'" style="border:1px solid #eee;border-radius:10px;font-size:12px;color:#000;padding:10px;margin:10px;background-color:#eee;font-size:14px;white-space: pre-line;" [innerHTML]="current_answer"></div>
+             
+             <div (click)="golist()" style="margin:0 auto;padding:10px;padding-left:20px;padding-right:20px;background-color:#333;color:#fff;width:100px;text-align:center;font-size:14px;font-weight:700;border-radius:5px;">확인</div>             
+            </div>
+        </div>
+
+
+             
+</ion-content>
+
+<ion-footer style="margin:0px !important;padding:0px !important;height:80px !important;background-color: #3e3a39 !important;">
+
+  <page-bottom-content-fixed></page-bottom-content-fixed>
+  
+  
+  </ion-footer>
+  

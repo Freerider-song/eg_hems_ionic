@@ -1,0 +1,102 @@
+<!--
+  Generated template for the NotifyListPage page.
+
+  See http://ionicframework.com/docs/components/#navigation for more info on
+  Ionic pages and navigation.
+-->
+<ion-header>
+    <ion-navbar>
+        <ion-title style="text-align:center;">
+          <img src="assets/imgs/titlegimg3.png" style="width:150px;margin-top:10px;">
+        </ion-title>
+    
+    </ion-navbar>
+  </ion-header>
+  
+  <ion-content>
+  
+      <div style="padding-top:0px;background-color:#dcdcdc;margin-bottom:0px;">
+          <ion-row>
+               <ion-col style="width:100%;text-align:center;">
+                  <div style="font-size:20px;font-weight:700;margin-right:5px;margin-top:0px;padding:10px;">알림 설정</div>
+               </ion-col>
+           </ion-row>
+      </div>
+
+      <div style="border-top:2px solid #21d694;width:110px;font-weight:700;font-size:18px;color:#333;text-align:right;margin-top:30px;padding-top:5px;">알림 전체&nbsp;</div>
+      <div style="position:relative;float:right;font-size:14px;font-weight:700;margin-right:5px;margin-top:-35px;padding:1px;border-radius:10px;background-color:#fff;color:#fff;border:1px solid #eee;"> 
+        <ion-toggle color="foo" checked="true"></ion-toggle>
+      </div>
+      <div style="border-bottom:1px solid #eee;height:30px;"></div>
+
+      <div style="border-top:2px solid #21d694;width:110px;font-weight:700;font-size:18px;color:#333;text-align:right;margin-top:30px;padding-top:5px;">세부 설정&nbsp;</div>
+
+      <div style="width:100%;padding:10px;margin-top:30px;">
+      <table style="width:100%;">
+          <tr>
+              <td></td>
+              <td style="text-align:center;">누적사용량</td>
+              <td style="text-align:center;">알림</td>              
+              <td style="text-align:center;">누적요금</td>
+              <td style="text-align:center;">알림</td>
+             </tr>        
+        <tr>
+         <td style="text-align:center;font-size:11px;"><img src="assets/imgs/energyicon/bblue5.png" style="width:50px;"></td>
+         <td style="text-align:center;font-size:11px;"><div style="margin-left:10px;background-color:#eee;border-radius:20px;padding:10px;padding-right:20px;font-weight:700;text-align:right;"><input style="border:0px;font-size:12px;color:#333;background-color:#eee;width:50px;"  id="elect1" type="text"  placeholder="입력" name="elect1" [(ngModel)]="elect1" (keydown)="numberCheck($event)"
+          (keyup)="CommaFormatted1($event)">kWh</div></td>
+          <td style="text-align:center;font-size:11px;"><ion-checkbox color="dark" checked="true"></ion-checkbox></td>          
+         <td style="text-align:center;font-size:11px;"><div style="margin-left:10px;background-color:#eee;border-radius:20px;padding:10px;padding-right:20px;font-weight:700;text-align:right;"><input style="border:0px;font-size:12px;color:#333;background-color:#eee;width:50px;"  id="elect2" type="text"  placeholder="입력" name="elect2" [(ngModel)]="elect2" (keydown)="numberCheck($event)"
+          (keyup)="CommaFormatted2($event)">원</div></td>
+         <td style="text-align:center;font-size:11px;"><ion-checkbox color="dark" checked="true"></ion-checkbox></td>
+        </tr>
+
+        <tr>
+            <td style="text-align:center;font-size:11px;"><img src="assets/imgs/energyicon/bblue2.png" style="width:50px;"></td>
+            <td style="text-align:center;font-size:11px;"><div style="margin-left:10px;background-color:#eee;border-radius:20px;padding:10px;padding-right:20px;font-weight:700;text-align:right;"><input style="border:0px;font-size:12px;color:#333;background-color:#eee;width:50px;"  id="sudo1" type="text"  placeholder="입력" name="sudo1" [(ngModel)]="sudo1" (keydown)="numberCheck($event)"
+              (keyup)="CommaFormatted3($event)">　㎥</div></td>
+              <td style="text-align:center;font-size:11px;"><ion-checkbox color="dark" checked="true"></ion-checkbox></td>              
+            <td style="text-align:center;font-size:11px;"><div style="margin-left:10px;background-color:#eee;border-radius:20px;padding:10px;padding-right:20px;font-weight:700;text-align:right;"><input style="border:0px;font-size:12px;color:#333;background-color:#eee;width:50px;"  id="sudo2" type="text"  placeholder="입력" name="sudo2" [(ngModel)]="sudo2" (keydown)="numberCheck($event)"
+              (keyup)="CommaFormatted4($event)">원</div></td>
+            <td style="text-align:center;font-size:11px;"><ion-checkbox color="dark" checked="true"></ion-checkbox></td>
+           </tr>
+
+        <tr>
+          <td style="text-align:center;font-size:11px;"><img src="assets/imgs/energyicon/bblue1.png" style="width:50px;"></td>
+          <td style="text-align:center;font-size:11px;"><div style="margin-left:10px;background-color:#eee;border-radius:20px;padding:10px;padding-right:20px;font-weight:700;text-align:right;"><input style="border:0px;font-size:12px;color:#333;background-color:#eee;width:50px;"  id="gas1" type="text"  placeholder="입력" name="gas1" [(ngModel)]="gas1" (keydown)="numberCheck($event)"
+            (keyup)="CommaFormatted5($event)">　㎥</div></td>
+            <td style="text-align:center;font-size:11px;"><ion-checkbox color="dark" checked="true"></ion-checkbox></td>            
+          <td style="text-align:center;font-size:11px;"><div style="margin-left:10px;background-color:#eee;border-radius:20px;padding:10px;padding-right:20px;font-weight:700;text-align:right;"><input style="border:0px;font-size:12px;color:#333;background-color:#eee;width:50px;"  id="gas2" type="text"  placeholder="입력" name="gas2" [(ngModel)]="gas2" (keydown)="numberCheck($event)"
+            (keyup)="CommaFormatted6($event)">원</div></td>
+          <td style="text-align:center;font-size:11px;"><ion-checkbox color="dark" checked="true"></ion-checkbox></td>
+        </tr>
+             
+        <tr>
+            <td style="text-align:center;font-size:11px;"><img src="assets/imgs/energyicon/bblue3.png" style="width:50px;"></td>
+            <td style="text-align:center;font-size:11px;"><div style="margin-left:10px;background-color:#eee;border-radius:20px;padding:10px;padding-right:20px;font-weight:700;text-align:right;"><input style="border:0px;font-size:12px;color:#333;background-color:#eee;width:50px;"  id="nan1" type="text"  placeholder="입력" name="nan1" [(ngModel)]="nan1" (keydown)="numberCheck($event)"
+              (keyup)="CommaFormatted7($event)">　㎥</div></td>
+              <td style="text-align:center;font-size:11px;"><ion-checkbox color="dark" checked="true"></ion-checkbox></td>              
+            <td style="text-align:center;font-size:11px;"><div style="margin-left:10px;background-color:#eee;border-radius:20px;padding:10px;padding-right:20px;font-weight:700;text-align:right;"><input style="border:0px;font-size:12px;color:#333;background-color:#eee;width:50px;"  id="nan2" type="text"  placeholder="입력" name="nan2" [(ngModel)]="nan2" (keydown)="numberCheck($event)"
+              (keyup)="CommaFormatted8($event)">원</div></td>
+            <td style="text-align:center;font-size:11px;"><ion-checkbox color="dark" checked="true"></ion-checkbox></td>
+        </tr>        
+
+        <tr>
+            <td style="text-align:center;font-size:11px;"><img src="assets/imgs/energyicon/bblue4.png" style="width:50px;"></td>
+            <td style="text-align:center;font-size:11px;"><div style="margin-left:10px;background-color:#eee;border-radius:20px;padding:10px;padding-right:20px;font-weight:700;text-align:right;"><input style="border:0px;font-size:12px;color:#333;background-color:#eee;width:50px;"  id="onsu1" type="text"  placeholder="입력" name="onsu1" [(ngModel)]="onsu1" (keydown)="numberCheck($event)"
+              (keyup)="CommaFormatted9($event)">　㎥</div></td>
+              <td style="text-align:center;font-size:11px;"><ion-checkbox color="dark" checked="true"></ion-checkbox></td>              
+            <td style="text-align:center;font-size:11px;"><div style="margin-left:10px;background-color:#eee;border-radius:20px;padding:10px;padding-right:20px;font-weight:700;text-align:right;"><input style="border:0px;font-size:12px;color:#333;background-color:#eee;width:50px;"  id="onsu2" type="text"  placeholder="입력" name="onsu2" [(ngModel)]="onsu2" (keydown)="numberCheck($event)"
+              (keyup)="CommaFormatted10($event)">원</div></td>
+            <td style="text-align:center;font-size:11px;"><ion-checkbox color="dark" checked="true"></ion-checkbox></td>
+        </tr>        
+
+      </table>
+    </div>
+
+
+
+    
+    <div (click)="saveset()" style="margin:0 auto;padding:10px;padding-left:20px;padding-right:20px;background-color:#333;color:#fff;width:100px;text-align:center;font-size:14px;font-weight:700;border-radius:5px;margin-top:30px;">저장하기</div>
+
+    <page-bottom-content></page-bottom-content>    
+</ion-content>

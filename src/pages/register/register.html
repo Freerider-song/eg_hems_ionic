@@ -1,0 +1,304 @@
+<!--
+  Generated template for the NotifyListPage page.
+
+  See http://ionicframework.com/docs/components/#navigation for more info on
+  Ionic pages and navigation.
+-->
+<ion-header>
+    <ion-navbar>
+        <ion-title style="text-align:center;">
+            <img src="assets/imgs/titlegimg3.png" style="width:150px;margin-top:10px;">
+        </ion-title>
+    
+    </ion-navbar>
+  </ion-header>
+
+<ion-content>
+
+    <div *ngIf="step==1">
+            
+    <div style="padding-top:0px;background-color:#dcdcdc;margin-bottom:0px;">
+        <ion-row>
+             <ion-col style="width:100%;text-align:left;">
+                <div style="float:left;font-size:18px;font-weight:700;margin-right:5px;margin-top:0px;padding:5px;color:#000;margin-left:20px;">회원가입</div>
+                <div style="float:right;font-size:18px;font-weight:700;margin-right:5px;margin-top:0px;padding:5px;color:#000;margin-left:5px;background-color:#999;color:#fff;border-radius:5px;">3</div>                
+                <div style="float:right;font-size:18px;font-weight:700;margin-right:5px;margin-top:0px;padding:5px;color:#000;margin-left:20px;background-color:#999;color:#fff;border-radius:5px;">2</div>
+                <div style="float:right;font-size:18px;font-weight:700;margin-right:5px;margin-top:0px;padding:5px;color:#000;margin-left:20px;background-color:#333;color:#fff;border-radius:5px;margin-right:-10px;">1</div>                
+             </ion-col>
+         </ion-row>
+    </div>
+
+    <div style="text-align:center;margin:30px;"><img src="assets/imgs/step1.png" style="width:90%;"></div>
+
+    <div style="margin:20px;">
+        <div style="margin:30px;margin-bottom:20px;">
+            <table style="width:100%;">
+                <tr> 
+                    <td style="text-align:left;padding-right:10px;font-weight:700;font-size:14px;width:70px;">아파트명</td>
+                    <td style="border-bottom:1px solid #00b070;height:35px;">
+                        <ion-item>
+                           <ion-select [(ngModel)]="apart_name" name="apart_name" okText="확인" cancelText="취소" placeholder="선택" style="text-align:left;"  (ionChange)="Apart_Selected($event)" disabled ="{{aprt_list_isEnabled}}">
+                                <ion-option *ngFor="let apartdata of ApartInfoList"  [value]="apartdata.seq_site+'|'+apartdata.name">{{apartdata.name}}</ion-option>
+                          </ion-select>
+                         </ion-item>
+
+                    </td>
+                </tr>        
+                    
+                <tr> 
+                    <td style="text-align:left;padding-right:10px;font-weight:700;font-size:14px;width:70px;">동</td>
+                    <td style="border-bottom:1px solid #00b070;height:35px;">
+                        <ion-item>  <ion-select [(ngModel)]="apart_dong" okText="확인" cancelText="취소" placeholder="선택" style="text-align:left;" (ionChange)="Dong_Selected($event)" disabled ="{{dong_list_isEnabled}}">
+                            <ion-option *ngFor="let dongdata of dong_list"  [value]="dongdata.seq_dong+'|'+dongdata.dong_name">{{dongdata.dong_name}}</ion-option>
+                          </ion-select>  </ion-item>
+                    </td>
+                </tr>  
+             
+                <tr> 
+                    <td style="text-align:left;padding-right:10px;font-weight:700;font-size:14px;width:70px;">호수</td>
+                    <td style="border-bottom:1px solid #00b070;height:35px;">
+                        <ion-item>     <ion-select [(ngModel)]="apart_ho" okText="확인" cancelText="취소" placeholder="선택" style="text-align:left;" (ionChange)="Ho_Selected($event)" disabled ="{{ho_list_isEnabled}}">
+                                <ion-option *ngFor="let hodata of ho_list"  [value]="hodata.seq_ho+'|'+hodata.ho_name">{{hodata.ho_name}}</ion-option>
+                          </ion-select>       </ion-item>    
+                    </td>
+                </tr>         
+                <tr>
+                    <td colspan=2 style="height:10px;"></td>
+                  </tr>                                      
+              <tr> 
+                  <td style="text-align:left;padding-right:10px;font-weight:700;font-size:14px;width:70px;">이름</td>
+                  <td style="border-bottom:1px solid #00b070;height:35px;">
+                      <input style="border:0px;color:#4c4c4c;font-size:14px;" #input id="username" type="text"  placeholder="사용자 이름 입력" name="username" [(ngModel)]="username" >
+                  </td>
+              </tr>
+              <tr>
+                <td colspan=2 style="height:15px;"></td>
+              </tr>
+              <tr> 
+                  <td style="text-align:left;padding-right:10px;font-weight:700;font-size:14px;width:70px;">휴대폰</td>
+                  <td style="border-bottom:1px solid #00b070;height:35px;">
+                      <input   style="border:0px;color:#4c4c4c;font-size:14px;" id="hp" type="text"  placeholder="기기 휴대폰번호" name="hp" [(ngModel)]="hp" >
+                  </td>
+              </tr>    
+
+              <tr> 
+                  <td colspan=2 style="text-align:left;padding-right:10px;width:70px;">
+                    
+                  <p style="font-weight:700;font-size:10px;">*각 세대별 최초 가입은 세대 대표자만 가능합니다.</p>
+                  </td>
+                  
+              </tr>                  
+            </table>
+
+
+            <div *ngIf="apart_name!='' && apart_dong!='' && apart_ho!='' && username!='' && hp!=''" (click)="onSMSCheck()" style="margin:0 auto;padding:10px;padding-left:20px;padding-right:20px;background-color:#333;color:#fff;width:130px;text-align:center;font-size:14px;font-weight:700;border-radius:5px;margin-top:30px;">{{sms_msg}}</div>
+            <div *ngIf="apart_name=='' || apart_dong=='' || apart_ho=='' || username=='' || hp==''" style="margin:0 auto;padding:10px;padding-left:20px;padding-right:20px;background-color:#ccc;color:#fff;width:130px;text-align:center;font-size:14px;font-weight:700;border-radius:5px;margin-top:30px;">{{sms_msg}}</div>
+
+            <table style="width:100%;margin-top:40px;">
+                <tr> 
+                    <td style="text-align:left;padding-right:10px;font-weight:700;font-size:14px;width:70px;">인증코드</td>
+                    <td style="border-bottom:1px solid #00b070;height:35px;">
+                        <input style="border:0px;font-size:15px;color:#4c4c4c;font-size:14px;" id="hpnum" type="text"  placeholder="인증코드 6자리 입력" name="hpnum" [(ngModel)]="hpnum" >
+                    </td>
+                </tr>
+                <tr>
+                  <td colspan=2 style="height:20px;"></td>
+                </tr>
+              </table>            
+              <div style="margin:0px;padding:0px;padding-top:0px;background-color:#fff;margin-bottom:0px;width:100%;">
+                <table style="width:100%;">
+                    <tr>
+                        <td style="font-size:9px;color:#999;">
+                            문자로 전송된 인증코드를 입력하세요.
+                        </td>
+                        <td style="font-size:9px;font-weight:700;color:#333;">
+                            제한시간:{{countdownstr}}
+                        </td>
+                    </tr>
+                </table>
+              </div>                                
+          </div>  
+    </div>      
+    
+    <div  *ngIf="apart_name!='' && apart_dong!='' && apart_ho!='' && username!='' && hp!='' && hpnum!=''" (click)="nextfunc()" style="margin:0 auto;padding:10px;padding-left:20px;padding-right:20px;background-color:#1cd793;color:#fff;width:140px;text-align:center;font-size:14px;font-weight:700;border-radius:5px;margin-top:30px;">계속하기</div>
+    <div  *ngIf="apart_name=='' || apart_dong=='' || apart_ho=='' || username=='' || hp=='' || hpnum==''"  style="margin:0 auto;padding:10px;padding-left:20px;padding-right:20px;background-color:#ccc;color:#fff;width:140px;text-align:center;font-size:14px;font-weight:700;border-radius:5px;margin-top:30px;">계속하기</div>    
+
+    <br>
+    
+    
+</div>
+
+<div *ngIf="step==2">
+
+        <div style="padding-top:0px;background-color:#dcdcdc;margin-bottom:0px;">
+                <ion-row>
+                     <ion-col style="width:100%;text-align:left;">
+                        <div style="float:left;font-size:18px;font-weight:700;margin-right:5px;margin-top:0px;padding:5px;color:#000;margin-left:20px;">회원가입</div>
+                        <div style="float:right;font-size:18px;font-weight:700;margin-right:5px;margin-top:0px;padding:5px;color:#000;margin-left:5px;background-color:#999;color:#fff;border-radius:5px;">3</div>                
+                        <div style="float:right;font-size:18px;font-weight:700;margin-right:5px;margin-top:0px;padding:5px;color:#000;margin-left:20px;background-color:#333;color:#fff;border-radius:5px;">2</div>
+                        <div style="float:right;font-size:18px;font-weight:700;margin-right:5px;margin-top:0px;padding:5px;color:#000;margin-left:20px;background-color:#999;color:#fff;border-radius:5px;margin-right:-10px;">1</div>                
+                     </ion-col>
+                 </ion-row>
+            </div>
+            
+            <div style="text-align:center;margin:30px;"><img src="assets/imgs/step2_2.png" style="width:90%;"></div>            
+            
+        <div style="width:100%;padding:40px;padding-top:0px;padding-bottom:0px;">
+            <div style="margin: 0 auto;width:100%;background-color:#eee;padding:0px;">
+            <table style="width:100%;text-align:center;">
+              <tr>
+                <td colspan=2 style="color:#000;background-color:#1dd794;font-size:12px;font-weight:700;"><p style='line-height:5px;'>이용약관 및 개인정보수집이용 동의</p></td>
+              </tr>
+                <tr>
+                    <td style="text-align:left;"><p style="font-size:10px;border-bottom:1px solid #eee;margin-left:10px;border-bottom:1px solid #333;display:inline-block;">[필수] 서비스 이용약관에 동의합니다.</p></td>
+                    <td><ion-checkbox color="dark" [(ngModel)]="agree1" name="agree1" style="margin-right:8px;margin-top:2px;width:20px;"></ion-checkbox></td>
+                </tr>
+                <tr>                
+                    <td style="text-align:left;"><p style="font-size:10px;border-bottom:1px solid #eee;margin-left:10px;border-bottom:1px solid #333;display:inline-block;">[필수] 개인정보 수집이용에 동의합니다.</p></td>
+                    <td><ion-checkbox color="dark" [(ngModel)]="agree2" name="agree2" style="margin-right:8px;margin-top:2px;width:20px;"></ion-checkbox></td>
+                </tr>                    
+                <tr>                    
+                    <td style="text-align:left;"><p style="font-size:10px;border-bottom:1px solid #eee;margin-left:10px;border-bottom:1px solid #333;display:inline-block;">[필수] 개인정보 제3자 제공에 동의합니다.</p></td>
+                    <td><ion-checkbox color="dark" [(ngModel)]="agree3" name="agree3" style="margin-right:8px;margin-top:2px;width:20px;"></ion-checkbox></td>
+                </tr>
+<!--
+                <tr>
+                    <td style="text-align:left;margin-left:10px;color:#4c4c4c;height:20px;">
+                      <ion-label  style="font-size:10px;border-bottom:1px solid #eee;margin-left:10px;border-bottom:1px solid #333;display:inline-block;">이용약관</ion-label>
+                </td>
+                    <td style="text-align:right;height:20px;font-size:12px">보기
+                  </td>
+              </tr>
+              <tr>
+                  <td style="text-align:left;margin-left:10px;color:#4c4c4c;height:20px;">
+                    <ion-label  style="font-size:10px;border-bottom:1px solid #eee;margin-left:10px;border-bottom:1px solid #333;display:inline-block;">개인정보처리방침</ion-label>
+              </td>
+                  <td style="text-align:right;height:20px;font-size:12px">보기
+                </td>
+            </tr>    
+-->                                    
+            </table>
+            </div>
+        </div>
+
+        <div style="margin:20px;margin-top:0px;">
+                <div style="margin:30px;margin-bottom:20px;margin-top:10px;">
+                    <table style="width:100%;">
+                      <tr> 
+                          <td style="text-align:left;padding-right:10px;font-weight:700;font-size:14px;width:100px;">아이디</td>
+                          <td style="border-bottom:1px solid #00b070;height:35px;">
+                              <input style="border:0px;font-size:15px;color:#4c4c4c;font-size:14px;" id="newid" type="newid"  placeholder="아이디 입력" name="newid" [(ngModel)]="newid" >
+                          </td>
+                      </tr>
+                      <tr>
+                        <td colspan=2 style="height:10px;"></td>
+                      </tr>
+                      <tr> 
+                          <td style="text-align:left;padding-right:10px;font-weight:700;font-size:14px;width:100px;">비밀번호</td>
+                          <td style="border-bottom:1px solid #00b070;height:35px;">
+                              <input style="border:0px;font-size:15px;color:#4c4c4c;font-size:14px;" type="password" id="newpassword" type="newpassword"  placeholder="비밀번호 입력" name="newpassword" [(ngModel)]="newpassword" >
+                          </td>
+                      </tr>    
+                      <tr>
+                            <td colspan=2 style="height:10px;"></td>
+                          </tr>
+                          <tr> 
+                              <td style="text-align:left;padding-right:10px;font-weight:700;font-size:14px;width:100px;">비밀번호 확인</td>
+                              <td style="border-bottom:1px solid #00b070;height:35px;">
+                                  <input style="border:0px;font-size:15px;color:#4c4c4c;font-size:14px;" type="password" id="repassword" type="repassword"  placeholder="비밀번호 확인" name="repassword" [(ngModel)]="repassword" >
+                              </td>
+                          </tr>                          
+                    </table>     
+                </div>
+        </div>
+
+        <div  *ngIf="newid!='' && newpassword!='' && repassword!='' && agree1==true && agree2==true && agree3==true"  (click)="create_id()" style="margin:0 auto;padding:10px;padding-left:20px;padding-right:20px;background-color:#1cd793;color:#fff;width:140px;text-align:center;font-size:14px;font-weight:700;border-radius:5px;margin-top:30px;">계정생성하기</div>
+        <div  *ngIf="newid=='' || newpassword=='' || repassword=='' || agree1==false || agree2==false || agree3==false"   style="margin:0 auto;padding:10px;padding-left:20px;padding-right:20px;background-color:#ccc;color:#fff;width:140px;text-align:center;font-size:14px;font-weight:700;border-radius:5px;margin-top:30px;">계정생성하기</div>        
+
+</div>
+
+
+<div *ngIf="step==3">
+
+    <div style="padding-top:0px;background-color:#dcdcdc;margin-bottom:0px;">
+            <ion-row>
+                 <ion-col style="width:100%;text-align:left;">
+                    <div style="float:left;font-size:18px;font-weight:700;margin-right:5px;margin-top:0px;padding:5px;color:#000;margin-left:20px;">회원가입</div>
+                    <div style="float:right;font-size:18px;font-weight:700;margin-right:5px;margin-top:0px;padding:5px;color:#000;margin-left:5px;background-color:#333;color:#fff;border-radius:5px;">3</div>                
+                    <div style="float:right;font-size:18px;font-weight:700;margin-right:5px;margin-top:0px;padding:5px;color:#000;margin-left:20px;background-color:#999;color:#fff;border-radius:5px;">2</div>
+                    <div style="float:right;font-size:18px;font-weight:700;margin-right:5px;margin-top:0px;padding:5px;color:#000;margin-left:20px;background-color:#999;color:#fff;border-radius:5px;margin-right:-10px;">1</div>                
+                 </ion-col>
+             </ion-row>
+        </div>
+        
+    <!-- 세대원 가입시 -->        
+    <div *ngIf="is_candidate==0" style="width:100%;margin-top:40px;">
+        <div style="margin: 0 auto;width:250px;border-radius:10px;border:3px solid #333;padding:20px;">
+        <table style="width:100%;text-align:center;">
+            <tr>
+                <td style="text-align:center;"><img src="assets/imgs/user_check_icon.png" style="width:45px"></td>
+            </tr>                
+            <tr>
+                <td style="text-align:center;font-size:14px;font-weight:700;color:#333;">
+                        <p style="line-height:10px;font-size:14px;font-weight:700;">회원가입이 완료되었습니다.</p>
+                        <p style="line-height:10px;font-size:12px;">{{apart_name_str}}아파트 {{apart_dong_str}}동 {{apart_ho_str}}호</p>
+                        <p style="line-height:10px;font-size:12px;">대표에게</p>
+                        <p style="line-height:10px;font-size:12px;">승인 요청을 보냈습니다.</p>                        
+                        <br>
+                        <p style="line-height:10px;font-size:12px;">대표자 승인 후</p>                        
+                        <p style="line-height:10px;font-size:12px;">로그인이 가능 합니다.</p>                        
+                </td>
+            </tr>
+        </table>
+        </div>
+    </div>
+
+    <!--세대대표 가입시-->
+    <div *ngIf="is_candidate==1" style="width:100%;margin-top:40px;">
+        <div style="margin: 0 auto;width:250px;border-radius:10px;border:3px solid #333;padding:20px;">
+        <table style="width:100%;text-align:center;">
+            <tr>
+                <td style="text-align:center;"><img src="assets/imgs/user_check_icon.png" style="width:45px"></td>
+            </tr>                
+            <tr>
+                <td style="text-align:center;font-size:14px;font-weight:700;color:#333;">
+                        <p style="line-height:10px;font-size:14px;font-weight:700;">[세대 대표자]로서</p>
+                        <p style="line-height:10px;font-size:12px;">회원가입에 성공했습니다.</p>
+                        <br>
+                        <p style="line-height:10px;font-size:12px;">로그인 하시면 서비스를</p>
+                        <p style="line-height:10px;font-size:12px;">이용하실 수 있습니다.</p>                        
+                        <p style="line-height:10px;font-size:12px;">지금 시작해보세요!</p>                        
+                </td>
+            </tr>
+        </table>
+        </div>
+    </div>    
+
+    <!--
+    <div style="width:100%;margin-top:40px;">
+        <div style="margin: 0 auto;width:250px;border-radius:10px;border:3px solid #333;padding:20px;">
+        <table style="width:100%;text-align:center;">
+            <tr>
+                <td style="text-align:center;"><img src="assets/imgs/memo_check_icon.png" style="width:45px"></td>
+            </tr>                
+            <tr>
+                <td style="text-align:center;font-size:14px;font-weight:700;color:#333;">
+                    <p style="line-height:10px;font-size:14px;font-weight:700;">[{{apart_name_str}}아파트 {{apart_dong_str}}동 {{apart_ho_str}}호]의</p>
+                    <p style="line-height:10px;font-size:12px;">승인요청 알림을 보냈습니다.</p>
+                    <br>
+                    <p style="line-height:10px;font-size:12px;">대표자 승인 후에</p>
+                    <p style="line-height:10px;font-size:12px;">다시 로그인 하시기 바랍니다.</p>                        
+                </td>
+            </tr>
+        </table>
+        </div>
+    </div>    
+-->
+
+
+    <div (click)="login()" style="margin:0 auto;padding:10px;padding-left:20px;padding-right:20px;background-color:#1cd793;color:#fff;width:140px;text-align:center;font-size:14px;font-weight:700;border-radius:5px;margin-top:30px;">로그인하기</div>
+    <div *ngIf="is_candidate==0" (click)="exit()" style="margin:0 auto;padding:10px;padding-left:20px;padding-right:20px;background-color:#333;color:#fff;width:140px;text-align:center;font-size:14px;font-weight:700;border-radius:5px;margin-top:30px;">종료하기</div>
+
+</div>
+
+</ion-content>

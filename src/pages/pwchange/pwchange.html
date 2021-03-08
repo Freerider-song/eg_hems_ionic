@@ -1,0 +1,145 @@
+<!--
+  Generated template for the NotifyListPage page.
+
+  See http://ionicframework.com/docs/components/#navigation for more info on
+  Ionic pages and navigation.
+-->
+<ion-header>
+    <ion-navbar>
+        <ion-title style="text-align:center;">
+            <img src="assets/imgs/titlegimg3.png" style="width:150px;margin-top:10px;">
+        </ion-title>
+    
+    </ion-navbar>
+  </ion-header>
+
+<ion-content>
+
+    <div *ngIf="step==1">
+
+    <div style="padding-top:0px;background-color:#dcdcdc;margin-bottom:0px;">
+        <ion-row>
+             <ion-col style="width:100%;text-align:left;">
+                <div style="float:left;font-size:18px;font-weight:700;margin-right:5px;margin-top:0px;padding:5px;color:#000;margin-left:20px;">비밀번호 변경</div>
+                <div style="float:right;font-size:18px;font-weight:700;margin-right:5px;margin-top:0px;padding:5px;color:#000;margin-left:20px;background-color:#999;color:#fff;border-radius:5px;">2</div>
+                <div style="float:right;font-size:18px;font-weight:700;margin-right:5px;margin-top:0px;padding:5px;color:#000;margin-left:20px;background-color:#333;color:#fff;border-radius:5px;margin-right:-10px;">1</div>                
+             </ion-col>
+         </ion-row>
+    </div>
+
+    <div style="text-align:center;margin:30px;"><img src="assets/imgs/step1.png" style="width:90%;"></div>
+
+    <div style="margin:20px;">
+        <div style="margin:30px;margin-bottom:20px;">
+            <table style="width:100%;">
+              <tr> 
+                  <td style="text-align:left;padding-right:10px;font-weight:700;font-size:14px;width:70px;">이름</td>
+                  <td style="border-bottom:1px solid #00b070;height:35px;">
+                      <input style="border:0px;font-size:15px;color:#4c4c4c;font-size:14px;" #input id="username" type="text"  placeholder="사용자 이름 입력" name="username" [(ngModel)]="username" >
+                  </td>
+              </tr>
+              <tr>
+                <td colspan=2 style="height:20px;"></td>
+              </tr>
+              <tr> 
+                  <td style="text-align:left;padding-right:10px;font-weight:700;font-size:14px;width:70px;">휴대폰</td>
+                  <td style="border-bottom:1px solid #00b070;height:35px;">
+                      <input style="border:0px;font-size:15px;color:#4c4c4c;font-size:14px;" id="hp" type="hp"  placeholder="기기 휴대폰번호 입력" name="hp" [(ngModel)]="hp" >
+                  </td>
+              </tr>    
+            </table>
+
+            <div (click)="onSMSCheck()" style="margin:0 auto;padding:10px;padding-left:20px;padding-right:20px;background-color:#333;color:#fff;width:140px;text-align:center;font-size:14px;font-weight:700;border-radius:5px;margin-top:30px;">{{sms_msg}}</div>
+
+            <table style="width:100%;margin-top:50px;">
+                <tr> 
+                    <td style="text-align:left;padding-right:10px;font-weight:700;font-size:14px;width:70px;">인증코드</td>
+                    <td style="border-bottom:1px solid #00b070;height:35px;">
+                        <input style="border:0px;font-size:15px;color:#4c4c4c;font-size:14px;" id="hpnum" type="text"  placeholder="인증코드 6자리 입력" name="hpnum" [(ngModel)]="hpnum" >
+                    </td>
+                </tr>
+                <tr>
+                  <td colspan=2 style="height:20px;"></td>
+                </tr>
+              </table>            
+              <div style="margin:0px;padding:0px;padding-top:0px;background-color:#fff;margin-bottom:0px;width:100%;">
+                <table style="width:100%;">
+                    <tr>
+                        <td style="font-size:9px;color:#999;">
+                            문자로 전송된 인증코드를 입력하세요.
+                        </td>
+                        <td style="font-size:9px;font-weight:700;color:#333;">
+                            제한시간:{{countdownstr}}
+                        </td>
+                    </tr>
+                </table>
+              </div>                                
+          </div>  
+    </div>      
+    <div (click)="nextfunc()" style="margin:0 auto;padding:10px;padding-left:20px;padding-right:20px;background-color:#1cd793;color:#fff;width:140px;text-align:center;font-size:14px;font-weight:700;border-radius:5px;margin-top:30px;">게속하기</div>
+</div>
+
+<div *ngIf="step==2">
+
+        <div style="padding-top:0px;background-color:#dcdcdc;margin-bottom:0px;">
+                <ion-row>
+                     <ion-col style="width:100%;text-align:left;">
+                        <div style="float:left;font-size:18px;font-weight:700;margin-right:5px;margin-top:0px;padding:5px;color:#000;margin-left:20px;">비밀번호 변경</div>
+                        <div style="float:right;font-size:18px;font-weight:700;margin-right:5px;margin-top:0px;padding:5px;color:#000;margin-left:20px;background-color:#333;color:#fff;border-radius:5px;">2</div>
+                        <div style="float:right;font-size:18px;font-weight:700;margin-right:5px;margin-top:0px;padding:5px;color:#000;margin-left:20px;background-color:#999;color:#fff;border-radius:5px;margin-right:-10px;">1</div>                
+                     </ion-col>
+                 </ion-row>
+            </div>
+            
+            <div style="text-align:center;margin:30px;"><img src="assets/imgs/step2.png" style="width:90%;"></div>            
+            
+        <div style="width:100%;margin-top:-20px;">
+            <div style="margin: 0 auto;width:250px;">
+            <table style="width:250px;text-align:center;">
+                <tr>
+                    <td style="text-align:right;"><img src="assets/imgs/chk.png" style="width:35px;margin-top:4px;margin-right:5px;"></td>
+                    <td style="text-align:left;font-size:14px;font-weight:700;color:#333;">
+                            본인인증에 성공했습니다.<br>
+                            새로운 비밀번호를 입력해 주세요.
+                    </td>
+                </tr>
+            </table>
+            </div>
+        </div>
+
+        <div style="margin:20px;">
+                <div style="widht:100%;margin:30px;margin-bottom:20px;">
+                    <table style="width:100%;">
+                      <tr> 
+                          <td style="text-align:left;padding-right:10px;font-weight:700;font-size:14px;width:100px;">아이디</td>
+                          <td style="height:35px;font-weight:700;font-size:14px;">
+                              {{userid}}
+                          </td>
+                      </tr>
+                      <tr>
+                        <td colspan=2 style="height:10px;"></td>
+                      </tr>
+                      <tr> 
+                          <td style="text-align:left;padding-right:10px;font-weight:700;font-size:14px;width:100px;">새 비밀번호</td>
+                          <td style="border-bottom:1px solid #00b070;height:35px;">
+                              <input style="border:0px;font-size:15px;color:#4c4c4c;font-size:14px;" id="newpassword" type="newpassword"  placeholder="새 비밀번호 입력" name="newpassword" [(ngModel)]="newpassword" >
+                          </td>
+                      </tr>    
+                      <tr>
+                            <td colspan=2 style="height:10px;"></td>
+                          </tr>
+                          <tr> 
+                              <td style="text-align:left;padding-right:10px;font-weight:700;font-size:14px;width:100px;">비밀번호 확인</td>
+                              <td style="border-bottom:1px solid #00b070;height:35px;">
+                                  <input style="border:0px;font-size:15px;color:#4c4c4c;font-size:14px;" id="repassword" type="repassword"  placeholder="비밀번호 확인" name="repassword" [(ngModel)]="repassword" >
+                              </td>
+                          </tr>                          
+                    </table>     
+                </div>
+        </div>
+
+        <div (click)="changepass()" style="margin:0 auto;padding:10px;padding-left:20px;padding-right:20px;background-color:#1cd793;color:#fff;width:140px;text-align:center;font-size:14px;font-weight:700;border-radius:5px;margin-top:30px;">비밀번호 변경</div>
+
+</div>
+<page-bottom-content></page-bottom-content>
+</ion-content>

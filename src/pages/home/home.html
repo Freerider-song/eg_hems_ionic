@@ -1,0 +1,204 @@
+<ion-header>
+  <ion-navbar>
+    <!--
+      <button ion-button menuToggle>
+          <ion-icon name="menu"></ion-icon>
+        </button>
+      -->
+           
+    <ion-title style="text-align:center;">
+        <img src="assets/imgs/titlegimg3.png" style="width:150px;margin-top:10px;">
+    </ion-title>
+
+    <ion-buttons end (click)="notify()">
+        <button  ion-button icon-only style="margin-top:10px;">
+            <ion-icon name="ios-notifications"></ion-icon>
+        </button>
+    </ion-buttons>        
+
+    <ion-buttons end menuToggle="right" right>
+        <button  ion-button icon-only style="margin-top:10px;">
+            <ion-icon name="ios-settings"></ion-icon>
+        </button>           
+    </ion-buttons>  
+
+  </ion-navbar>
+</ion-header>
+
+<ion-content>
+    <div class="calendar-header" style="padding-top:10px;background-color:#dcdcdc;margin-bottom:20px;">
+      <!--
+        <ion-row class="calendar-month">
+          <ion-col style="border-bottom: 0px !important;height:40px;color:#4c4c4c;text-align:right;font-size:30px;" col-2 (click)="goToLastday()"><ion-icon name="md-arrow-dropleft-circle"></ion-icon></ion-col>
+          <ion-col col-8 style="font-weight:700;border-bottom: 0px !important;height:40px;color:#4c4c4c;text-align:center;font-size:30px;" (click)="calender()">{{currentYear}}.{{currentMonth}}.{{currentDate}}</ion-col>
+          <ion-col style="border-bottom: 0px !important;height:40px;color:#4c4c4c;font-size:30px;" col-2 (click)="goToNextday()"><ion-icon name="md-arrow-dropright-circle"></ion-icon></ion-col>
+        </ion-row>-->
+        <ion-row class="calendar-month">
+            <ion-col style="display: flex !important;align-items: center !important;justify-content: right !important;">
+              <table style="width:100%;text-align:center;margin:60px;margin-top:0px;margin-bottom:0px;">
+                <tr>
+                  <td style="font-weight:700;border-bottom: 0px !important;height:40px;color:#4c4c4c;text-align:right;font-size:30px;" (click)="goToLastday()">
+                      <ion-icon name="md-arrow-dropleft-circle"></ion-icon>
+                  </td>
+                  <td style="font-weight:700;border-bottom: 0px !important;height:40px;color:#4c4c4c;text-align:center;font-size:30px;"  (click)="calender()">
+                      {{currentYear}}.{{currentMonth}}.{{currentDate}}
+                  </td>
+                  <td style="font-weight:700;border-bottom: 0px !important;height:40px;color:#4c4c4c;text-align:left;font-size:30px;" (click)="goToNextday()">
+                      <ion-icon name="md-arrow-dropright-circle"></ion-icon>
+                  </td>
+                </tr>
+              </table>
+            </ion-col>
+          </ion-row>
+
+        <ion-row>
+            <ion-col style="display: flex !important;align-items: center !important;justify-content: right !important;margin-left:20px;">
+              <div style="text-align:center;width:255px;margin:0 auto;">
+               <div style="float:left;font-size:20px;font-weight:700;margin-right:5px;margin-top:4px;">당월 현재 에너지 사용량</div>
+               <div style="text-align:left;margin-top:2px;"><img src="assets/imgs/energy_icon.png" style="width:30px;"></div>
+              </div>
+            </ion-col>
+        </ion-row>
+      </div>
+
+      <div style="margin:30px;">
+        <table style="width:100%;">
+          <tr>
+            <td (click)="select_type(0)" style="text-align:center;">
+              
+              <img *ngIf="viewtype==0 && level_compared1==1" src="assets/imgs/energyicon/g5_o.png" style="width:80px;">
+              <img *ngIf="viewtype==0 && level_compared1==2" src="assets/imgs/energyicon/bblue5_o.png" style="width:80px;">
+              <img *ngIf="viewtype==0 && level_compared1==3" src="assets/imgs/energyicon/bbred5_o.png" style="width:80px;">
+
+              <img *ngIf="viewtype!=0 && level_compared1==1" src="assets/imgs/energyicon/g5.png" style="width:80px;">
+              <img *ngIf="viewtype!=0 && level_compared1==2" src="assets/imgs/energyicon/bblue5.png" style="width:80px;">
+              <img *ngIf="viewtype!=0 && level_compared1==3" src="assets/imgs/energyicon/bbred5.png" style="width:80px;">
+              
+              <p *ngIf="viewtype==0" style="font-size:14px;font-weight:700;margin-top:0px;color:#333;">전기</p><p *ngIf="viewtype!=0" style="font-size:14px;font-weight:700;margin-top:0px;color:#999;">전기</p></td>
+
+            <td (click)="select_type(1)" style="text-align:center;">
+              
+              <img *ngIf="viewtype==1 && level_compared2==1" src="assets/imgs/energyicon/g2_o.png" style="width:80px;">
+              <img *ngIf="viewtype==1 && level_compared2==2" src="assets/imgs/energyicon/bblue2_o.png" style="width:80px;">
+              <img *ngIf="viewtype==1 && level_compared2==3" src="assets/imgs/energyicon/bbred2_o.png" style="width:80px;">
+
+              <img *ngIf="viewtype!=1 && level_compared2==1" src="assets/imgs/energyicon/g2.png" style="width:80px">
+              <img *ngIf="viewtype!=1 && level_compared2==2" src="assets/imgs/energyicon/bblue2.png" style="width:80px">
+              <img *ngIf="viewtype!=1 && level_compared2==3" src="assets/imgs/energyicon/bbred2.png" style="width:80px">
+              
+              <p *ngIf="viewtype==1" style="font-size:14px;font-weight:700;margin-top:0px;color:#333;">수도</p><p *ngIf="viewtype!=1" style="font-size:14px;font-weight:700;margin-top:0px;color:#999;">수도</p></td>
+            <td (click)="select_type(2)" style="text-align:center;">
+              <img *ngIf="viewtype==2 && level_compared3==1" src="assets/imgs/energyicon/g1_o.png" style="width:80px;">
+              <img *ngIf="viewtype==2 && level_compared3==2" src="assets/imgs/energyicon/bblue1_o.png" style="width:80px;">
+              <img *ngIf="viewtype==2 && level_compared3==3" src="assets/imgs/energyicon/bbred1_o.png" style="width:80px;">
+
+              <img *ngIf="viewtype!=2 && level_compared3==1" src="assets/imgs/energyicon/g1.png" style="width:80px;">
+              <img *ngIf="viewtype!=2 && level_compared3==2" src="assets/imgs/energyicon/bblue1.png" style="width:80px;">
+              <img *ngIf="viewtype!=2 && level_compared3==3" src="assets/imgs/energyicon/bbred1.png" style="width:80px;">
+              
+              <p *ngIf="viewtype==2" style="font-size:14px;font-weight:700;margin-top:0px;color:#333;">가스</p><p *ngIf="viewtype!=2" style="font-size:14px;font-weight:700;margin-top:0px;color:#999;">가스</p></td>
+            <td (click)="select_type(3)" style="text-align:center;">
+              <img *ngIf="viewtype==3 && level_compared4==1" src="assets/imgs/energyicon/g3_o.png" style="width:80px;">
+              <img *ngIf="viewtype==3 && level_compared4==2" src="assets/imgs/energyicon/bblue3_o.png" style="width:80px;">
+              <img *ngIf="viewtype==3 && level_compared4==3" src="assets/imgs/energyicon/bbred3_o.png" style="width:80px;">
+
+              <img *ngIf="viewtype!=3 && level_compared4==1" src="assets/imgs/energyicon/g3.png" style="width:80px">
+              <img *ngIf="viewtype!=3 && level_compared4==2" src="assets/imgs/energyicon/bblue3.png" style="width:80px">
+              <img *ngIf="viewtype!=3 && level_compared4==3" src="assets/imgs/energyicon/bbred3.png" style="width:80px">
+              
+              <p *ngIf="viewtype==3" style="font-size:14px;font-weight:700;margin-top:0px;color:#333;">난방</p><p *ngIf="viewtype!=3" style="font-size:14px;font-weight:700;margin-top:0px;color:#999;">난방</p></td>
+            <td (click)="select_type(4)" style="text-align:center;">
+              <img *ngIf="viewtype==4 && level_compared5==1" src="assets/imgs/energyicon/g4_o.png" style="width:80px;">
+              <img *ngIf="viewtype==4 && level_compared5==2" src="assets/imgs/energyicon/bblue4_o.png" style="width:80px;">
+              <img *ngIf="viewtype==4 && level_compared5==3" src="assets/imgs/energyicon/bbred4_o.png" style="width:80px;">
+
+              <img *ngIf="viewtype!=4 && level_compared5==1" src="assets/imgs/energyicon/g4.png" style="width:80px;">
+              <img *ngIf="viewtype!=4 && level_compared5==2" src="assets/imgs/energyicon/bblue4.png" style="width:80px;">
+              <img *ngIf="viewtype!=4 && level_compared5==3" src="assets/imgs/energyicon/bbred4.png" style="width:80px;">
+              
+              <p *ngIf="viewtype==4" style="font-size:14px;font-weight:700;margin-top:0px;color:#333;">온수</p><p *ngIf="viewtype!=4" style="font-size:14px;font-weight:700;margin-top:0px;color:#999;">온수</p></td>
+          </tr>
+        </table>
+      </div>
+
+  <div style="margin:10px;">
+    <div style="padding:10px;border-radius:10px;background-color:#1dd894;">
+        <table style="width:100%;">
+              <tr>
+              
+                <!--각 에너지별 상세 아이콘 1개씩 표시 상태-->
+              <td *ngIf="viewtype==0" style="text-align:center;width:80px;" rowspan=3>
+                <img *ngIf="level_compared1==1" src="assets/imgs/energyicon/g5_o.png">
+                <img *ngIf="level_compared1==2" src="assets/imgs/energyicon/bblue5_o.png">
+                <img *ngIf="level_compared1==3" src="assets/imgs/energyicon/bbred5_o.png">
+                <p style="font-size:14px;font-weight:700;margin-top:0px;color:#fff;">전기</p></td>
+                
+              <td *ngIf="viewtype==1" style="text-align:center;width:80px;" rowspan=3>
+                <img *ngIf="level_compared2==1" src="assets/imgs/energyicon/g2_o.png">
+                <img *ngIf="level_compared2==2" src="assets/imgs/energyicon/bblue2_o.png">
+                <img *ngIf="level_compared2==3" src="assets/imgs/energyicon/bbred2_o.png">
+                <p style="font-size:14px;font-weight:700;margin-top:0px;color:#fff;">수도</p></td>
+
+              <td *ngIf="viewtype==2" style="text-align:center;width:80px;" rowspan=3>
+                <img *ngIf="level_compared3==1" src="assets/imgs/energyicon/g1_o.png">
+                <img *ngIf="level_compared3==2" src="assets/imgs/energyicon/bblue1_o.png">
+                <img *ngIf="level_compared3==3" src="assets/imgs/energyicon/bbred1_o.png">
+                <p style="font-size:14px;font-weight:700;margin-top:0px;color:#fff;">가스</p></td>
+
+              <td *ngIf="viewtype==3" style="text-align:center;width:80px;" rowspan=3>
+                <img *ngIf="level_compared4==1" src="assets/imgs/energyicon/g3_o.png">
+                <img *ngIf="level_compared4==2" src="assets/imgs/energyicon/bblue3_o.png">
+                <img *ngIf="level_compared4==3" src="assets/imgs/energyicon/bbred3_o.png">
+                <p style="font-size:14px;font-weight:700;margin-top:0px;color:#fff;">난방</p></td>
+
+              <td *ngIf="viewtype==4" style="text-align:center;width:80px;" rowspan=3>
+                <img *ngIf="level_compared5==1" src="assets/imgs/energyicon/g4_o.png">
+                <img *ngIf="level_compared5==2" src="assets/imgs/energyicon/bblue4_o.png">
+                <img *ngIf="level_compared5==3" src="assets/imgs/energyicon/bbred4_o.png">
+                <p style="font-size:14px;font-weight:700;margin-top:0px;color:#fff;">온수</p></td>
+
+              
+
+              <td style="text-align:right;font-size:14px;color:#fff;font-weight:700;">현재 사용량</td>
+              <td style="text-align:right;font-size:14px;max-width:200px;min-width:100px;">
+                <div *ngIf="viewtype==0" style="margin-left:10px;background-color:#fff;border-radius:10px;padding:2px;padding-right:10px;font-weight:700;font-size:14px;">{{usage_curr|number}}kWh</div>
+                <div *ngIf="viewtype!=0" style="margin-left:10px;background-color:#fff;border-radius:10px;padding:2px;padding-right:10px;font-weight:700;font-size:14px;">{{usage_curr|number}}m³</div>                
+              </td>
+              </tr>
+              
+              <tr>
+              <td style="text-align:right;font-size:14px;color:#fff;font-weight:700;">현재 사용요금</td>
+              <td style="text-align:right;font-size:14px;"><div style="margin-left:10px;background-color:#fff;border-radius:10px;padding:2px;padding-right:10px;font-weight:700;font-size:14px;">{{won_curr|number}}원</div></td>
+              </tr>
+
+              <tr>
+              <td style="text-align:right;font-size:14px;color:#fff;font-weight:700;">예상 월요금</td>
+              <td style="text-align:right;font-size:14px;"><div style="margin-left:10px;background-color:#fff;border-radius:10px;padding:2px;padding-right:10px;font-weight:700;font-size:14px;">{{won_expected|number}}원</div></td>
+              </tr>
+         </table>
+         <br>
+        <table style="width:100%;">
+            <tr>
+              <td style="text-align:center;" (click)="daily()"><p style="font-size:14px;font-weight:700;margin-top:0px;background-color:#1ab17b;border-radius:5px;margin:5px;padding-top:5px;padding-bottom:5px;border:4px solid #26feb0;color:#fff;">일간<br>사용량</p></td>
+              <td style="text-align:center;" (click)="week()"><p style="font-size:14px;font-weight:700;margin-top:0px;background-color:#1ab17b;border-radius:5px;margin:5px;padding-top:5px;padding-bottom:5px;border:4px solid #26feb0;color:#fff;">요일간<br>사용량</p></td>
+              <td style="text-align:center;" (click)="month()"><p style="font-size:14px;font-weight:700;margin-top:0px;background-color:#1ab17b;border-radius:5px;margin:5px;padding-top:5px;padding-bottom:5px;border:4px solid #26feb0;color:#fff;">월간<br>사용량</p></td>
+              <td style="text-align:center;" (click)="year()"><p style="font-size:14px;font-weight:700;margin-top:0px;background-color:#1ab17b;border-radius:5px;margin:5px;padding-top:5px;padding-bottom:5px;border:4px solid #26feb0;color:#fff;">연간<br>사용량</p></td>
+            </tr>
+          </table>      
+    </div>
+    <p style="text-align:center;font-size:14px;font-weight:700;" *ngIf="viewtype==0">*우리 아파트 <label style='color:#00f'>전기</label> 검침일 : 매월 <label style='color:#f00;'>{{site_read_day_elec}}</label> 일</p>              
+    <p style="text-align:center;font-size:14px;font-weight:700;" *ngIf="viewtype==1">*우리 아파트 <label style='color:#00f'>수도</label> 검침일 : 매월 <label style='color:#f00;'>{{site_read_day_water}}</label> 일</p>              
+    <p style="text-align:center;font-size:14px;font-weight:700;" *ngIf="viewtype==2">*우리 아파트 <label style='color:#00f'>가스</label> 검침일 : 매월 <label style='color:#f00;'>{{site_read_day_gas}}</label> 일</p>              
+    <p style="text-align:center;font-size:14px;font-weight:700;" *ngIf="viewtype==3">*우리 아파트 <label style='color:#00f'>난방</label> 검침일 : 매월 <label style='color:#f00;'>{{site_read_day_heat}}</label> 일</p>              
+    <p style="text-align:center;font-size:14px;font-weight:700;" *ngIf="viewtype==4">*우리 아파트 <label style='color:#00f'>온수</label> 검침일 : 매월 <label style='color:#f00;'>{{site_read_day_steam}}</label> 일</p>              
+                   
+  </div>
+
+</ion-content>
+
+<ion-footer style="margin:0px !important;padding:0px !important;height:80px !important;background-color: #3e3a39 !important;">
+
+<page-bottom-content-fixed></page-bottom-content-fixed>
+
+
+</ion-footer>

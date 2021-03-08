@@ -1,0 +1,78 @@
+<ion-header>
+    <ion-navbar>
+      <ion-title>
+        조회일자 선택달력
+      </ion-title>
+    </ion-navbar>
+  </ion-header>
+  
+  <ion-content>
+    <!--
+      <div class="calendar-header" style="background-color:#fff;margin-bottom:5px;width:100%;margin-top:20px;">
+          <ion-row class="calendar-month">
+              <ion-col style="display: flex !important;align-items: center !important;justify-content: right !important;">
+                <table style="width:100%;text-align:center;margin:0px;margin-top:0px;margin-bottom:0px;">
+                  <tr>
+                    <td style="font-weight:700;border-bottom: 0px !important;height:40px;color:#4c4c4c;text-align:right;font-size:30px;" (click)="goToLastMonth()">
+                        <ion-icon name="md-arrow-dropleft-circle"></ion-icon>
+                    </td>
+                    <td style="font-weight:700;border-bottom: 0px !important;height:40px;color:#4c4c4c;text-align:center;font-size:30px;">
+                        {{currentYear}}.{{currentMonth}}
+                        <ion-datetime displayFormat="YYYY.MM" [(ngModel)]="yearmonth" name="yearmonth" cancelText="취소" doneText="확인" (ionChange)="updateMyDate()"></ion-datetime>
+                    </td>
+                    <td style="font-weight:700;border-bottom: 0px !important;height:40px;color:#4c4c4c;text-align:left;font-size:30px;" (click)="goToNextMonth()">
+                        <ion-icon name="md-arrow-dropright-circle"></ion-icon>
+                    </td>
+                  </tr>
+                </table>
+              </ion-col>
+          </ion-row>
+      </div>    
+    --> 
+    
+    
+    <div  style="padding-top:10px;background-color:#fff;margin-bottom:5px;width:100%;">
+        <ion-row class="calendar-month">
+            <ion-col style="display: flex !important;align-items: center !important;justify-content: right !important;">
+              <table style="width:100%;text-align:center;margin:60px;margin-top:0px;margin-bottom:0px;">
+                <tr>
+                  <td style="font-weight:700;border-bottom: 0px !important;height:40px;color:#4c4c4c;text-align:right;font-size:30px;" (click)="goToLastMonth()">
+                      <ion-icon name="md-arrow-dropleft-circle"></ion-icon>
+                  </td>
+                  <td style="font-weight:700;border-bottom: 0px !important;height:40px;color:#4c4c4c;text-align:center;font-size:30px;width:175px;padding-left:20px;">
+                      <!--{{currentYear}}.{{currentMonth}}-->
+                      <ion-item style="font-weight:700;border-bottom: 0px !important;height:40px;color:#4c4c4c;text-align:center;font-size:30px;width:175px;">
+                          <ion-datetime displayFormat="YYYY.MM" [(ngModel)]="yearmonth" name="yearmonth" cancelText="취소" doneText="확인" (ionChange)="updateMyDate()"></ion-datetime>
+                      </ion-item>
+                  </td>
+                  <td style="font-weight:700;border-bottom: 0px !important;height:40px;color:#4c4c4c;text-align:left;font-size:30px;" (click)="goToNextMonth()">
+                      <ion-icon name="md-arrow-dropright-circle"></ion-icon>
+                  </td>
+                </tr>
+              </table>
+            </ion-col>
+        </ion-row>
+    </div>    
+    
+    <div class="calendar-body">
+      <ion-grid>
+        <ion-row class="calendar-weekday">
+            <ion-col style="border:0px !important;height:20px;color:#4c4c4c;">일</ion-col>
+            <ion-col style="border:0px !important;height:20px;color:#4c4c4c;">월</ion-col>
+            <ion-col style="border:0px !important;height:20px;color:#4c4c4c;">화</ion-col>
+            <ion-col style="border:0px !important;height:20px;color:#4c4c4c;">수</ion-col>
+            <ion-col style="border:0px !important;height:20px;color:#4c4c4c;">목</ion-col>
+            <ion-col style="border:0px !important;height:20px;color:#4c4c4c;">금</ion-col>
+            <ion-col style="border:0px !important;height:20px;color:#4c4c4c;">토</ion-col>
+        </ion-row>
+        <ion-row class="calendar-date">
+          <ion-col col-1 *ngFor="let lastDay of daysInLastMonth" class="last-month">{{lastDay}}</ion-col>
+          <ion-col col-1 *ngFor="let day of daysInThisMonth" (click)="selectDate(day)" >
+            <span class="currentDate" *ngIf="currentDate === day; else otherDate">{{day}}</span>
+            <ng-template #otherDate class="otherDate" >{{day}}</ng-template>
+          </ion-col>
+          <ion-col col-1 *ngFor="let nextDay of daysInNextMonth" class="next-month">{{nextDay}}</ion-col>
+        </ion-row>
+      </ion-grid>
+    </div>
+  </ion-content>

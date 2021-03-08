@@ -1,0 +1,40 @@
+{
+  "project_info": {
+    "project_number": "94964563244",
+    "firebase_url": "https://hemsservice.firebaseio.com",
+    "project_id": "hemsservice",
+    "storage_bucket": "hemsservice.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:94964563244:android:9612b8df7bf83f2d3d8089",
+        "android_client_info": {
+          "package_name": "com.enernet.hems"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "94964563244-d8k163hnp9guf9e49l3rt03ovmot667n.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCj66WrJsU6qcXXZqr_ws2luWCztfwPJw0"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "94964563244-d8k163hnp9guf9e49l3rt03ovmot667n.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

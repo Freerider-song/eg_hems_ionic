@@ -1,0 +1,95 @@
+<ion-header>
+    <ion-navbar>
+        <ion-title style="text-align:center;">
+            <img src="assets/imgs/titlegimg3.png" style="width:150px;margin-top:10px;">
+        </ion-title>
+    
+    </ion-navbar>
+  </ion-header>
+
+<ion-content>
+
+<div>
+
+    <div style="padding-top:0px;background-color:#dcdcdc;margin-bottom:0px;">
+            <ion-row>
+                 <ion-col style="width:100%;text-align:left;">
+                    <div style="float:left;font-size:18px;font-weight:700;margin-right:5px;margin-top:0px;padding:5px;color:#000;margin-left:20px;">승인대기중</div>
+                 </ion-col>
+             </ion-row>
+        </div>
+        
+    <!-- 승인요청하고 기다리는상태 -->        
+    <div *ngIf="state==0 || state==-1" style="width:100%;margin-top:40px;">
+        <div style="margin: 0 auto;width:250px;border-radius:10px;border:3px solid #333;padding:20px;">
+        <table style="width:100%;text-align:center;">
+            <tr>
+                <td style="text-align:center;"><img src="assets/imgs/user_check_icon.png" style="width:45px"></td>
+            </tr>                
+            <tr>
+                <td style="text-align:center;font-size:14px;font-weight:700;color:#333;">
+                        <p style="line-height:20px;font-size:12px;">{{site_name}}아파트 {{apt_dong_name}}동 {{apt_ho_name}}호</p>
+                        <p style="line-height:10px;font-size:12px;">세대주님의 승인을</p>
+                        <p style="line-height:10px;font-size:12px;">기다리는 중입니다.</p>                        
+                        <br>
+                        <p style="line-height:10px;font-size:12px;">세대주님께서 승인하신 후에</p>                        
+                        <p style="line-height:10px;font-size:12px;">새로 로그인 하시면, 서비스를</p>                        
+                        <p style="line-height:10px;font-size:12px;">이용하실 수 있습니다.</p>                        
+                </td>
+            </tr>
+        </table>
+        </div>
+    </div>
+
+    <!--승인거절시-->
+    <div *ngIf="state==2" style="width:100%;margin-top:40px;">
+        <div style="margin: 0 auto;width:250px;border-radius:10px;border:3px solid #333;padding:20px;">
+        <table style="width:100%;text-align:center;">
+            <tr>
+                <td style="text-align:center;"><img src="assets/imgs/user_check_icon.png" style="width:45px"></td>
+            </tr>                
+            <tr>
+                <td style="text-align:center;font-size:14px;font-weight:700;color:#333;">
+                    <p style="line-height:20px;font-size:12px;">{{site_name}}아파트 {{apt_dong_name}}동 {{apt_ho_name}}호</p>
+                    <p style="line-height:10px;font-size:12px;">세대주님께서 사용자님의</p>
+                    <p style="line-height:10px;font-size:12px;">사용 승인을 철회했습니다.</p>     
+                        <br>
+                        <p style="line-height:10px;font-size:12px;">승인 요청을 보내서 다시 승인을</p>
+                        <p style="line-height:10px;font-size:12px;">받으신 후, 새로 로그인하시면</p>                        
+                        <p style="line-height:10px;font-size:12px;">서비스를 이용하실 수 있습니다.</p>                        
+                </td>
+            </tr>
+        </table>
+        </div>
+    </div>    
+
+    <!--
+    <div style="width:100%;margin-top:40px;">
+        <div style="margin: 0 auto;width:250px;border-radius:10px;border:3px solid #333;padding:20px;">
+        <table style="width:100%;text-align:center;">
+            <tr>
+                <td style="text-align:center;"><img src="assets/imgs/memo_check_icon.png" style="width:45px"></td>
+            </tr>                
+            <tr>
+                <td style="text-align:center;font-size:14px;font-weight:700;color:#333;">
+                    <p style="line-height:10px;font-size:14px;font-weight:700;">[{{apart_name_str}}아파트 {{apart_dong_str}}동 {{apart_ho_str}}호]의</p>
+                    <p style="line-height:10px;font-size:12px;">승인요청 알림을 보냈습니다.</p>
+                    <br>
+                    <p style="line-height:10px;font-size:12px;">대표자 승인 후에</p>
+                    <p style="line-height:10px;font-size:12px;">다시 로그인 하시기 바랍니다.</p>                        
+                </td>
+            </tr>
+        </table>
+        </div>
+    </div>    
+-->
+
+
+    <div *ngIf='iscert==false' (click)="cert()" style="margin:0 auto;padding:10px;padding-left:20px;padding-right:20px;background-color:#1cd793;color:#fff;width:200px;text-align:center;font-size:14px;font-weight:700;border-radius:5px;margin-top:30px;">승인요청 다시 보내기</div>
+    <div *ngIf='iscert==true' style="margin:0 auto;padding:10px;padding-left:20px;padding-right:20px;background-color:#999;color:#fff;width:200px;text-align:center;font-size:14px;font-weight:700;border-radius:5px;margin-top:30px;">승인요청 다시 보내기</div>    
+
+    <div (click)="exit()" style="margin:0 auto;padding:10px;padding-left:20px;padding-right:20px;background-color:#333;color:#fff;width:140px;text-align:center;font-size:14px;font-weight:700;border-radius:5px;margin-top:30px;">종료하기</div>
+
+</div>
+
+</ion-content>

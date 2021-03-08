@@ -1,0 +1,86 @@
+<ion-menu [content]="content" side="right">
+    <!--
+        <ion-header color="white">
+          <ion-toolbar color="white" style="text-align:center;">
+           <img src="assets/imgs/logo.png" style="width:20%;">
+          </ion-toolbar>
+        </ion-header>
+    -->
+        <ion-content  class="intro" style="background-color:#fff;">
+    
+            <div style="background-color:#1dd894;width:100%;padding:10px;">
+                <div style="border-radius:10px;background-color:#fff;padding:1px;margin-top:0px;">
+                    <div style="float:left;margin-right:10px;">
+                        <img src="assets/imgs/lefticon/profile.png" style="width:70px;margin-top:10px;">
+                    </div>
+                    <div>
+                        <p style="line-height:10px;color:#333;font-weight:700;font-size:14px;">{{site_name}}아파트</p>
+                        <p style="line-height:10px;color:#333;font-weight:700;font-size:14px;">{{apt_dong_name}}동 {{apt_ho_name}}호</p>
+                        <p style="line-height:10px;color:#333;font-weight:700;font-size:14px;">{{member_name}}님</p>                                        
+                    </div>
+                </div>
+            </div>
+    
+            <ion-grid>
+            <ion-row style="text-align:left;margin-right:-20px;padding-top:0px;"> 
+                <ion-col col-12 style="height:30px;" >
+                <button  (click)="home()" ion-button  clear  style="color:#333;font-weight:700;font-size:16px;"><img src="assets/imgs/lefticon/home_icon.png" item-left style="padding-right:5px;width:30px;">홈</button>      
+                </ion-col>
+                <ion-col col-12 style="margin-left:10px;height:30px;">
+                    <button  (click)="search(0)" ion-button  clear  style="color:#333;font-weight:700;font-size:16px;"><img src="assets/imgs/lefticon/folder_icon.png" item-left style="padding-right:5px;width:30px;">전기 사용정보</button>      
+                </ion-col>
+                <ion-col col-12 style="margin-left:10px;height:30px;">
+                    <button  (click)="search(1)" ion-button  clear  style="color:#333;font-weight:700;font-size:16px;"><img src="assets/imgs/lefticon/folder_icon.png" item-left style="padding-right:5px;width:30px;">수도 사용정보</button>      
+                </ion-col>
+                <ion-col col-12 style="margin-left:10px;height:30px;">
+                    <button  (click)="search(2)" ion-button  clear  style="color:#333;font-weight:700;font-size:16px;"><img src="assets/imgs/lefticon/folder_icon.png" item-left style="padding-right:5px;width:30px;">가스 사용정보</button>      
+                </ion-col>
+                <ion-col col-12 style="margin-left:10px;height:30px;">
+                    <button  (click)="search(3)" ion-button  clear  style="color:#333;font-weight:700;font-size:16px;"><img src="assets/imgs/lefticon/folder_icon.png" item-left style="padding-right:5px;width:30px;">난방 사용정보</button>      
+                </ion-col>
+                <ion-col col-12 style="margin-left:10px;height:30px;">
+                    <button  (click)="search(4)" ion-button  clear  style="color:#333;font-weight:700;font-size:16px;"><img src="assets/imgs/lefticon/folder_icon.png" item-left style="padding-right:5px;width:30px;">온수 사용정보</button>      
+                </ion-col>      
+                <ion-col *ngIf="is_ev_pv_ess==1" col-12 style="height:30px;">
+                    <button  (click)="ev()" ion-button  clear  style="color:#333;font-weight:700;font-size:16px;"><img src="assets/imgs/lefticon/folder_icon.png" item-left style="padding-right:5px;width:30px;">EV</button>                   
+                </ion-col> 
+                <ion-col *ngIf="is_ev_pv_ess==1" col-12 style="height:30px;">
+                    <button  (click)="pvEss()" ion-button  clear  style="color:#333;font-weight:700;font-size:16px;"><img src="assets/imgs/lefticon/folder_icon.png" item-left style="padding-right:5px;width:30px;">PV-ESS</button>                   
+                </ion-col>                                                      
+                <ion-col col-12 style="height:30px;">
+                    <button  (click)="notify()" ion-button  clear  style="color:#333;font-weight:700;font-size:16px;"><img src="assets/imgs/lefticon/speaker_icon.png" item-left style="padding-right:5px;width:30px;">알림</button>      
+                    <ion-badge *ngIf="alarm_unread_count>0" id="notifications-badge" color="danger">{{alarm_unread_count}}</ion-badge>                    
+                </ion-col>
+                <ion-col col-12 style="height:30px;">
+                    <button  (click)="notice()" ion-button  clear  style="color:#333;font-weight:700;font-size:16px;"><img src="assets/imgs/lefticon/list_icon.png" item-left style="padding-right:5px;width:30px;">공지사항</button>      
+                    <ion-badge *ngIf="notice_unread_count>0" id="notifications-badge" color="danger">{{notice_unread_count}}</ion-badge>                    
+                </ion-col>                
+                <ion-col col-12 style="height:30px;">
+                    <button  (click)="customer()" ion-button  clear  style="color:#333;font-weight:700;font-size:16px;"><img src="assets/imgs/lefticon/headset_icon.png" item-left style="padding-right:5px;width:30px;">고객센터</button>      
+                    <ion-badge *ngIf="answer_unread_count>0" id="notifications-badge" color="danger">{{answer_unread_count}}</ion-badge>
+                </ion-col>                                    
+                
+
+                <ion-col col-12 style="height:30px;">
+                    <button  (click)="setting()" ion-button  clear  style="color:#333;font-weight:700;font-size:16px;"><img src="assets/imgs/lefticon/set_icon.png" item-left style="padding-right:5px;width:30px;">설정</button>      
+                </ion-col>                           
+                <ion-col col-12 style="height:30px;">
+                    <button  (click)="logout()" ion-button  clear  style="color:#333;font-weight:700;font-size:16px;"><img src="assets/imgs/lefticon/userx_icon.png" item-left style="padding-right:5px;width:30px;">로그아웃</button>      
+                </ion-col>                                                                                 
+
+          </ion-row> 
+        </ion-grid>
+        
+        <div style="position:absolute;bottom:0;text-align:right;width:100%;height:30px;background:#fff;color:#333;font-weight:700;">
+            <div (click)="closebtn()">
+                <img src="assets/imgs/lefticon/close_icon.png" style="width:30px;margin-right:40px;">
+                <p style="margin-top:-27px;margin-right:8px;font-size:16px;">닫기</p>
+            </div>
+        </div>
+        </ion-content>
+      </ion-menu>
+      
+<!--<ion-menu [content]="content" side="right"></ion-menu>-->
+
+<!-- Disable swipe-to-go-back because it's poor UX to combine STGB with side menus -->
+<ion-nav [root]="rootPage" #content swipeBackEnabled="false"></ion-nav>

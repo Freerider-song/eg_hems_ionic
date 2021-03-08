@@ -1,0 +1,445 @@
+// Ionic Variables and Theming. For more info, please see:
+// http://ionicframework.com/docs/v2/theming/
+
+// Font path is used to include ionicons,
+// roboto, and noto sans fonts
+$font-path: "../assets/fonts";
+
+
+// The app direction is used to include
+// rtl styles in your app. For more info, please see:
+// http://ionicframework.com/docs/theming/rtl-support/
+$app-direction: ltr;
+
+
+@import "ionic.globals";
+
+
+// Shared Variables
+// --------------------------------------------------
+// To customize the look and feel of this app, you can override
+// the Sass variables found in Ionic's source scss files.
+// To view all the possible Ionic variables, see:
+// http://ionicframework.com/docs/v2/theming/overriding-ionic-variables/
+
+
+
+
+// Named Color Variables
+// --------------------------------------------------
+// Named colors makes it easy to reuse colors on various components.
+// It's highly recommended to change the default colors
+// to match your app's branding. Ionic uses a Sass map of
+// colors so you can add, rename and remove colors as needed.
+// The "primary" color is the only required color in the map.
+
+$colors: (
+  primary:    #544a44,//탑배배경
+  secondary:  #32db64,
+  danger:     #ff5b49,
+  light:      #f4f4f4,
+  foo:             #1dd894
+  /*
+  dark:       #222,
+  white:    #fff,
+  bluebtn :  #007acc,
+  wizvill:    #001e33,
+  ukkidae:    #ffa401,
+  logincolor: #ffa401,
+  logoutbtn:#ffa401,
+  lowbtn:#566219,
+  tabstyle2 :#3282ff,
+gray : #383a3f
+*/
+);
+
+/*
+// Use the primary color as the background for the toolbar-md-background
+$toolbar-md-background:                   color($colors, primary);
+
+// Use the default background for the tabbar since it inherits from toolbar
+$tabbar-md-background:                    #f8f8f8;
+
+// Change the color of the tabs text
+$tab-button-md-active-color:              color($colors, primary);
+$tab-button-md-inactive-color:            #8c8c8c;
+
+// Change the color of the segment button text
+$toolbar-md-active-color:                 #fff;
+$toolbar-md-inactive-color:               #fff;
+$segment-button-md-text-color-activated:  #fff;
+
+*/
+$text-input-placeholder-color:(#a4a4a4);
+
+$searchbar-md-input-placeholder-color: #d4d4d4;
+$searchbar-md-input-search-icon-color: #afafaf;
+
+ion-app.md [padding], ion-app.md [padding] .scroll-content 
+{
+    padding: 16px;
+    padding-top: 0px !important; /*메인홈 컨텐츠 상단 틈이 없게*/
+}
+
+ion-app.ios [padding], ion-app.ios [padding] .scroll-content
+{
+    padding: 16px;
+    padding-top: 0px !important; /*메인홈 컨텐츠 상단 틈이 없게*/
+}
+
+/* title 툴바 글자 크기 조절 */
+.toolbar-title-md {
+    padding: 0 12px;
+    font-size: 1.2rem !important;
+    font-weight: 500;
+    color: #fff;
+   
+}
+
+/* ios */
+.toolbar-title-ios {
+    text-align: center;
+    font-size: 1.2rem !important;
+    font-weight: 600;
+    color: #fff;
+    pointer-events: auto;
+}
+/*
+.toolbar-title {
+    white-space: nowrap;
+overflow:hidden;
+text-overflow: ellipsis;
+ }*/
+
+//스크롤바 없앤다..안보이기..
+::-webkit-scrollbar {
+    display: none;
+}
+
+//툴바높이 및 툴바의 테두리 굵기가 없애자
+.toolbar-md {
+    //padding: 0px !important;
+    //border:0px solid #fff;
+    padding:0px;
+    margin:0px;
+    height:25px !important;
+    min-height: 45px !important;
+}
+
+//툴바높이 및 툴바의 테두리 굵기가 없애자
+.toolbar-ios {
+    //border:0px solid #fff;
+    //padding: 0px !important;
+    min-height: 56px !important;
+}
+
+/*
+.tabs-md .tabbar {
+    border:1px solid #fcb239;
+}
+
+//탭버튼 좌측..보더라인만들기
+.tabs-md .tab-button {
+    border-right: 1px solid #f7961d;
+}
+.tabs-md[tabsHighlight=“true”] .tab-highlight {
+background-color: red;
+}
+
+.tabbar a[aria-selected=true] {
+    border: none;
+    box-shadow: 0px 2px 0px 0px #488aff inset;    
+}
+
+.tabbar a[aria-selected=true] {
+    border-top: 2px;
+    border-style: solid;    
+}*/
+
+
+.scroll-content { 
+    overflow-y : auto! important; 
+    }
+
+/*타이틀 게시판 뷰어 */
+.title_view
+{
+   width:100%;padding:10px;padding-top:17px;padding-bottom:15px;height:auto;background-color:#fff;text-align:center;font-weight:700;font-size:17px;color:#000;border-bottom:1px solid #ddd;border-top:1px solid #ddd;
+}
+
+.title_view55
+{
+   width:100%;padding:10px;padding-top:17px;padding-bottom:15px;height:auto;background-color:#fff;text-align:center;font-weight:700;font-size:17px;color:#000;border-bottom:1px solid #ddd;
+}
+
+
+.title_view_left
+{
+   width:100%;padding:10px;padding-top:19px;padding-bottom:17px;height:auto;background-color:#fff;text-align:left;font-weight:700;font-size:16px;color:#363636;padding-left:10px;
+}
+
+.title_view_left2
+{
+   width:100%;padding:10px;padding-top:22px;padding-bottom:17px;height:auto;background-color:#fff;text-align:left;font-weight:700;font-size:16px !important;color:#363636;padding-left:10px;
+}
+
+
+ion-footer{ margin:0px !important;padding:0px !important;}
+ion-toolbar{margin:0px !important;padding:0px !important;}
+
+// Use the primary color as the background for the toolbar-md-background
+$toolbar-md-background:                  #1dd894;
+
+$toolbar-ios-background:                   #1dd894;//color($colors, ukkidae);//상단 타이틀배경색
+
+// Use the default background for the tabbar since it inherits from toolbar
+$tabbar-md-background:                    #1dd894;
+$tabbar-ios-background:                    #1dd894;
+
+// Use the default background for the tabbar since it inherits from toolbar
+$tabs-md-background:                      #fff;//하단툴바 배경색
+$tabs-ios-background:                      #fff;//하단툴바 배경색
+
+// Change the color of the tabs text
+$tab-button-md-active-color:             #1dd894;// color($colors, logincolor);//선택된 컬러
+$tab-button-md-inactive-color:            #1dd894;
+
+$tab-button-ios-active-color:              #1dd894;//color($colors, logincolor);//선택된 컬러
+$tab-button-iosion-inactive-color:            #1dd894;
+
+//$tabs-ios-tab-text-color-active: #fff;
+//$tabs-ios-tab-icon-color-active: #000;
+
+// Change the color of the segment button text
+$toolbar-md-active-color:                 #000;
+$toolbar-md-inactive-color:               #000;
+$segment-button-md-text-color-activated:  #000;
+
+$toolbar-md-text-color: #fff;
+$toolbar-background: #fff;
+$toolbar-border-color: #fff;
+$toolbar-text-color: #fff;
+$toolbar-active-color: #fff;
+$toolbar-inactive-color: #fff;
+$toolbar-title-color : #fff;
+
+$toolbar-md-title-text-color: #fff;//상단툴바 글자색
+
+$toolbar-ios-title-text-color: #fff;//상단툴바 글자색
+
+$tabs-ios-tab-icon-color: #999;//선택안된 아이콘 색상
+$tabs-ios-tab-icon-color-active: #ef620d;// 선택된 하단 아이콘색
+/*
+$tabs-ios-tab-icon-color: #000;
+$tabs-ios-tab-icon-color-active: #1a9ad0;
+*/
+
+$tabs-md-tab-icon-color: #999;//선택안된 아이콘 색상
+$tabs-md-tab-icon-color-active: #ef620d;// 선택된 하단 아이콘색
+
+/*탭크기 결정*/
+$tabs-md-tab-font-size:  10px;
+$tabs-md-tab-icon-size:  20px;
+$tabs-md-tab-min-height: 42px;
+
+/* ios 탭크기 */
+$tabs-ios-tab-font-size:  10px;
+$tabs-ios-tab-icon-size:  20px;
+$tabs-ios-tab-min-height: 42px;
+
+.platform-android .searchbtn
+{
+    margin-top:9px;height:42px !important;
+}
+
+.platform-ios .searchbtn
+{
+      margin-top:1px;height:43px !important;
+}
+
+//ios 검색바 색상
+.searchbar-ios {
+    padding: 0 8px;
+    min-height: 44px;
+    border-top: 0.55px solid transparent;
+    border-bottom: 0.55px solid rgba(0, 0, 0, 0.05) !important;
+    background: rgba(84, 144, 189, 0.2)  !important;
+}
+
+
+// App iOS Variables
+// --------------------------------------------------
+// iOS only Sass variables can go here
+
+.tab-button-text{//선택안된 탭디폴트 글자색상
+    color:#999;
+}
+
+/*선택된 탭의 글자색상*/
+.tab-button[aria-selected=true] .tab-button-text {
+    color:#ef620d;
+}
+//타이틀중앙정렬
+   .back-button.show-back-button 
+    {
+        z-index: 9999;
+        display: inline-block;
+    }
+    //타이틀 중앙정렬
+    ion-title {
+        position: absolute;
+        top: 0;
+        left: 0;
+        padding: 0 10px 1px;  /*글자 가로넓이 */
+        width: 100%;
+        height: 100%;
+        text-align: center;
+    }
+
+
+    
+
+/*슬라이더에 동그란거 색상*/
+.swiper-pagination-bullet-active {
+    background: #034876;
+    opacity: 1;
+}
+
+.swiper-pagination-bullet {
+    border-radius: 100%;
+    display: inline-block;
+    width: 8px;
+    height: 8px;
+    background: #e68d1c !important;
+    opacity: 0.1;
+    pointer-events: auto;
+}
+
+.list-ios > .item-block:first-child {
+    //border-top: 0.55px solid #c8c7cc;
+    border-top: 0px !important;
+}
+
+
+/* 라인줄생기는것 처리 */
+.header-md::after, .tabs-md[tabsPlacement="top"] > .tabbar::after, .footer-md::before, .tabs-md[tabsPlacement="bottom"] > .tabbar::before {
+    left: 0;
+    /*bottom: -5px;*/
+    bottom: 0px !important;
+    background-position: left 0 top -2px;
+    position: absolute;
+    width: 100%;
+    /*height: 5px;*/
+    height: 0px !important;
+    //border-top: 1px solid #ddd;
+    background-image:none !important;
+    /*background-image: url(data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABAAAAAHBAMAAADzDtBxAAAAD1BMV…h/TXEAAAAaSURBVAjXYxCEAgY4UIICBmMogMsgFLtAAQCNSwXZKOdPxgAAAABJRU5ErkJggg==);*/
+    background-repeat: repeat-x;
+    content: "";
+}
+
+.header-ios::after, .tabs-ios[tabsPlacement="top"] > .tabbar::after, .footer-md::before, .tabs-md[tabsPlacement="bottom"] > .tabbar::before {
+    left: 0;
+    /*bottom: -5px;*/
+    bottom: 0px !important;
+    background-position: left 0 top -2px;
+    position: absolute;
+    width: 100%;
+    /*height: 5px;*/
+    height: 0px !important;
+    border-top:0px;
+    /*border-top: 1px solid #ffa20f;*/
+    background-image:none !important;
+    /*background-image: url(data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABAAAAAHBAMAAADzDtBxAAAAD1BMV…h/TXEAAAAaSURBVAjXYxCEAgY4UIICBmMogMsgFLtAAQCNSwXZKOdPxgAAAABJRU5ErkJggg==);*/
+    background-repeat: repeat-x;
+    content: "";
+}
+
+
+.footer-md::before, .tabs-md[tabsPlacement="bottom"] > .tabbar::before {
+    top: -1px !important; //하단 부분 라인
+    bottom: auto;
+    background-position: left 0 top 20;
+    height: 2px;
+}
+
+.footer-ios::before, .tabs-ios[tabsPlacement="bottom"] > .tabbar::before {
+    top: -1px !important; //하단 부분 라인
+    bottom: auto;
+    background-position: left 0 top 20;
+    height: 2px;
+}
+
+//배지색상
+.badge-md-ukkidae {
+    color: #f4f4f4 !important;
+    background-color: #424242 !important;
+}
+
+
+//하단 탭 선택할때 색상
+.tabs-md .tab-button[aria-selected=true] {
+    color: #fff !important;
+    padding: 0;
+}
+
+//하단 탭 선택할때 색상
+.tabs-ios .tab-button[aria-selected=true] {
+    color: #fff !important;
+    padding: 0;
+}
+
+ion-footer
+{
+    .text-input-ios {
+        margin: 11px 8px 11px 0;
+        padding: 0;
+        width: calc(100% - 8px);
+        border: 1px solid #ddd !important;
+    }
+}
+
+
+
+  
+$alert-ios-background: #fff;
+
+
+
+// App Material Design Variables
+// --------------------------------------------------
+// Material Design only Sass variables can go here
+
+
+
+
+// App Windows Variables
+// --------------------------------------------------
+// Windows only Sass variables can go here
+
+
+
+
+// App Theme
+// --------------------------------------------------
+// Ionic apps can have different themes applied, which can
+// then be future customized. This import comes last
+// so that the above variables are used and Ionic's
+// default are overridden.
+
+@import "ionic.theme.default";
+
+
+// Ionicons
+// --------------------------------------------------
+// The premium icon font for Ionic. For more info, please see:
+// http://ionicframework.com/docs/v2/ionicons/
+
+@import "ionic.ionicons";
+
+
+// Fonts
+// --------------------------------------------------
+
+@import "roboto";
+@import "noto-sans";

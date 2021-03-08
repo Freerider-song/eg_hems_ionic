@@ -1,0 +1,57 @@
+<ion-content class="login-content"  style="background-color:#fff;">
+  <div *ngIf="loginstate==0|| loginstate==2" style="background-color:#fff;position:absolute; top:50%; left:50%; width:100px; height:30px; color:#333; margin:-50px 0 0 -50px;font-weight:700;font-size:20px;">
+          Loading...
+     </div>
+<!--
+    <canvas #barCanvas></canvas>
+    <canvas #doughnutCanvas></canvas>
+    <canvas #lineCanvas></canvas>        
+    <div style="height:500px;">
+    <canvas #horizontalcanvas></canvas>            
+  </div>
+-->
+<div *ngIf="loginstate==1" style="background-color:#fff;">
+
+<div style="margin:0px;padding:0px;margin-top:10px;">
+    <ion-row class="logo-row" >
+        <ion-col col-12 style="text-align:left;">
+            <img src="assets/imgs/login_title.png" style="width:70%;margin-left:40px;">
+        </ion-col>
+    </ion-row>  
+</div>    
+
+  <p style="text-align:center;font-weight:700;font-size:50px;height:30px;margin-top:0px;">Login</p>
+
+  <div style="width:100%;margin:50px;margin-bottom:20px;">
+  <table style="width:100%;">
+    <tr> 
+        <td style="text-align:left;padding-right:10px;font-weight:700;font-size:14px;width:70px;">아이디</td>
+        <td style="border-bottom:1px solid #00b070;height:35px;">
+            <input style="border:0px;font-size:15px;color:#4c4c4c;font-size:14px;" #input id="userid" type="text"  placeholder="아이디 입력" name="userid" [(ngModel)]="userid" required>
+        </td>
+    </tr>
+    <tr> 
+        <td style="text-align:left;padding-right:10px;font-weight:700;font-size:14px;width:70px;">비밀번호</td>
+        <td style="border-bottom:1px solid #00b070;height:35px;">
+            <input style="border:0px;font-size:15px;color:#4c4c4c;font-size:14px;" id="password" type="password"  placeholder="비밀번호" name="password" [(ngModel)]="password" required>
+        </td>
+    </tr>    
+  </table>
+</div>  
+
+<div style="margin-top:30px;"></div>
+  <div style="width:100%;">
+  <div style="margin:0 auto;padding:10px;padding-left:20px;padding-right:20px;background-color:#1dd894;color:#fff;width:100px;text-align:center;font-size:20px;font-weight:700;border-radius:5px;" (click)="gotoLogin()">
+    로그인
+  </div>
+</div>  
+
+<div style="margin-top:20px;"></div>
+
+  <p (click)="findpw()" style="line-height:10px;text-align:center;font-size:14px;">비밀번호를 잊으셨나요? <label style="color:#00b070;">비밀번호 찾기</label></p>
+  <p (click)="sign()" style="line-height:10px;text-align:center;font-size:14px;">회원이 아니신가요? <label style="color:#00b070;">회원가입 하기</label></p>
+
+<br>
+</div>
+
+</ion-content>
