@@ -100,6 +100,7 @@ export class HomePage {
     {
       this.viewtype = data['menu'];
       //alert(this.viewtype+'home realod 하기');
+      this.GetCurrentUsageAll_Request();
       this.select_type(this.viewtype);
     });
 
@@ -120,6 +121,7 @@ export class HomePage {
       this.currentYear = this.date.getFullYear();
       this.currentDate = sprintf("%02d",this.date.getDate());
       
+      this.GetCurrentUsageAll_Request();
       this.select_type(this.viewtype);
     });    
   }
@@ -153,6 +155,7 @@ export class HomePage {
                     this.storage.get('site_read_day_heat').then((val) => {this.site_read_day_heat = val;});
                     this.storage.get('site_read_day_steam').then((val) => {this.site_read_day_steam = val;});
 
+                    this.GetCurrentUsageAll_Request();
                     this.select_type(this.viewtype);
                   } else {
                     this.host.GetMemberInfo(myjson.seq_member).subscribe(
@@ -167,7 +170,7 @@ export class HomePage {
                           this.site_read_day_heat=data.member_info.site_read_day_heat;
                           this.site_read_day_steam=data.member_info.site_read_day_steam;
       
-                        // this.GetCurrentUsageElec_Request();
+                          this.GetCurrentUsageAll_Request();
                           this.select_type(this.viewtype);
                         },
                         err=>
@@ -227,6 +230,7 @@ export class HomePage {
   select_type(viewtype)
   {
     this.viewtype= viewtype;
+    /*
     switch(this.viewtype)
     {
         case 0://전기
@@ -255,6 +259,8 @@ export class HomePage {
         }
         break;
     }
+    */
+    //this.GetCurrentUsageAll_Request();
     this.Total_levelCompare_Request();   
     this.changeRef.detectChanges();//새로고침 버그..
   }
@@ -344,6 +350,7 @@ export class HomePage {
     this.currentYear = this.date.getFullYear();
     this.currentDate = sprintf("%02d",this.date.getDate());   
     //this.date.setDate(this.currentDate.getDate()+1);
+    this.GetCurrentUsageAll_Request();
 
     this.select_type(this.viewtype);
   }    
@@ -358,6 +365,7 @@ export class HomePage {
     this.currentYear = this.date.getFullYear();
     this.currentDate = sprintf("%02d",this.date.getDate());      
     //this.date.setDate(this.currentDate.getDate()-1);
+    this.GetCurrentUsageAll_Request();
 
     this.select_type(this.viewtype);
   }   
@@ -374,16 +382,16 @@ export class HomePage {
 
    var firstday = sprintf("%s%02d01", this.currentYear,this.currentMonth );//해당달의 1일
    var currentday = sprintf("%s%02d%02d%02d%02d", this.currentYear ,this.currentMonth,this.currentDate,now.getHours(),now.getMinutes());//오늘날짜
-/*
+
     // 여기 부분에서 이미지 관련 오류 발생.
     this.host.GetCurrentUsageAll(this.seq_apt_ho, firstday, currentday).subscribe(
       data =>
       {
-      this.level_compared1 = data.level_compare_elec;
-      this.level_compared2 = data.level_compare_water;
-      this.level_compared3 = data.level_compare_gas;
-      this.level_compared4 = data.level_compare_heat;
-      this.level_compared5 = data.level_compare_steam;
+      this.level_compared1 = data.level_compared_elec;
+      this.level_compared2 = data.level_compared_water;
+      this.level_compared3 = data.level_compared_gas;
+      this.level_compared4 = data.level_compared_heat;
+      this.level_compared5 = data.level_compared_steam;
     }, 
     err =>
     {
@@ -391,8 +399,8 @@ export class HomePage {
       alert('네트워크 연결을 확인해주세요.');
     },
       () => console.log('Movie Search Complete')
-    );*/
-
+    );
+/*
    this.host.GetCurrentUsageElec(this.seq_apt_ho, firstday,currentday).subscribe(
      data => 
      { 
@@ -457,7 +465,7 @@ export class HomePage {
        //this.loader.dismiss();
     },
     () => console.log('Movie Search Complete')
-  );           
+  );  */         
  }
 
   GetCurrentUsageAll_Request()
@@ -479,27 +487,32 @@ export class HomePage {
         this.usage_curr_elec = data.usage_curr_elec.toFixed(2);
         this.won_curr_elec = Math.round(data.won_curr_elec);
         this.usage_expected_elec = data.usage_expected_elec.toFixed(2);
-        this.level_compared1 = data.level_compare_elec;
+        this.won_expected_elec = Math.round(data.won_expected_elec);
+        this.level_compared1 = data.level_compared_elec;
 
         this.usage_curr_water = data.usage_curr_water.toFixed(2);
         this.won_curr_water = Math.round(data.won_curr_water);
         this.usage_expected_water = data.usage_expected_water.toFixed(2);
-        this.level_compared2 = data.level_compare_water;
+        this.won_expected_water = Math.round(data.won_expected_water);
+        this.level_compared2 = data.level_compared_water;
 
         this.usage_curr_gas = data.usage_curr_gas.toFixed(2);
         this.won_curr_gas = Math.round(data.won_curr_gas);
         this.usage_expected_gas = data.usage_expected_gas.toFixed(2);
-        this.level_compared3 = data.level_compare_gas;
+        this.won_expected_gas = Math.round(data.won_expected_gas);
+        this.level_compared3 = data.level_compared_gas;
 
         this.usage_curr_heat = data.usage_curr_heat.toFixed(2);
         this.won_curr_heat = Math.round(data.won_curr_heat);
         this.usage_expected_heat = data.usage_expected_heat.toFixed(2);
-        this.level_compared4 = data.level_compare_heat;
+        this.won_expected_heat = Math.round(data.won_expected_heat);
+        this.level_compared4 = data.level_compared_heat;
 
         this.usage_curr_steam = data.usage_curr_steam.toFixed(2);
         this.won_curr_steam = Math.round(data.won_curr_steam);
         this.usage_expected_steam = data.usage_expected_steam.toFixed(2);
-        this.level_compared5 = data.level_compare_steam;
+        this.won_expected_steam = Math.round(data.won_expected_steam);
+        this.level_compared5 = data.level_compared_steam;
       }, 
       err=>
       {

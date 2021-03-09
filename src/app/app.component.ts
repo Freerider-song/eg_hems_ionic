@@ -21,6 +21,8 @@ import { SettingPage } from '../pages/setting/setting';
 import { ServiceAlert } from '../providers/service_message';
 import { PvEssPage } from '../pages/pv-ess/pv-ess';
 import { EvPage } from '../pages/ev/ev';
+//import { LocalNotifications } from '@ionic-native/local-notifications/ngx';
+
 
 @Component({
   templateUrl: 'app.html'
@@ -504,8 +506,9 @@ export class MyApp {
                 
               this.fcm.onNotification().subscribe(data =>
               {
+
                //   this.badge.increase(1);
-                  //alert(JSON.stringify(data));
+                  alert(JSON.stringify(data));
                   if(data.wasTapped)//사용자가 상태바에서 알림이 온것을 클릭해서 들어온경우
                   {
                     //alert("Received in background");
@@ -514,6 +517,21 @@ export class MyApp {
                   {
                     //alert("Received in foreground");
                   };
+/*
+                  if(data.push_type==1101 || data.push_type==1102 || data.push_type==1103 || data.push_type==1104 || data.push_type==1110)
+                  {
+                     this.localNotifications.schedule({
+                       title: data.title,
+                       text: data.body
+                     
+                     });
+                  }
+*/
+                  if(data.push_type==1101 || data.push_type==1102 || data.push_type==1103 || data.push_type==1104 || data.push_type==1110)
+                  {
+                     
+
+                  }
   
                   if(data.msgtype=="notice")//공지사항
                   {
