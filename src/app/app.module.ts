@@ -47,6 +47,9 @@ import { WaitingPage } from '../pages/waiting/waiting';
 import { BottomContentFixedPage } from '../pages/bottom-content_fixed/bottom-content-fixed';
 import { BottomContentPage } from '../pages/bottom-content/bottom-content';
 import { Autosize } from '../component/elastic';
+import { LocalNotifications } from '@ionic-native/local-notifications/ngx';
+import { PhonegapLocalNotification } from '@ionic-native/phonegap-local-notification';
+
 
 
 
@@ -143,6 +146,8 @@ import { Autosize } from '../component/elastic';
     ServerComm,
     DatePicker,
     SplashScreen,
+    LocalNotifications,
+    PhonegapLocalNotification,
     {provide: ErrorHandler, useClass: IonicErrorHandler}
   ]
 })

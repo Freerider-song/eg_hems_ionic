@@ -1,0 +1,38 @@
+{
+  "appId": "io.ionic.starter",
+  "appName": "energy",
+  "bundledWebRuntime": false,
+  "npmClient": "npm",
+  "webDir": "www",
+  "plugins": {
+    "SplashScreen": {
+      "launchShowDuration": 0
+    },
+    "PushNotifications": {
+      "presentationOptions": ["badge", "sound", "alert"]
+    }
+  },
+  "cordova": {
+    "preferences": {
+      "webviewbounce": "false",
+      "UIWebViewBounce": "false",
+      "DisallowOverscroll": "true",
+      "android-targetSdkVersion": "28",
+      "android-minSdkVersion": "22",
+      "BackupWebStorage": "none",
+      "SplashMaintainAspectRatio": "true",
+      "SplashScreen": "screen",
+      "SplashScreenDelay": "3000",
+      "SplashShowOnlyFirstTime": "false",
+      "ShowSplashScreenSpinner": "true",
+      "FadeSplashScreen": "true",
+      "AutoHideSplashScreen": "false",
+      "ScrollEnabled": "false",
+      "FadeSplashScreenDuration": "300",
+      "KeyboardDisplayRequiresUserAction": "false",
+      "loadUrlTimeoutValue": "700000",
+      "StatusBarBackgroundColor": "#1dd894",
+      "StatusBarOverlaysWebView": "true"
+    }
+  }
+}

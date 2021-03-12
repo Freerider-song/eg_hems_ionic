@@ -14,7 +14,10 @@ import { ServiceAlert } from '../../providers/service_message';
 import * as moment from 'moment';
 import {sprintf} from "sprintf-js";
 import { ChangeDetectorRef } from '@angular/core';
+import { LocalNotifications} from '@ionic-native/local-notifications/ngx'
+import { PhonegapLocalNotification } from '@ionic-native/phonegap-local-notification';
 import { LoginPage } from '../login/login';
+
 
 @Component({
   selector: 'page-home',
@@ -86,7 +89,7 @@ export class HomePage {
   site_read_day_heat:any;
   site_read_day_steam:any;
 
-  constructor(private changeRef: ChangeDetectorRef,public host:ServerComm,public msg:ServiceAlert,public navCtrl: NavController,private events: Events, public storage: Storage) {
+  constructor(private changeRef: ChangeDetectorRef,public host:ServerComm,public msg:ServiceAlert,public navCtrl: NavController,private events: Events, public storage: Storage, public localNotifications: LocalNotifications, private plt: Platform, public localNotification: PhonegapLocalNotification) {
 
     this.date = new Date();
     this.monthNames = ["01","02","03","04","05","06","07","08","09","10","11","12"];
@@ -101,7 +104,8 @@ export class HomePage {
       this.viewtype = data['menu'];
       //alert(this.viewtype+'home realod 하기');
       this.GetCurrentUsageAll_Request();
-      this.select_type(this.viewtype);
+      this.changeRef.detectChanges();
+      //this.select_type(this.viewtype);
     });
 
     //달력에서 선택된 이벤트가 날라온다.
@@ -122,8 +126,21 @@ export class HomePage {
       this.currentDate = sprintf("%02d",this.date.getDate());
       
       this.GetCurrentUsageAll_Request();
-      this.select_type(this.viewtype);
-    });    
+      this.changeRef.detectChanges();
+      //this.select_type(this.viewtype);
+    });
+    
+  }
+
+  firstNotification() {
+    alert("firstnotification started...");
+
+    this.localNotifications.schedule({
+      title:"iaoni",
+      text: "didjd"
+    });
+
+    alert("firstNotification finished...");
   }
 
   ionViewDidLoad() {
@@ -156,7 +173,8 @@ export class HomePage {
                     this.storage.get('site_read_day_steam').then((val) => {this.site_read_day_steam = val;});
 
                     this.GetCurrentUsageAll_Request();
-                    this.select_type(this.viewtype);
+                    this.changeRef.detectChanges();
+                    //this.select_type(this.viewtype);
                   } else {
                     this.host.GetMemberInfo(myjson.seq_member).subscribe(
                       data => 
@@ -171,7 +189,8 @@ export class HomePage {
                           this.site_read_day_steam=data.member_info.site_read_day_steam;
       
                           this.GetCurrentUsageAll_Request();
-                          this.select_type(this.viewtype);
+                          this.changeRef.detectChanges();
+                          //this.select_type(this.viewtype);
                         },
                         err=>
                         {
@@ -261,8 +280,8 @@ export class HomePage {
     }
     */
     //this.GetCurrentUsageAll_Request();
-    this.Total_levelCompare_Request();   
-    this.changeRef.detectChanges();//새로고침 버그..
+    //this.Total_levelCompare_Request();   
+    //this.changeRef.detectChanges();//새로고침 버그..
   }
 
   //달력보기
@@ -366,8 +385,8 @@ export class HomePage {
     this.currentDate = sprintf("%02d",this.date.getDate());      
     //this.date.setDate(this.currentDate.getDate()-1);
     this.GetCurrentUsageAll_Request();
-
-    this.select_type(this.viewtype);
+    this.changeRef.detectChanges();
+    //this.select_type(this.viewtype);
   }   
 
 
@@ -485,33 +504,33 @@ export class HomePage {
       data =>
       {
         this.usage_curr_elec = data.usage_curr_elec.toFixed(2);
-        this.won_curr_elec = Math.round(data.won_curr_elec);
+        this.won_curr_elec = Math.round(data.won_curr_elec).toString().replace(/\B(?=(\d{3})+(?!\d))/g, ',');
         this.usage_expected_elec = data.usage_expected_elec.toFixed(2);
-        this.won_expected_elec = Math.round(data.won_expected_elec);
+        this.won_expected_elec = Math.round(data.won_expected_elec).toString().replace(/\B(?=(\d{3})+(?!\d))/g, ',');
         this.level_compared1 = data.level_compared_elec;
 
         this.usage_curr_water = data.usage_curr_water.toFixed(2);
-        this.won_curr_water = Math.round(data.won_curr_water);
+        this.won_curr_water = Math.round(data.won_curr_water).toString().replace(/\B(?=(\d{3})+(?!\d))/g, ',');
         this.usage_expected_water = data.usage_expected_water.toFixed(2);
-        this.won_expected_water = Math.round(data.won_expected_water);
+        this.won_expected_water = Math.round(data.won_expected_water).toString().replace(/\B(?=(\d{3})+(?!\d))/g, ',');
         this.level_compared2 = data.level_compared_water;
 
         this.usage_curr_gas = data.usage_curr_gas.toFixed(2);
-        this.won_curr_gas = Math.round(data.won_curr_gas);
+        this.won_curr_gas = Math.round(data.won_curr_gas).toString().replace(/\B(?=(\d{3})+(?!\d))/g, ',');
         this.usage_expected_gas = data.usage_expected_gas.toFixed(2);
-        this.won_expected_gas = Math.round(data.won_expected_gas);
+        this.won_expected_gas = Math.round(data.won_expected_gas).toString().replace(/\B(?=(\d{3})+(?!\d))/g, ',');
         this.level_compared3 = data.level_compared_gas;
 
         this.usage_curr_heat = data.usage_curr_heat.toFixed(2);
-        this.won_curr_heat = Math.round(data.won_curr_heat);
+        this.won_curr_heat = Math.round(data.won_curr_heat).toString().replace(/\B(?=(\d{3})+(?!\d))/g, ',');
         this.usage_expected_heat = data.usage_expected_heat.toFixed(2);
-        this.won_expected_heat = Math.round(data.won_expected_heat);
+        this.won_expected_heat = Math.round(data.won_expected_heat).toString().replace(/\B(?=(\d{3})+(?!\d))/g, ',');
         this.level_compared4 = data.level_compared_heat;
 
         this.usage_curr_steam = data.usage_curr_steam.toFixed(2);
-        this.won_curr_steam = Math.round(data.won_curr_steam);
+        this.won_curr_steam = Math.round(data.won_curr_steam).toString().replace(/\B(?=(\d{3})+(?!\d))/g, ',');
         this.usage_expected_steam = data.usage_expected_steam.toFixed(2);
-        this.won_expected_steam = Math.round(data.won_expected_steam);
+        this.won_expected_steam = Math.round(data.won_expected_steam).toString().replace(/\B(?=(\d{3})+(?!\d))/g, ',');
         this.level_compared5 = data.level_compared_steam;
       }, 
       err=>

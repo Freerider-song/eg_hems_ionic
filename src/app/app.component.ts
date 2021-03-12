@@ -21,7 +21,11 @@ import { SettingPage } from '../pages/setting/setting';
 import { ServiceAlert } from '../providers/service_message';
 import { PvEssPage } from '../pages/pv-ess/pv-ess';
 import { EvPage } from '../pages/ev/ev';
-//import { LocalNotifications } from '@ionic-native/local-notifications/ngx';
+import { LocalNotifications, ILocalNotification } from '@ionic-native/local-notifications/ngx';
+import { PhonegapLocalNotification } from '@ionic-native/phonegap-local-notification';
+
+//import {Plugins, LocalNotificationEnabledResult, LocalNotificationActionPerformed, LocalNotification, Device} from '@capacitor/core'
+//const { LocalNotifications } = Plugins;
 
 
 @Component({
@@ -52,12 +56,15 @@ export class MyApp {
 
   is_ev_pv_ess:any; //PV-ESS 지원 여부
 
-  constructor( public ionicApp:IonicApp, public msg:ServiceAlert, public alertCtrl: AlertController,public app: App, public keyboard: Keyboard,public host:ServerComm,public menu: MenuController,public fcm: FCM,public platform: Platform, private toastCtrl:ToastController, public toast: Toast, private mobileAccessibility: MobileAccessibility,public statusBar: StatusBar, private events: Events,public storage: Storage,public splashScreen: SplashScreen) {
+  constructor( public ionicApp:IonicApp, public msg:ServiceAlert, public alertCtrl: AlertController,public app: App, public keyboard: Keyboard,public host:ServerComm,public menu: MenuController,public fcm: FCM,public platform: Platform, private toastCtrl:ToastController, public toast: Toast, private mobileAccessibility: MobileAccessibility,public statusBar: StatusBar, private events: Events,public storage: Storage,public splashScreen: SplashScreen, public localNotifications: LocalNotifications) {
 
     this.BackButton();//뒤로가기 할때 이벤트 화면 종료창
     this.getEvent()//이벤트받기
     this.initializeApp();
+   
   }
+
+
 
   initializeApp() 
   {
@@ -488,6 +495,8 @@ export class MyApp {
           alert('unable to get local from native storage'); 
         }) 
     }
+ 
+
   
 
     FcmPushInit()
@@ -508,7 +517,8 @@ export class MyApp {
               {
 
                //   this.badge.increase(1);
-                  alert(JSON.stringify(data));
+                  alert(JSON.stringify(data)); 
+
                   if(data.wasTapped)//사용자가 상태바에서 알림이 온것을 클릭해서 들어온경우
                   {
                     //alert("Received in background");
@@ -517,22 +527,71 @@ export class MyApp {
                   {
                     //alert("Received in foreground");
                   };
-/*
-                  if(data.push_type==1101 || data.push_type==1102 || data.push_type==1103 || data.push_type==1104 || data.push_type==1110)
-                  {
-                     this.localNotifications.schedule({
-                       title: data.title,
-                       text: data.body
-                     
-                     });
-                  }
-*/
-                  if(data.push_type==1101 || data.push_type==1102 || data.push_type==1103 || data.push_type==1104 || data.push_type==1110)
-                  {
-                     
 
+                  /*
+                  ALARM_TYPE_UNKNOWN = 0;
+                  ALARM_TYPE_REQUEST_ACK_MEMBER = 1001;
+                  ALARM_TYPE_RESPONSE_ACK_MEMBER_ACCEPTED = 1002;
+                  ALARM_TYPE_RESPONSE_ACK_MEMBER_REJECTED = 1003;
+                  ALARM_TYPE_RESPONSE_ACK_MEMBER_CANCELED = 1004;
+                  ALARM_TYPE_NOTI_KWH = 1101;
+                  ALARM_TYPE_NOTI_WON = 1102;
+                  ALARM_TYPE_NOTI_PRICE_LEVEL = 1103;
+                  ALARM_TYPE_NOTI_USAGE = 1104;
+                  ALARM_TYPE_NOTI_TRANS = 1110;
+                  */
+
+                  if (data.push_type == 1101 || data.push_type == 1102 || data.push_type == 1103 || data.push_type == 1104 || data.push_type == 1110) {
+                    this.confirm = this.alertCtrl.create({
+                      title: data.title,
+                      message: data.body,
+                      buttons: [
+                        {
+                          text: '확인',
+                          handler: () => 
+                          {
+                            console.log('check btn clicked');
+                            this.confirm.dismiss();
+                            this.confirm = null;          
+                          }
+                        }
+                      ]
+                    });
+                    this.confirm.present();
                   }
-  
+
+                  if (data.push_type == 1001) {
+                    this.confirm = this.alertCtrl.create({
+                      title: data.title,
+                      message: data.body,
+                      buttons: [
+                        {
+                          text: '승인',
+                          handler: () => 
+                          {
+                            console.log('accept clicked');
+                            //this.host.ResponseAckMember(seq_member_ack_requester,1);
+                            this.confirm = null;          
+                          }
+                        },
+                        {
+                          text: '취소',
+                          handler: () => 
+                          {
+                            
+                                      
+                            console.log('decline clicked');
+                            //this.host.ResponseAckMember(seq_member_ack_requester,2);
+                            this.confirm.dismiss();
+                            this.confirm = null;
+                          }
+                        }
+                      ]
+                    });
+                    this.confirm.present();
+                  }
+
+                  /*
                   if(data.msgtype=="notice")//공지사항
                   {
                      this.msg.msgbox(data.message);
@@ -587,7 +646,8 @@ export class MyApp {
                   {
                     this.msg.msgbox(data.message);
                      this.msg.toastmsg('공지알림');                 
-                  }           
+                  }   
+                  */        
               })
               //새토큰 새로 가져옴
               this.fcm.onTokenRefresh().subscribe(token=>
