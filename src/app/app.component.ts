@@ -517,7 +517,7 @@ export class MyApp {
               {
 
                //   this.badge.increase(1);
-                  alert(JSON.stringify(data)); 
+                  //alert(JSON.stringify(data)); 
 
                   if(data.wasTapped)//사용자가 상태바에서 알림이 온것을 클릭해서 들어온경우
                   {
@@ -528,20 +528,65 @@ export class MyApp {
                     //alert("Received in foreground");
                   };
 
-                  /*
-                  ALARM_TYPE_UNKNOWN = 0;
-                  ALARM_TYPE_REQUEST_ACK_MEMBER = 1001;
-                  ALARM_TYPE_RESPONSE_ACK_MEMBER_ACCEPTED = 1002;
-                  ALARM_TYPE_RESPONSE_ACK_MEMBER_REJECTED = 1003;
-                  ALARM_TYPE_RESPONSE_ACK_MEMBER_CANCELED = 1004;
-                  ALARM_TYPE_NOTI_KWH = 1101;
-                  ALARM_TYPE_NOTI_WON = 1102;
-                  ALARM_TYPE_NOTI_PRICE_LEVEL = 1103;
-                  ALARM_TYPE_NOTI_USAGE = 1104;
-                  ALARM_TYPE_NOTI_TRANS = 1110;
-                  */
+                if (data.push_type == 1001) {
+                  this.confirm = this.alertCtrl.create({
+                    title: data.title,
+                    message: data.body,
+                    buttons: [
+                      {
+                        text: '승인',
+                        handler: () => {
+                          console.log('accept clicked');
+                          this.host.ResponseAckMember(data.seq_member_ack_requester, 1).subscribe(
+                            data => {
+                              this.toast.show('승인했습니다', '1000', 'bottom').subscribe
+                                (
+                                  toast => {
+                                    console.log(toast);
+                                  }
+                                );
+                            },
+                            err => {
+                              console.log(err);
+                              alert('네트워크 연결을 확인해주세요.');
+                              //this.loader.dismiss();
+                            },
+                            () => console.log('Movie Search Complete')
+                          );
+                          this.confirm = null;
+                        }
+                      },
+                      {
+                        text: '취소',
+                        handler: () => {
 
-                  if (data.push_type == 1101 || data.push_type == 1102 || data.push_type == 1103 || data.push_type == 1104 || data.push_type == 1110) {
+                          console.log('decline clicked');
+                          this.host.ResponseAckMember(data.seq_member_ack_requester, 2).subscribe(
+                            data => {
+                              this.toast.show('거절했습니다', '1000', 'bottom').subscribe
+                                (
+                                  toast => {
+                                    console.log(toast);
+                                  }
+                                );
+                            },
+                            err => {
+                              console.log(err);
+                              alert('네트워크 연결을 확인해주세요.');
+                              //this.loader.dismiss();
+                            },
+                            () => console.log('Movie Search Complete')
+                          );
+                          this.confirm.dismiss();
+                          this.confirm = null;
+                        }
+                      }
+                    ]
+                  });
+                  this.confirm.present();
+                }
+
+                  else{
                     this.confirm = this.alertCtrl.create({
                       title: data.title,
                       message: data.body,
@@ -559,37 +604,22 @@ export class MyApp {
                     });
                     this.confirm.present();
                   }
+                  
 
-                  if (data.push_type == 1001) {
-                    this.confirm = this.alertCtrl.create({
-                      title: data.title,
-                      message: data.body,
-                      buttons: [
-                        {
-                          text: '승인',
-                          handler: () => 
-                          {
-                            console.log('accept clicked');
-                            //this.host.ResponseAckMember(seq_member_ack_requester,1);
-                            this.confirm = null;          
-                          }
-                        },
-                        {
-                          text: '취소',
-                          handler: () => 
-                          {
-                            
-                                      
-                            console.log('decline clicked');
-                            //this.host.ResponseAckMember(seq_member_ack_requester,2);
-                            this.confirm.dismiss();
-                            this.confirm = null;
-                          }
-                        }
-                      ]
-                    });
-                    this.confirm.present();
-                  }
+                  /*
+                  ALARM_TYPE_UNKNOWN = 0;
+                  ALARM_TYPE_REQUEST_ACK_MEMBER = 1001;
+                  ALARM_TYPE_RESPONSE_ACK_MEMBER_ACCEPTED = 1002;
+                  ALARM_TYPE_RESPONSE_ACK_MEMBER_REJECTED = 1003;
+                  ALARM_TYPE_RESPONSE_ACK_MEMBER_CANCELED = 1004;
+                  ALARM_TYPE_NOTI_KWH = 1101;
+                  ALARM_TYPE_NOTI_WON = 1102;
+                  ALARM_TYPE_NOTI_PRICE_LEVEL = 1103;
+                  ALARM_TYPE_NOTI_USAGE = 1104;
+                  ALARM_TYPE_NOTI_TRANS = 1110;
+                  */
+
+                
 
                   /*
                   if(data.msgtype=="notice")//공지사항

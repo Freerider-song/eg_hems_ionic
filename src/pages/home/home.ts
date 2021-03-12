@@ -132,17 +132,6 @@ export class HomePage {
     
   }
 
-  firstNotification() {
-    alert("firstnotification started...");
-
-    this.localNotifications.schedule({
-      title:"iaoni",
-      text: "didjd"
-    });
-
-    alert("firstNotification finished...");
-  }
-
   ionViewDidLoad() {
        this.loadLocalData();    
   }  
@@ -248,7 +237,7 @@ export class HomePage {
   //기본 설정 타입
   select_type(viewtype)
   {
-    this.viewtype= viewtype;
+    //this.viewtype= viewtype;
     /*
     switch(this.viewtype)
     {

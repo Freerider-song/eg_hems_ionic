@@ -64,9 +64,8 @@
         <resource-file src="res/drawable-xxhdpi/fcm_push_icon.png" target="platforms/android/res/drawable-xxhdpi/fcm_push_icon.png" />
         <resource-file src="res/drawable-xxxhdpi/fcm_push_icon.png" target="platforms/android/res/drawable-xxxhdpi/fcm_push_icon.png" />
         <resource-file src="colors.xml" target="app/src/main/res/values/colors.xml" />
-        <config-file parent="./application" target="AndroidManifest.xml">
+        <config-file parent="/manifest/application/" target="app/src/main/AndroidManifest.xml">
             <meta-data android:name="com.google.firebase.messaging.default_notification_icon" android:resource="@drawable/fcm_push_icon" />
-            <meta-data android:name="com.google.firebase.messaging.default_notification_color" android:resource="@color/colorPrimary" />
         </config-file>
     </platform>
     <platform name="ios">
@@ -136,5 +135,4 @@
         <variable name="OKHTTP_VERSION" value="3.10.0" />
     </plugin>
     <plugin name="cordova-plugin-httpd" spec="^0.9.3" />
-    <engine name="android" spec="7.1.4" />
 </widget>
