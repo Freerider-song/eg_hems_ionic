@@ -1,2 +1,2 @@
 # eg_hems
-IONIC Ver.
+HEMS SERVICE IONIC Ver.
