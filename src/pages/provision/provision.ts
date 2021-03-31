@@ -3,6 +3,7 @@ import { IonicPage, NavController, NavParams } from 'ionic-angular';
 
 import { Http } from '@angular/http';
 import { ServerComm} from "../../providers/server_comm";
+//import { InAppBrowser } from '@ionic-native/in-app-browser/ngx';
 /**
  * Generated class for the PrivacyPage page.
  *
@@ -45,7 +46,8 @@ ionViewWillLeave()
   //앱정보
 requestAppinfo()
 {
-/*
+  /*
+
     this.data.requestAppinfo(this.userid,this.password).subscribe
     (
         datadata=>
@@ -60,7 +62,17 @@ requestAppinfo()
         },
         ()=>console.log('Movie Search Complate')
     );*/
+    /*
+    const browser = this.iab.create('https://egservice.co.kr/HemsService/HEMS_Service.htm', 'defaults', { location: 'no'});
+
+        browser.on('loadstart').subscribe(event => {
+        });
+
+        browser.on('exit').subscribe(evnet => {
+          browser.close();
+        })*/
 }
+
   
 
 }

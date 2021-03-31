@@ -15,7 +15,6 @@ import * as moment from 'moment';
 import {sprintf} from "sprintf-js";
 import { ChangeDetectorRef } from '@angular/core';
 import { LocalNotifications} from '@ionic-native/local-notifications/ngx'
-import { PhonegapLocalNotification } from '@ionic-native/phonegap-local-notification';
 import { LoginPage } from '../login/login';
 
 
@@ -89,7 +88,7 @@ export class HomePage {
   site_read_day_heat:any;
   site_read_day_steam:any;
 
-  constructor(private changeRef: ChangeDetectorRef,public host:ServerComm,public msg:ServiceAlert,public navCtrl: NavController,private events: Events, public storage: Storage, public localNotifications: LocalNotifications, private plt: Platform, public localNotification: PhonegapLocalNotification) {
+  constructor(private changeRef: ChangeDetectorRef,public host:ServerComm,public msg:ServiceAlert,public navCtrl: NavController,private events: Events, public storage: Storage, private plt: Platform) {
 
     this.date = new Date();
     this.monthNames = ["01","02","03","04","05","06","07","08","09","10","11","12"];

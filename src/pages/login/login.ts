@@ -240,9 +240,10 @@ autoLoginCheck()
                     this.msg.msgbox('스마트폰 장애입니다. 다시 로그인 해주세요.');
                   });                 
                 }                                                
-                if(data.ack_response_code_latest == 2)//승인거절된상태
+                if(data.ack_response_code_latest == 2 || data.ack_response_code_latest == 3)//승인거절, 철회된상태
                 {
-                  this.navCtrl.setRoot(WaitingPage,{state:2,user_create_seq_member:data.seq_member});
+                  //거절되거나 철회될 경우 승인대기로 변경
+                  this.navCtrl.setRoot(WaitingPage,{state:0,user_create_seq_member:data.seq_member});
                 }                                                
               }
               else// 세대주는 바로 로그인시키자

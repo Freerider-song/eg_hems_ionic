@@ -32,6 +32,7 @@ export class SettingPage {
   member_name:any="";//회원이름
   member_id:any="";//회원id
   member_main:any="";//세대주는 1
+  time_change_password:any="";
   public family_list: Array<any>;
 
   constructor(public host:ServerComm,public msg:ServiceAlert, public navCtrl: NavController, private events: Events,public navParams: NavParams, private data:ServerComm,public alertCtrl: AlertController) {
@@ -72,6 +73,7 @@ export class SettingPage {
                   this.apt_dong_name = data.member_info.apt_dong_name;
                   this.apt_ho_name = data.member_info.apt_ho_name;
                   this.member_name = data.member_info.member_name;
+                  this.time_change_password = data.member_info.time_change_password;
                   this.GetMemberRequest(this.seq_member);                  
                 },
                 err=>
@@ -201,7 +203,32 @@ GetMemberRequest(seq_member)
             text: '예',
             handler: () => 
             {
+              this.host.ResponseAckMember(seq_member, 3).subscribe(
+                data => 
+                {
+                    if(data.result_code==1)
+                    {
+                      this.loadLocalData();
+                      this.msgbox('세대원을 제거했습니다');
+                    }
+                    else
+                    {
+                      this.msgbox("알수없는 오류로 철회할 수 없습니다.");
+                    }
+                  
+                },
+                err=>
+                {
+                  console.log(err);
+                  this.msgbox('서버와 연결을 할 수 없습니다. 네트워크를 확인해주세요.');
+                },
+                () => 
+                {//this.loginstate=1;
+                  console.log('Movie Search Complete');
+                }
+              );   
 
+                /*
                 this.host.Unsubscribemember(seq_member).subscribe(
                 data => 
                 {
@@ -225,7 +252,8 @@ GetMemberRequest(seq_member)
                 {//this.loginstate=1;
                   console.log('Movie Search Complete');
                 }
-              );     
+              );   
+              */  
 
             }
           }

@@ -25,8 +25,10 @@ export class ForgotPassword {
   public hpnum : string="";
   public sms_msg : string="인증번호요청";
   public hp : string="";
+  public username : string="";
 
-  userid:any="xxxxxxxxxxx";
+  userid:any="";
+  seq_member:any;
 
   defaulttime:any=180;
   countdownstr:any="03:00";
@@ -46,12 +48,14 @@ export class ForgotPassword {
         buttons: ['확인']
     });
     alert.present();
-  }  
+  }
 
   ionViewDidLoad() {
     console.log('ionViewDidLoad PwchangePage');
+    
   }
 
+  
   nextfunc()
   {
     this.onSMSConfirm();
@@ -59,7 +63,45 @@ export class ForgotPassword {
 
   changepass()
   {
-    this.navCtrl.pop();
+    if(this.newpassword=="")
+    {
+      this.msgbox("비밀번호를 입력해주세요.");
+      return false;
+    }
+    if(this.repassword=="")
+    {
+      this.msgbox("비밀번호 확인을 입력해주세요.");
+      return false;
+    }
+    if(this.newpassword!=this.repassword)
+    {
+      this.msgbox("입력한 비밀번호 확인이 서로 일치하지 않습니다. 정확히 입력해주세요.");
+      return false;      
+    }
+
+    this.host.ChangePasswordByMemberId(this.userid,this.newpassword).subscribe(
+      data => 
+      {
+          if(data.seq_member==this.seq_member)
+          {
+            this.msgbox('비밀번호를 변경 했습니다.');
+            this.navCtrl.pop();
+          }
+          else
+          {
+            this.msgbox('비밀번호를 변경 할 수 없습니다.');
+          }
+      },
+      err=>
+      {
+        console.log(err);
+        this.msgbox('서버와 연결을 할 수 없습니다. 네트워크를 확인해주세요.');
+      },
+      () => 
+      {//this.loginstate=1;
+        console.log('Movie Search Complete');
+      }
+    );
   }
 
   onSMSConfirm()//문자인증 확인
@@ -98,6 +140,23 @@ export class ForgotPassword {
               this.currenttime = this.defaulttime;
               this.sms_msg="인증완료";    
               this.sms_cert_flag = true;
+
+              this.host.GetMemberIdSeq(this.username,this.hp).subscribe(
+                data => 
+                {
+                    this.seq_member = data.seq_member;
+                    this.userid = data.member_id;
+                },
+                err=>
+                {
+                  console.log(err);
+                  this.msgbox('서버와 연결을 할 수 없습니다. 네트워크를 확인해주세요.');
+                },
+                () => 
+                {//this.loginstate=1;
+                  console.log('Movie Search Complete');
+                }
+              );
       
               this.step=2;
               //this.msgbox('휴대폰인증이 정상적으로 완료되었습니다.');

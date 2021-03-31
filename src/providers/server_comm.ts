@@ -142,7 +142,7 @@ export class ServerComm {
         });             
     }
 
-//유저아이디, 비밀번호, 유저고유코드, 아파트고유코드, 세대주인가?, 디바이스푸시키, 로그인타입
+//유저아이디, 비밀번호, 유저고유코드, 아파트고유코드, 세대주인가?, 디바이스푸시키, 로그인타입, 마지막 로그인
     getUser()
     {
         return new Promise((resolve, reject) => 
@@ -162,7 +162,8 @@ export class ServerComm {
                                 seq_site:'',
                                 is_main_member:'',
                                 deviceid:'',
-                                is_ev_pv_ess:''
+                                is_ev_pv_ess:'',
+                              
                             //     logintype:''
                         });
                     }
@@ -313,7 +314,7 @@ export class ServerComm {
     //가입승인응답
     //result_code (0=member 찾기 실패, 1=성공, -1=푸시 보내기 실패)
     //DB result : seq_member_main, reg_id_sub, name_main, name_sub
-    ResponseAckMember(SeqMemberSub,Ack)//, Ack (1=accept, 2=reject)
+    ResponseAckMember(SeqMemberSub,Ack)//, Ack (1=accept, 2=reject, 3=cancel)
     {
         var headers2 = new Headers();
         headers2.append('Content-Type', 'application/x-www-form-urlencoded; charset=UTF-8');
@@ -358,8 +359,18 @@ export class ServerComm {
         var response = this.http.post(this.serverurl+'/hems/GetFaqList', params , {headers: headers2}).map(res=>res.json());
         //var response = this.http.get(url).map(res => res.json());
         return response;   
-      }          
+      } 
 
+      GetMemberIdSeq(Name, Phone)
+      {
+        var headers2 = new Headers();
+        headers2.append('Content-Type', 'application/x-www-form-urlencoded; charset=UTF-8');
+        var params = 'Name='+Name+'&Phone='+Phone;
+        var response = this.http.post(this.serverurl+'/hems/GetMemberIdSeq', params , {headers: headers2}).map(res=>res.json());
+        //var response = this.http.get(url).map(res => res.json());
+        return response;             
+      }
+      
       //비밀번호변경 ( 성공하면 seq, 실패시 0 )
       GetPassword(SeqMember, PasswordNew)
       {
@@ -369,6 +380,18 @@ export class ServerComm {
         var response = this.http.post(this.serverurl+'/hems/ChangePassword', params , {headers: headers2}).map(res=>res.json());
         //var response = this.http.get(url).map(res => res.json());
         return response;             
+      }
+
+      //비밀번호 변경(New)
+      ChangePasswordByMemberId(MemberId, PasswordNew)
+      {
+        var headers2 = new Headers();
+        headers2.append('Content-Type', 'application/x-www-form-urlencoded; charset=UTF-8');
+        var params = 'MemberId='+MemberId+'&PasswordNew='+PasswordNew;
+        var response = this.http.post(this.serverurl+'/hems/ChangePasswordByMemberId', params , {headers: headers2}).map(res=>res.json());
+        //var response = this.http.get(url).map(res => res.json());
+        return response;
+
       }
 
       //알림요청

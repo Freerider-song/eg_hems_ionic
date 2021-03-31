@@ -499,196 +499,134 @@ export class MyApp {
 
   
 
-    FcmPushInit()
-    {
-            //토큰가져오기
-              this.fcm.getToken().then(token=>
-              {
-               // this.badge.clear();//뱃지클리어
-              // backend.registerToken(token);
+  FcmPushInit() {
+    //토큰가져오기
+    this.fcm.getToken().then(token => {
+      // this.badge.clear();//뱃지클리어
+      // backend.registerToken(token);
 
-                  this.SaveDevicePushID(token);
-              })
-              .catch(error=>{
-              console.error(error);
-              });
-                
-              this.fcm.onNotification().subscribe(data =>
-              {
+      this.SaveDevicePushID(token);
+    })
+      .catch(error => {
+        console.error(error);
+      });
 
-               //   this.badge.increase(1);
-                  //alert(JSON.stringify(data)); 
+    this.fcm.onNotification().subscribe(data => {
 
-                  if(data.wasTapped)//사용자가 상태바에서 알림이 온것을 클릭해서 들어온경우
-                  {
-                    //alert("Received in background");
-                  } 
-                  else //포그라운드에서 메시지가 들어온경우
-                  {
-                    //alert("Received in foreground");
-                  };
+      //   this.badge.increase(1);
+      //alert(JSON.stringify(data)); 
 
-                if (data.push_type == 1001) {
-                  this.confirm = this.alertCtrl.create({
-                    title: data.title,
-                    message: data.body,
-                    buttons: [
-                      {
-                        text: '승인',
-                        handler: () => {
-                          console.log('accept clicked');
-                          this.host.ResponseAckMember(data.seq_member_ack_requester, 1).subscribe(
-                            data => {
-                              this.toast.show('승인했습니다', '1000', 'bottom').subscribe
-                                (
-                                  toast => {
-                                    console.log(toast);
-                                  }
-                                );
-                            },
-                            err => {
-                              console.log(err);
-                              alert('네트워크 연결을 확인해주세요.');
-                              //this.loader.dismiss();
-                            },
-                            () => console.log('Movie Search Complete')
-                          );
-                          this.confirm = null;
+      if (data.wasTapped)//사용자가 상태바에서 알림이 온것을 클릭해서 들어온경우
+      {
+        //alert("Received in background");
+      }
+      else //포그라운드에서 메시지가 들어온경우
+      {
+        //alert("Received in foreground");
+      };
+
+
+      /*
+      ALARM_TYPE_UNKNOWN = 0;
+      ALARM_TYPE_REQUEST_ACK_MEMBER = 1001;
+      ALARM_TYPE_RESPONSE_ACK_MEMBER_ACCEPTED = 1002;
+      ALARM_TYPE_RESPONSE_ACK_MEMBER_REJECTED = 1003;
+      ALARM_TYPE_RESPONSE_ACK_MEMBER_CANCELED = 1004;
+      ALARM_TYPE_NOTI_KWH = 1101;
+      ALARM_TYPE_NOTI_WON = 1102;
+      ALARM_TYPE_NOTI_PRICE_LEVEL = 1103;
+      ALARM_TYPE_NOTI_USAGE = 1104;
+      ALARM_TYPE_NOTI_TRANS = 1110;
+      */
+
+      // push 데이터 받고 표시
+      if (data.push_type == 1001) {
+        this.confirm = this.alertCtrl.create({
+          title: data.title,
+          message: data.body,
+          buttons: [
+            {
+              text: '승인',
+              handler: () => {
+                console.log('accept clicked');
+                this.host.ResponseAckMember(data.seq_member_ack_requester, 1).subscribe(
+                  data => {
+                    this.toast.show('승인했습니다', '1000', 'bottom').subscribe
+                      (
+                        toast => {
+                          console.log(toast);
                         }
-                      },
-                      {
-                        text: '취소',
-                        handler: () => {
+                      );
+                  },
+                  err => {
+                    console.log(err);
+                    alert('네트워크 연결을 확인해주세요.');
+                    //this.loader.dismiss();
+                  },
+                  () => console.log('Movie Search Complete')
+                );
+                this.confirm = null;
+              }
+            },
+            {
+              text: '거절',
+              handler: () => {
 
-                          console.log('decline clicked');
-                          this.host.ResponseAckMember(data.seq_member_ack_requester, 2).subscribe(
-                            data => {
-                              this.toast.show('거절했습니다', '1000', 'bottom').subscribe
-                                (
-                                  toast => {
-                                    console.log(toast);
-                                  }
-                                );
-                            },
-                            err => {
-                              console.log(err);
-                              alert('네트워크 연결을 확인해주세요.');
-                              //this.loader.dismiss();
-                            },
-                            () => console.log('Movie Search Complete')
-                          );
-                          this.confirm.dismiss();
-                          this.confirm = null;
+                console.log('decline clicked');
+                this.host.ResponseAckMember(data.seq_member_ack_requester, 2).subscribe(
+                  data => {
+                    this.toast.show('거절했습니다', '1000', 'bottom').subscribe
+                      (
+                        toast => {
+                          console.log(toast);
                         }
-                      }
-                    ]
-                  });
-                  this.confirm.present();
-                }
+                      );
+                  },
+                  err => {
+                    console.log(err);
+                    alert('네트워크 연결을 확인해주세요.');
+                    //this.loader.dismiss();
+                  },
+                  () => console.log('Movie Search Complete')
+                );
+                this.confirm.dismiss();
+                this.confirm = null;
+              }
+            }
+          ]
+        });
+        this.confirm.present();
+      }
 
-                  else{
-                    this.confirm = this.alertCtrl.create({
-                      title: data.title,
-                      message: data.body,
-                      buttons: [
-                        {
-                          text: '확인',
-                          handler: () => 
-                          {
-                            console.log('check btn clicked');
-                            this.confirm.dismiss();
-                            this.confirm = null;          
-                          }
-                        }
-                      ]
-                    });
-                    this.confirm.present();
-                  }
-                  
+      else {
+        this.confirm = this.alertCtrl.create({
+          title: data.title,
+          message: data.body,
+          buttons: [
+            {
+              text: '확인',
+              handler: () => {
+                console.log('check btn clicked');
+                this.confirm.dismiss();
+                this.confirm = null;
+              }
+            }
+          ]
+        });
+        this.confirm.present();
+      }
 
-                  /*
-                  ALARM_TYPE_UNKNOWN = 0;
-                  ALARM_TYPE_REQUEST_ACK_MEMBER = 1001;
-                  ALARM_TYPE_RESPONSE_ACK_MEMBER_ACCEPTED = 1002;
-                  ALARM_TYPE_RESPONSE_ACK_MEMBER_REJECTED = 1003;
-                  ALARM_TYPE_RESPONSE_ACK_MEMBER_CANCELED = 1004;
-                  ALARM_TYPE_NOTI_KWH = 1101;
-                  ALARM_TYPE_NOTI_WON = 1102;
-                  ALARM_TYPE_NOTI_PRICE_LEVEL = 1103;
-                  ALARM_TYPE_NOTI_USAGE = 1104;
-                  ALARM_TYPE_NOTI_TRANS = 1110;
-                  */
 
-                
+    })
+    //새토큰 새로 가져옴
+    this.fcm.onTokenRefresh().subscribe(token => {
+      // backend.registerToken(token);
+      // alert("token Refresh : "+token);
+      this.SaveDevicePushID(token);
+    })
 
-                  /*
-                  if(data.msgtype=="notice")//공지사항
-                  {
-                     this.msg.msgbox(data.message);
-                     this.msg.toastmsg('알림');
-                  }      
-  
-                  if(data.msgtype=="bun")//공지사항
-                  {
-                     this.msg.msgbox(data.message);
-                     this.msg.toastmsg('알림');
-                  }
-  
-                  if(data.msgtype=="overflow")//누적사용량
-                  {
-                   //  this.msg.msgbox(data.message);
-                     //this.msg.toastmsg("해당 매물을 확인하시겠습니까?");     
-  
-                     let confirm = this.alertCtrl.create({
-                      title: '알림',
-                      message: '이번달 누적 전기사용량이 250kWh 에 도달 했습니다 . 불필요한 전기 사용이 없는지 한번 살펴보세요',
-                      buttons: 
-                      [{
-                        text: '자세히 보기',
-                        handler: () => 
-                        {
-  //                       this.nav.push(HouseViewPage,{boardname:'g5_write_houseinfo',detail:'', wr_id:data.housecode});   
-                        },
-                      },
-                      {
-                        text: '확인',
-                        handler: () => 
-                        {
-                        
-                        }
-                      }],
-                    });
-                    confirm.onDidDismiss(() =>{ 
-                    });
-                    confirm.present();
-                     //this.events.publish('tab_badge_increment'); //증가함
-                  }     
-                  
-                  if(data.msgtype=="reply")//댓글답변알림
-                  {
-                    this.msg.msgbox(data.message);
-                     this.msg.toastmsg('댓글알림');              
-                  }                              
-  
-           
-  
-                  if(data.msgtype=="new")//새글알림
-                  {
-                    this.msg.msgbox(data.message);
-                     this.msg.toastmsg('공지알림');                 
-                  }   
-                  */        
-              })
-              //새토큰 새로 가져옴
-              this.fcm.onTokenRefresh().subscribe(token=>
-              {
-                 // backend.registerToken(token);
-                 // alert("token Refresh : "+token);
-                 this.SaveDevicePushID(token);
-              })
-        
-    }      
-  
+  }
+
 
 //디바이스 푸시아이디를 저장해서 나중에 푸시를 보내기 위함
 SaveDevicePushID(token)

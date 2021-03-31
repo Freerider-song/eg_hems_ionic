@@ -49,6 +49,8 @@ import { BottomContentPage } from '../pages/bottom-content/bottom-content';
 import { Autosize } from '../component/elastic';
 import { LocalNotifications } from '@ionic-native/local-notifications/ngx';
 import { PhonegapLocalNotification } from '@ionic-native/phonegap-local-notification';
+import { AppVersion} from '@ionic-native/app-version';
+import { InAppBrowser } from '@ionic-native/in-app-browser/ngx';
 
 
 
@@ -149,6 +151,8 @@ import { PhonegapLocalNotification } from '@ionic-native/phonegap-local-notifica
     SplashScreen,
     LocalNotifications,
     PhonegapLocalNotification,
+    AppVersion,
+    InAppBrowser,
     {provide: ErrorHandler, useClass: IonicErrorHandler}
   ]
 })
