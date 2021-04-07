@@ -126,13 +126,14 @@ autoLoginCheck()
                 
                 setTimeout(() => //로그인화면표시
                 {
-                  this.loginstate = 2;                                              
-                  this.events.publish('auto_login');//register는 하지 않고 push 받는 곳 이벤트만 받는다.                                              
-                  this.navCtrl.setRoot(HomePage);
+                  //this.loginstate = 2;    
+                  this.loginstate = 1;                                          
+                  //this.events.publish('auto_login');//register는 하지 않고 push 받는 곳 이벤트만 받는다.                                              
+                  //this.navCtrl.setRoot(HomePage);
                 }, 500); 
                 
 
-                
+                /*
                   this.host.getUser().then((data2)=>
                   { 
                         if(data2==null)
@@ -142,7 +143,7 @@ autoLoginCheck()
                         {                                
                             this.host.GetRegistrationId().then((deviceid)=>//push id
                             { 
-                                    var myjson2:any = JSON.parse(JSON.stringify(data2));
+                                    var myjson2:any = JSON.parse(JSON.stringify(data2));*/
 
                                     
                                     /*
@@ -173,7 +174,7 @@ autoLoginCheck()
                                       alert('unable to get local from native storage'); 
                                     }) 
                                     */
-
+/*
                               },(e)=>
                               { //reject함수가 실행된경우
                                 console.log('getting err',e); 
@@ -185,7 +186,7 @@ autoLoginCheck()
                     console.log('getting err',e); 
                     alert('unable to get local from native storage'); 
                   }) 
-                  
+                  */
               }
         });
   });

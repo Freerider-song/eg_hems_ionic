@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { IonicPage, NavController, NavParams } from 'ionic-angular';
+import { IonicPage, NavController, NavParams, Platform } from 'ionic-angular';
 import { ProvisionPage } from '../provision/provision';
 import { PrivacyPage } from '../privacy/privacy';
 import { AppVersion } from '@ionic-native/app-version';
@@ -21,17 +21,22 @@ import { AppVersion } from '@ionic-native/app-version';
 })
 export class BottomContentFixedPage {
 
-  version: any;
+  version: string;
 
-  constructor(public navCtrl: NavController, public navParams: NavParams) 
+  constructor(public navCtrl: NavController, public navParams: NavParams, public appVersion : AppVersion, public plt: Platform) 
   {
     /*
-    brower에서는 작동하지 않음
-    this.appVersion.getVersionNumber().then((s) => {
-      this.version = s;
-    });
-    */
-    this.version = '1.0.3';
+    //brower에서는 작동하지 않음
+    plt.ready().then(()=>{
+      this.appVersion.getVersionNumber().then(value => {
+        this.version = value;
+      }).catch(err => {
+        alert(err);
+      });
+    })*/
+    
+    
+    this.version = '1.0.4';
   }
 
   ionViewDidLoad() {
