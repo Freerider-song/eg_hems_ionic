@@ -131,6 +131,33 @@ autoLoginCheck()
                   //this.events.publish('auto_login');//register는 하지 않고 push 받는 곳 이벤트만 받는다.                                              
                   //this.navCtrl.setRoot(HomePage);
                 }, 500); 
+
+                this.host.getUser().then((data)=>
+                { 
+                     if(data==null)
+                      {
+                      }
+                      else //로그인정보 넣어준다.
+                      {
+            
+                        this.storage.ready().then(() => 
+                        {     
+                              //저장소 작업준비가되어있다면..진행
+                              this.storage.get('islogin').then((islogin) => 
+                              {                     
+                                  var myjson:any = JSON.parse(JSON.stringify(data));
+                                  this.userid = myjson.userid;
+                                  this.password = myjson.password;
+                             
+                              });                                                                   
+                         });  
+            
+                      }
+                },(e)=>
+                { //reject함수가 실행된경우
+                  console.log('getting err',e); 
+                  alert('unable to get local from native storage'); 
+                }) 
                 
 
                 /*

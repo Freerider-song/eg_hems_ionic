@@ -6,6 +6,7 @@ import { Platform } from 'ionic-angular';
 import { Storage } from '@ionic/storage';
 import { Device } from '@ionic-native/device';
 import { FCM } from '@ionic-native/fcm';
+import moment from 'moment';
 /*
   Generated class for the Datamembers provider.
   See https://angular.io/docs/ts/latest/guide/dependency-injection.html
@@ -38,7 +39,7 @@ export class ServerComm {
     //디바이스아이디push
     SetRegistrationId(deviceid)
     {
-        return new Promise((resolve, reject) => 
+        return new Promise<void>((resolve, reject) => 
         {
             this.storage.ready().then(() => 
             {     
@@ -113,7 +114,7 @@ export class ServerComm {
     //유저아이디, 비밀번호, 유저고유코드, 아파트고유코드, 세대주인가?, 디바이스푸시키, 로그인타입
     setUser(userid, password, seq_member, seq_site, is_main_member, deviceid, is_ev_pv_ess)//,logintype)
     {
-        return new Promise((resolve, reject) => 
+        return new Promise<void>((resolve, reject) => 
         {
             this.storage.ready().then(() => 
             {       
@@ -271,6 +272,7 @@ export class ServerComm {
     CheckLogin(MemberId, Password, DeviceId)
     {
         var platformtype:any;
+        var version:any;
         if(this.plt.is('android'))
         {
             platformtype = "Android";
@@ -279,10 +281,13 @@ export class ServerComm {
         {
             platformtype = "ios";
         } 
+        var date = new Date();
+        var now = moment(date).format("YYMMDD").toString() + "1";// date 객체를 YYYY년도로 받기
+          
                                   
         var headers2 = new Headers();
         headers2.append('Content-Type', 'application/x-www-form-urlencoded; charset=UTF-8');
-        var params = 'MemberId='+MemberId+'&Password='+Password+'&DeviceId='+DeviceId+'&Os='+platformtype+'&Version=1910231';//MemberId='+MemberId+'&Password='+Password+'&DeviceId='+DeviceId+'&Os='+platformtype+'&Version='+this.Version;
+        var params = 'MemberId='+MemberId+'&Password='+Password+'&DeviceId='+DeviceId+'&Os='+platformtype+'&Version='+now;//MemberId='+MemberId+'&Password='+Password+'&DeviceId='+DeviceId+'&Os='+platformtype+'&Version='+this.Version;
         //alert(this.serverurl+'/hems/CheckLogin');
         //alert("params is " + params);
         var response = this.http.post(this.serverurl+'/hems/CheckLogin', params , {headers: headers2}).map(res=>res.json());

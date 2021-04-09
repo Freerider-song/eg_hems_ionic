@@ -36,7 +36,7 @@ export class BottomContentFixedPage {
     })*/
     
     
-    this.version = '1.0.4';
+    this.version = '1.0.5';
   }
 
   ionViewDidLoad() {
