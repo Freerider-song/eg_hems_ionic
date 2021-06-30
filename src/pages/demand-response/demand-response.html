@@ -1,0 +1,82 @@
+<ion-header>
+  <ion-navbar>
+    <!--
+      <button ion-button menuToggle>
+          <ion-icon name="menu"></ion-icon>
+        </button>
+      -->
+           
+    <ion-title style="text-align:center;">
+        <img src="assets/imgs/titlegimg3.png" style="width:150px;margin-top:10px;">
+    </ion-title>
+
+    <ion-buttons end menuToggle="right" right>
+        <button  ion-button icon-only style="margin-top:10px;">
+            <ion-icon name="ios-settings"></ion-icon>
+        </button>           
+    </ion-buttons>  
+
+  </ion-navbar>
+</ion-header>
+
+<ion-content>
+
+    <div class="calendar-header" style="padding-top:0px;background-color:#dcdcdc;margin-bottom:0px;">
+        <ion-row>
+             <ion-col style="width:100%;text-align:center;">
+                <div style="font-size:20px;font-weight:700;margin-right:5px;margin-top:0px;padding:10px;">수요감축</div>
+               <!-- <div (click)="notifyset()"style="position:relative;float:right;font-size:14px;font-weight:700;margin-right:5px;margin-top:-35px;padding:5px;border-radius:5px;background-color:#21d694;color:#fff">알림설정</div>-->
+             </ion-col>
+         </ion-row>
+    </div>
+
+    <div *ngFor="let item of content_list; let i=index">
+<!--
+  ALARM_TYPE_UNKNOWN = 0;
+	ALARM_TYPE_REQUEST_ACK_MEMBER = 1001;
+	ALARM_TYPE_RESPONSE_ACK_MEMBER_ACCEPTED = 1002;
+	ALARM_TYPE_RESPONSE_ACK_MEMBER_REJECTED = 1003;
+	ALARM_TYPE_RESPONSE_ACK_MEMBER_CANCELED = 1004;
+	ALARM_TYPE_NOTI_KWH = 1101;
+	ALARM_TYPE_NOTI_WON = 1102;
+	ALARM_TYPE_NOTI_PRICE_LEVEL = 1103;
+	ALARM_TYPE_NOTI_USAGE = 1104;
+	ALARM_TYPE_NOTI_TRANS = 1110;
+
+-->
+    <div *ngIf='item.alarm_type==1101 || item.alarm_type==1102 || item.alarm_type==1103 || item.alarm_type==1104 || item.alarm_type==1110' style="border-left:6px solid #066daf;width:100%;background-color:#f1f1f1;padding:10px;margin-bottom:10px;border-top:1px solid #eee;border-bottom:1px solid #eee;" [ngStyle]="{'background-color': item.color}" (click)="close(item.seq_alarm)">
+          
+            <div style="float:right;position:relative;margin-top:-20px;margin-right:5px;">{{item.time_created}}</div>
+            <div style="font-size:18px;font-weight:700;color:#222;float:left;margin-top:6px;">▶ {{item.title}}</div><div style="margin-top:4px;" *ngIf="item.is_new==true"><img src="assets/imgs/new_icon.png" style="width:25px;"></div>
+            <div style="font-size:14px;color:#555;clear:both;margin-top:5px;">
+              {{item.content}}
+            </div>
+      </div>
+
+      <div *ngIf='item.alarm_type==1002 || item.alarm_type==1003 || item.alarm_type==1004' style="border-left:6px solid #16ae33;width:100%;background-color:#f1f1f1;padding:10px;margin-bottom:10px;border-top:1px solid #eee;border-bottom:1px solid #eee;" [ngStyle]="{'background-color': item.color}" (click)="close(item.seq_alarm)">
+          <div style="background-color:#16ae33;border-radius:5px;font-size:12px;font-weight:700;padding:5px;color:#fff;width:50px;text-align:center;">개인</div> 
+          <!--<div style="position:relative;margin-top:-23px;float:right;margin-right:0px;" (click)="close(item.seq_alarm)"><img src="assets/imgs/lefticon/close_icon.png" style="width:25px;"></div>--><div style="float:right;position:relative;margin-top:-20px;margin-right:5px;">{{item.time_created}}</div>
+          <div style="font-size:18px;font-weight:700;color:#222;float:left;margin-top:6px;">▶ {{item.title}}</div><div style="margin-top:4px;" *ngIf="item.is_new==true"><img src="assets/imgs/new_icon.png" style="width:25px;"></div>
+          <div style="font-size:14px;color:#555;clear:both;margin-top:5px;">
+            {{item.content}}
+          </div>
+    </div>      
+
+      <div *ngIf='item.alarm_type==1001' style="border-left:6px solid #16ae33;width:100%;background-color:#f1f1f1;padding:10px;margin-bottom:10px;border-top:1px solid #eee;border-bottom:1px solid #eee;" [ngStyle]="{'background-color': item.color}" (click)="close(item.seq_alarm)">
+          <div style="background-color:#16ae33;border-radius:5px;font-size:12px;font-weight:700;padding:5px;color:#fff;width:50px;text-align:center;">시스템</div> <!--<div style="position:relative;margin-top:-23px;float:right;margin-right:0px;" (click)="close(item.seq_alarm)"><img src="assets/imgs/lefticon/close_icon.png" style="width:25px;"></div>--><div style="float:right;position:relative;margin-top:-20px;margin-right:5px;">{{item.time_created}}</div>
+          <div style="font-size:18px;font-weight:700;color:#222;float:left;margin-top:6px;">▶ {{item.title}}</div><div style="margin-top:4px;" *ngIf="item.is_new==true"><img src="assets/imgs/new_icon.png" style="width:25px;"></div>
+          <div style="font-size:14px;color:#555;clear:both;margin-top:5px;">
+              {{item.content}}
+          </div>
+                             
+    </div>         
+
+      </div>
+</ion-content>
+<ion-footer style="margin:0px !important;padding:0px !important;height:80px !important;background-color: #3e3a39 !important;">
+
+  <page-bottom-content-fixed></page-bottom-content-fixed>
+  
+  
+  </ion-footer>
+  
