@@ -23,6 +23,7 @@ import { PvEssPage } from '../pages/pv-ess/pv-ess';
 import { EvPage } from '../pages/ev/ev';
 import { LocalNotifications, ILocalNotification } from '@ionic-native/local-notifications/ngx';
 import { PhonegapLocalNotification } from '@ionic-native/phonegap-local-notification';
+import { DemandResponsePage } from '../pages/demand-response/demand-response';
 
 //import {Plugins, LocalNotificationEnabledResult, LocalNotificationActionPerformed, LocalNotification, Device} from '@capacitor/core'
 //const { LocalNotifications } = Plugins;
@@ -55,6 +56,7 @@ export class MyApp {
   answer_unread_count:any;//고객센터
 
   is_ev_pv_ess:any; //PV-ESS 지원 여부
+  is_demand_response:any; //DR 대상 여부
 
   constructor( public ionicApp:IonicApp, public msg:ServiceAlert, public alertCtrl: AlertController,public app: App, public keyboard: Keyboard,public host:ServerComm,public menu: MenuController,public fcm: FCM,public platform: Platform, private toastCtrl:ToastController, public toast: Toast, private mobileAccessibility: MobileAccessibility,public statusBar: StatusBar, private events: Events,public storage: Storage,public splashScreen: SplashScreen, public localNotifications: LocalNotifications) {
 
@@ -264,6 +266,12 @@ export class MyApp {
       {
         this.menu.close();
         this.nav.push(EvPage);
+      }
+
+      demandResponse()
+      {
+        this.menu.close();
+        this.nav.push(DemandResponsePage);
       }
 
       //end
@@ -495,10 +503,22 @@ export class MyApp {
           alert('unable to get local from native storage'); 
         }) 
     }
- 
+
+   /*
+      ALARM_TYPE_UNKNOWN = 0;
+      ALARM_TYPE_REQUEST_ACK_MEMBER = 1001;
+      ALARM_TYPE_RESPONSE_ACK_MEMBER_ACCEPTED = 1002;
+      ALARM_TYPE_RESPONSE_ACK_MEMBER_REJECTED = 1003;
+      ALARM_TYPE_RESPONSE_ACK_MEMBER_CANCELED = 1004;
+      ALARM_TYPE_NOTI_KWH = 1101;
+      ALARM_TYPE_NOTI_WON = 1102;
+      ALARM_TYPE_NOTI_PRICE_LEVEL = 1103;
+      ALARM_TYPE_NOTI_USAGE = 1104;
+      ALARM_TYPE_NOTI_TRANS = 1110;
+      */
+
 
   
-
   FcmPushInit() {
     //토큰가져오기
     this.fcm.getToken().then(token => {
@@ -526,19 +546,7 @@ export class MyApp {
       };
 
 
-      /*
-      ALARM_TYPE_UNKNOWN = 0;
-      ALARM_TYPE_REQUEST_ACK_MEMBER = 1001;
-      ALARM_TYPE_RESPONSE_ACK_MEMBER_ACCEPTED = 1002;
-      ALARM_TYPE_RESPONSE_ACK_MEMBER_REJECTED = 1003;
-      ALARM_TYPE_RESPONSE_ACK_MEMBER_CANCELED = 1004;
-      ALARM_TYPE_NOTI_KWH = 1101;
-      ALARM_TYPE_NOTI_WON = 1102;
-      ALARM_TYPE_NOTI_PRICE_LEVEL = 1103;
-      ALARM_TYPE_NOTI_USAGE = 1104;
-      ALARM_TYPE_NOTI_TRANS = 1110;
-      */
-
+    
       // push 데이터 받고 표시
       if (data.push_type == 1001) {
         this.confirm = this.alertCtrl.create({

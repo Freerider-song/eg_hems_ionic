@@ -27,6 +27,9 @@ import { ElecSearchYearPage } from '../pages/elec-search-year/elec-search-year';
 import { PvEssPage } from '../pages/pv-ess/pv-ess';
 import { EvPage } from '../pages/ev/ev'
 
+// 김호송 작업 페이지
+import { DemandResponsePage } from '../pages/demand-response/demand-response';
+
 //import { FixedBottomContentPage } from '../pages/fixed-bottom-content/fixed-bottom-content';
 import { PrivacyPage } from '../pages/privacy/privacy';
 import { ProvisionPage } from '../pages/provision/provision';
@@ -87,7 +90,8 @@ import { InAppBrowser } from '@ionic-native/in-app-browser/ngx';
     HomePage,
 
     PvEssPage,
-    EvPage
+    EvPage,
+    DemandResponsePage
   ],
   imports: [
     BrowserModule,
@@ -134,7 +138,9 @@ import { InAppBrowser } from '@ionic-native/in-app-browser/ngx';
     HomePage,
 
     PvEssPage,
-    EvPage
+    EvPage,
+
+    DemandResponsePage
   ],
   providers: [
     StatusBar,
