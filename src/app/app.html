@@ -47,8 +47,9 @@
                 <ion-col *ngIf="is_ev_pv_ess==1" col-12 style="height:30px;">
                     <button  (click)="pvEss()" ion-button  clear  style="color:#333;font-weight:700;font-size:16px;"><img src="assets/imgs/lefticon/folder_icon.png" item-left style="padding-right:5px;width:30px;">PV-ESS</button>                   
                 </ion-col>  
-                <ion-col col-12 style="height:30px;">
+                <ion-col *ngIf="is_dr==1" col-12 style="height:30px;">
                     <button  (click)="demandResponse()" ion-button  clear  style="color:#333;font-weight:700;font-size:16px;"><img src="assets/imgs/lefticon/folder_icon.png" item-left style="padding-right:5px;width:30px;">수요감축</button>                   
+                    <ion-badge *ngIf="dr_unread_count>0" id="notifications-badge" color="danger">{{dr_unread_count}}</ion-badge>   
                 </ion-col>                                                            
                 <ion-col col-12 style="height:30px;">
                     <button  (click)="notify()" ion-button  clear  style="color:#333;font-weight:700;font-size:16px;"><img src="assets/imgs/lefticon/speaker_icon.png" item-left style="padding-right:5px;width:30px;">알림</button>      

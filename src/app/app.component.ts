@@ -54,9 +54,10 @@ export class MyApp {
   alarm_unread_count:any;//알림
   notice_unread_count:any;//공지
   answer_unread_count:any;//고객센터
+  dr_unread_count:any;//수요감축
 
   is_ev_pv_ess:any; //PV-ESS 지원 여부
-  is_demand_response:any; //DR 대상 여부
+  is_dr:any; //DR 대상 여부
 
   constructor( public ionicApp:IonicApp, public msg:ServiceAlert, public alertCtrl: AlertController,public app: App, public keyboard: Keyboard,public host:ServerComm,public menu: MenuController,public fcm: FCM,public platform: Platform, private toastCtrl:ToastController, public toast: Toast, private mobileAccessibility: MobileAccessibility,public statusBar: StatusBar, private events: Events,public storage: Storage,public splashScreen: SplashScreen, public localNotifications: LocalNotifications) {
 
@@ -397,6 +398,7 @@ export class MyApp {
                     //    this.host.nickname = myjson.nickname;
 
                         this.is_ev_pv_ess = myjson.is_ev_pv_ess;
+                        this.is_dr = myjson.is_dr;
                         
                         if(fcmflag==true)
                         {
@@ -413,6 +415,7 @@ export class MyApp {
                               {
                                   this.islogin = false; 
                               }
+                              this.getNotifyCount(myjson.seq_member);
 
 
 
@@ -424,6 +427,7 @@ export class MyApp {
                                   this.apt_dong_name = data.member_info.apt_dong_name;
                                   this.apt_ho_name = data.member_info.apt_ho_name;
                                   this.member_name = data.member_info.member_name;
+                                  this.dr_unread_count = data.member_info.unread_dr_count;
 
                                   this.storage.set('seq_apt_ho', data.member_info.seq_apt_ho);
                                   this.storage.set('site_read_day_elec', data.member_info.site_read_day_elec);
@@ -431,8 +435,10 @@ export class MyApp {
                                   this.storage.set('site_read_day_gas', data.member_info.site_read_day_gas);
                                   this.storage.set('site_read_day_heat', data.member_info.site_read_day_heat);
                                   this.storage.set('site_read_day_steam', data.member_info.site_read_day_steam);
+                                  this.storage.set('dr_unread_count', data.unread_dr_count);
 
                                   this.FcmPushInit();
+                                  
 
                                     
                                 },

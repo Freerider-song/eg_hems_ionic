@@ -219,6 +219,7 @@ autoLoginCheck()
   });
 }
 
+
 //로그인버튼 클릭시 실행
   gotoLogin()
   {
@@ -257,7 +258,8 @@ autoLoginCheck()
                     data.seq_site,
                     data.is_main_member, 
                     deviceid,
-                    data.is_ev_pv_ess).then(()=>
+                    data.is_ev_pv_ess,
+                    data.is_dr).then(()=>
                   {
                     this.storage.set('islogin',true);    //로그인유무 true/false      
                     this.events.publish('first_login');   //push 등록..과 register를 동시에 한다.
@@ -283,7 +285,8 @@ autoLoginCheck()
                   data.seq_site,
                   data.is_main_member, 
                   deviceid,
-                  data.is_ev_pv_ess).then(()=>
+                  data.is_ev_pv_ess,
+                  data.is_dr).then(()=>
                 {
                   this.storage.set('islogin',true);    //로그인유무 true/false      
                   this.events.publish('first_login');   //push 등록..과 register를 동시에 한다.

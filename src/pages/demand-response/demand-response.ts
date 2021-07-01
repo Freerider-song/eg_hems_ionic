@@ -4,6 +4,7 @@ import { NotifySetPage } from '../notify-set/notify-set';
 import { ServerComm } from "../../providers/server_comm";
 import { Storage } from '@ionic/storage';
 import * as moment from 'moment';
+import {sprintf} from "sprintf-js";
 /**
  * Generated class for the NotifyListPage page.
  *
@@ -22,11 +23,12 @@ export class DemandResponsePage {
   member_id:string="";
   password:string="";
   islogin:any = false;
-  
-  end:number = 20;//몇개 조회할지..
+  start:number= 0;
+  end:number = 7;//몇개 조회할지..
   ismore:string = "false";//더이상 있는지 유무확인..
   seq_member:any;
   public content_list: Array<any>;
+  time_created_max:any;
 
 
 
@@ -75,15 +77,30 @@ export class DemandResponsePage {
   }
 
   //알림 요청
-  RequestContentList(searchstr="")
+  RequestContentList()
   {
-    this.host.GetAlarmList(this.seq_member,this.end).subscribe(
+    var now = new Date()
+    //var myDate: String = new Date().toUTCString();
+    //alert(myDate);
+
+    var y = now.getFullYear();
+    var m = now.getMonth()+1  
+    var d = now.getDate();
+    var currentday = sprintf("%s%02d%02d%02d%02d%02d", y,m,d,now.getHours(),now.getMinutes(),now.getSeconds());//오늘날짜
+    
+    this.host.GetDrList(this.seq_member, currentday, this.end).subscribe(
       data => 
       {  
-        for(let alram of data.alarm_list) //현재 갯수만큼 추가..
+        for(let dr of data.dr_list) //현재 갯수만큼 추가..
         {   
-          if(alram.is_read==1) alram.color = "#f1f1f1"//읽음처리
-          else alram.color="#fff";//안읽음
+          if(!dr.time_read){
+            dr.color = "#f1f1f1"//읽음처리
+            dr.is_new = false;
+          } 
+          else {
+            dr.color="#fff";//안읽음
+            dr.is_new = true;
+          }                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                         
 
           var now = moment().format('YYYY-MM-DD');
 
@@ -92,36 +109,20 @@ export class DemandResponsePage {
                   //var str = qa.time_question;//생성일
                   //var tok = str.split(' ');
           
-          if(alram.time_created)
-          {
-            var str2 = alram.time_created;//답변생성일
-            var tok2 = str2.split(' ');
-            
-            //생성일 또는 답변일
-            if(/*now==tok[0] ||*/ now==tok2[0])//new 표시 (오늘날짜이면..)
-            {
-              alram.is_new = true;
-            }
-            else
-            {
-              alram.is_new = false;
-            }
-          }
-          
-          /*
-          seq_alarm:any;
-          alarm_type:any;
-          title:any;
-          content:any;
-          time_created:any;
-          time_read:any;
-          is_read:any;
-          seq_member_ack_requester:any;
-          ack_response:any;
-          */
+         
+
+          var lasttime:string = dr.time_created;
+
+          //저것을 - 와 : 을 없애고 붙여서 만들자
+          lasttime = lasttime.split(':').join('');
+          lasttime = lasttime.split('-').join('');
+          lasttime = lasttime.split(' ').join('');
+
+          this.time_created_max = lasttime;
+  
         }      
                
-        this.content_list = data.alarm_list;//json배열리스트      
+        this.content_list = data.dr_list;//json배열리스트      
       },
       err=>
       {
@@ -132,65 +133,90 @@ export class DemandResponsePage {
       () => console.log('Movie Search Complete')
     );      
   }  
-
-  //수락
-  agree(seq_alarm, seq_member_ack_requester)
-  {
-    this.host.ResponseAckMember(seq_member_ack_requester,1).subscribe(
-      data => 
-      {  
-        this.msgbox("승인 했습니다.");
-      },
-      err=>
-      {
-        console.log(err);
-        alert('네트워크 연결을 확인해주세요.');
-        //this.loader.dismiss();
-      },
-      () => console.log('Movie Search Complete')
-    );       
-  }
-
-  //거절
-  reject(seq_alarm)
-  {
-    this.host.ResponseAckMember(this.seq_member,2).subscribe(
-      data => 
-      {  
-        this.msgbox("거절 했습니다.");
-      },
-      err=>
-      {
-        console.log(err);
-        alert('네트워크 연결을 확인해주세요.');
-        //this.loader.dismiss();
-      },
-      () => console.log('Movie Search Complete')
-    );       
-  }
-
-  //닫기
-  close(seq_alarm)
-  {
-    this.host.SetAlarmListAsRead(this.seq_member,seq_alarm).subscribe(
-      data => 
-      {  
-
-        for(let alram of this.content_list) //현재 갯수만큼 추가..
+   //추가적으로 스크롤 내렸을때..호출
+   requestDrAdd(infiniteScroll:any)
+   {
+       this.host.GetDrList(this.seq_member,this.time_created_max, this.end).subscribe(
+       data => 
+       {  
+ 
+        for(let dr of data.dr_list) //현재 갯수만큼 추가..
         {   
-          if(alram.seq_alarm==seq_alarm) alram.color = "#f1f1f1"//읽음처리
-          //else alram.color="#fff";//안읽음
-          /*
-          seq_alarm:any;
-          alarm_type:any;
-          title:any;
-          content:any;
-          time_created:any;
-          time_read:any;
-          is_read:any;
-          seq_member_ack_requester:any;
-          ack_response:any;
-          */
+          if(!dr.time_read){
+            dr.color = "#fff"//읽음처리
+            dr.is_new = false;
+          } 
+          else {
+            dr.color="#f1f1f1";//안읽음
+            dr.is_new = true;
+          }           
+         
+
+          var lasttime:string = dr.time_created;
+
+          //저것을 - 와 : 을 없애고 붙여서 만들자
+          lasttime = lasttime.split(':').join('');
+          lasttime = lasttime.split('-').join('');
+          lasttime = lasttime.split(' ').join('');
+
+          this.time_created_max = lasttime;
+           
+           this.content_list.push(dr);
+ 
+         }     
+         infiniteScroll.complete();
+        // this.content_list = data.notice_list;//json배열리스트      
+ 
+ 
+       },
+       err=>
+       {
+          console.log(err);
+          alert('네트워크 연결을 확인해주세요.');
+          //this.loader.dismiss();
+       },
+       () => console.log('Movie Search Complete')
+     ); 
+    }       
+
+     doInfinite(infiniteScroll:any): Promise<any> 
+     {
+
+      return new Promise((resolve) => 
+      {
+        setTimeout(() => {
+          this.requestDrAdd(infiniteScroll);
+      
+          console.log('Async operation has ended');
+          resolve();
+        }, 500);
+      })   
+     }
+   
+ 
+ 
+  //닫기
+  close(seq_dr)
+  {
+    this.host.SetDrListAsRead(this.seq_member,seq_dr).subscribe(
+      data => 
+      {  
+
+        for(let dr of this.content_list) //현재 갯수만큼 추가..
+        {   
+          if(dr.seq_dr==seq_dr){
+            dr.color = "#f1f1f1"//읽음처리
+            dr.is_new = false;
+            let alert = this.alertCtrl.create({
+              title: dr.title,
+              subTitle: dr.content,
+              message: "감축량은 " + dr.kwh +" kWh 입니다." + "\n" + "감축기간은 " + 
+              dr.time_begin + " 부터 " + dr.time_end +" 입니다.",
+              buttons: ['확인']
+          });
+          alert.present();
+          }
+     
         }      
       },
       err=>
@@ -200,6 +226,9 @@ export class DemandResponsePage {
         //this.loader.dismiss();
       },
       () => console.log('Movie Search Complete')
-    );      
+    ); 
+    
+    
+    
   }
 }

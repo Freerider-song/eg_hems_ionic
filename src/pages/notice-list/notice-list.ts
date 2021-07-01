@@ -92,11 +92,18 @@ export class NoticeListPage {
         // 상단고정 notice
         for(let notice of data.notice_top_list) //현재 갯수만큼 추가..
         {   
-          if(notice.time_read=="" || notice.time_read=="null" || notice.time_read==null) notice.color = "#fff8a0";//안읽음
-          else notice.color="#fff";//읽음처리
+          notice.color = "#fff8a0";
+          if(notice.time_read=="" || notice.time_read=="null" || notice.time_read==null) {
+            //안읽음
+            notice.is_new = true;
+          }
+          else {
+            //notice.color="#fff";//읽음처리
+            notice.is_new = false;
+          }
        
 
-          var now = moment().format('YYYY-MM-DD');
+          /*var now = moment().format('YYYY-MM-DD');
           
           if(notice.time_created)
           {
@@ -104,7 +111,7 @@ export class NoticeListPage {
             var tok2 = str2.split(' ');
             
             //생성일 또는 답변일
-            if(/*now==tok[0] ||*/ now==tok2[0])//new 표시 (오늘날짜이면..)
+            if(now==tok2[0])//new 표시 (오늘날짜이면..)
             {
               notice.is_new = true;
             }
@@ -112,7 +119,7 @@ export class NoticeListPage {
             {
               notice.is_new = false;
             }
-          }
+          }*/
         }     
         this.top_content_list = data.notice_top_list;//json배열리스트      
 
@@ -120,18 +127,18 @@ export class NoticeListPage {
         //상단고정아닌 notice
         for(let notice2 of data.notice_list) //현재 갯수만큼 추가..
         {   
-          if(notice2.time_read=="" || notice2.time_read=="null" || notice2.time_read==null) notice2.color = "#fff8a0";//안읽음
-          else notice2.color="#fff";//읽음처리
+          if(notice2.time_read=="" || notice2.time_read=="null" || notice2.time_read==null) notice2.is_new = true;//안읽음
+          else notice2.is_new = false;//읽음처리
           
           var now = moment().format('YYYY-MM-DD');
           
-          if(notice2.time_created)
+          /*if(notice2.time_created)
           {
             var str2 = notice2.time_created;//답변생성일
             var tok2 = str2.split(' ');
             
             //생성일 또는 답변일
-            if(/*now==tok[0] ||*/ now==tok2[0])//new 표시 (오늘날짜이면..)
+            if(now==tok2[0])//new 표시 (오늘날짜이면..)
             {
               notice2.is_new = true;
             }
@@ -139,7 +146,7 @@ export class NoticeListPage {
             {
               notice2.is_new = false;
             }
-          }
+          }*/
 
 
           var lasttime:string = notice2.time_created;//마지막 시간 //2019-11-09 19:53:48
@@ -214,18 +221,24 @@ export class NoticeListPage {
         //상단고정아닌 notice
         for(let notice2 of data.notice_list) //현재 갯수만큼 추가..
         {   
-          if(notice2.time_read=="" || notice2.time_read=="null" || notice2.time_read==null) notice2.color = "#fff8a0";//안읽음
-          else notice2.color="#fff";//읽음처리
+          if(notice2.time_read=="" || notice2.time_read=="null" || notice2.time_read==null) {
+          
+            notice2.is_new = true;
+          }
+          else {
+           
+            notice2.is_new = false;
+          }
           
           var now = moment().format('YYYY-MM-DD');
           
-          if(notice2.time_created)
+          /*if(notice2.time_created)
           {
             var str2 = notice2.time_created;//답변생성일
             var tok2 = str2.split(' ');
             
             //생성일 또는 답변일
-            if(/*now==tok[0] ||*/ now==tok2[0])//new 표시 (오늘날짜이면..)
+            if(now==tok2[0])//new 표시 (오늘날짜이면..)
             {
               notice2.is_new = true;
             }
@@ -233,7 +246,7 @@ export class NoticeListPage {
             {
               notice2.is_new = false;
             }
-          }
+          }*/
           var lasttime:string = notice2.time_created;//마지막 시간 //2019-11-09 19:53:48
 
           //저것을 - 와 : 을 없애고 붙여서 만들자
@@ -328,7 +341,7 @@ export class NoticeListPage {
       {  
         for(let nt of this.top_content_list) //현재 갯수만큼 추가..
         {   
-          if(nt.seq_notice==_item.seq_notice) _item.color = "#fff"//읽음처리
+          if(nt.seq_notice==_item.seq_notice) nt.is_new = false;//읽음처리
         }      
 
         this.navCtrl.push(NoticeViewPage,{item:_item});
@@ -342,7 +355,7 @@ export class NoticeListPage {
       {  
         for(let nt of this.content_list) //현재 갯수만큼 추가..
         {   
-          if(nt.seq_notice==_item.seq_notice) _item.color = "#fff"//읽음처리
+          if(nt.seq_notice==_item.seq_notice) nt.is_new = false;//읽음처리
         }      
 
         this.navCtrl.push(NoticeViewPage,{item:_item});

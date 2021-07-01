@@ -27,6 +27,7 @@ export class ServerComm {
     logintype:any;
 
     is_ev_pv_ess:any;
+    is_dr:any;
 
     serverurl = "https://www.egservice.co.kr:4187";
 
@@ -112,7 +113,7 @@ export class ServerComm {
       }    
 
     //유저아이디, 비밀번호, 유저고유코드, 아파트고유코드, 세대주인가?, 디바이스푸시키, 로그인타입
-    setUser(userid, password, seq_member, seq_site, is_main_member, deviceid, is_ev_pv_ess)//,logintype)
+    setUser(userid, password, seq_member, seq_site, is_main_member, deviceid, is_ev_pv_ess, is_dr)//,logintype)
     {
         return new Promise<void>((resolve, reject) => 
         {
@@ -135,7 +136,8 @@ export class ServerComm {
                     seq_site:seq_site,
                     is_main_member:is_main_member,
                     deviceid:deviceid,
-                    is_ev_pv_ess:is_ev_pv_ess
+                    is_ev_pv_ess:is_ev_pv_ess,
+                    is_dr:is_dr
                //     logintype:logintype
                 });
                 resolve(); 
@@ -164,6 +166,7 @@ export class ServerComm {
                                 is_main_member:'',
                                 deviceid:'',
                                 is_ev_pv_ess:'',
+                                is_dr:'',
                               
                             //     logintype:''
                         });
@@ -178,7 +181,8 @@ export class ServerComm {
                         this.seq_site = myjson.seq_site; 
                         this.is_main_member = myjson.is_main_member;
                         this.deviceid = myjson.deviceid;
-                        this.is_ev_pv_ess = myjson.is_ev_pv_ess
+                        this.is_ev_pv_ess = myjson.is_ev_pv_ess;
+                        this.is_dr = myjson.is_dr;
                     //      this.logintype = myjson.logintype;
                         }
                         //var myjson:any = JSON.parse(JSON.stringify(d));
@@ -453,7 +457,28 @@ export class ServerComm {
         var response = this.http.post(this.serverurl+'/hems/CreateQuestion', params , {headers: headers2}).map(res=>res.json());
         //var response = this.http.get(url).map(res => res.json());
         return response;            
-      }        
+      }       
+      
+      //수요감축 리스트
+      GetDrList(SeqMember,TimeCreatedMax,CountDr)
+      {
+        var headers2 = new Headers();
+        headers2.append('Content-Type', 'application/x-www-form-urlencoded; charset=UTF-8');
+        var params = 'SeqMember='+SeqMember+'&TimeCreatedMax='+TimeCreatedMax+'&CountDr='+CountDr;
+        var response = this.http.post(this.serverurl+'/hems/GetDrList', params , {headers: headers2}).map(res=>res.json());
+        //var response = this.http.get(url).map(res => res.json());
+        return response;            
+      }   
+      
+      SetDrListAsRead(SeqMember,SeqDrList)
+      {
+        var headers2 = new Headers();
+        headers2.append('Content-Type', 'application/x-www-form-urlencoded; charset=UTF-8');
+        var params = 'SeqMember='+SeqMember+'&SeqDrList='+SeqDrList;
+        var response = this.http.post(this.serverurl+'/hems/SetDrListAsRead', params , {headers: headers2}).map(res=>res.json());
+        //var response = this.http.get(url).map(res => res.json());
+        return response;            
+      }    
 
       //공지사항리스트
       //https://www.egservice.co.kr:4187/hems/GetNoticeList?SeqMember=1&TimeCreatedMax=20191013162045&
@@ -488,6 +513,7 @@ export class ServerComm {
         //var response = this.http.get(url).map(res => res.json());
         return response;            
       }
+
 
       //휴대폰인증을 요청한다.
       RequestAuthCode(hp)
@@ -850,6 +876,8 @@ export class ServerComm {
       //var response = this.http.get(url).map(res => res.json());
       return response; 
     }
+
+
 
 
     //enernet 이승호 작업
