@@ -93,15 +93,18 @@ export class DemandResponsePage {
       {  
         for(let dr of data.dr_list) //현재 갯수만큼 추가..
         {   
-          if(!dr.time_read){
-            dr.color = "#f1f1f1"//읽음처리
-            dr.is_new = false;
+          if(!dr.time_read){//안읽었다면
+            dr.color = "#fff"//안읽음처리
+            dr.is_new = true;
           } 
           else {
-            dr.color="#fff";//안읽음
-            dr.is_new = true;
+            dr.color="#f1f1f1";//읽음
+            dr.is_new = false;
           }                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                         
-
+          dr.time_begin = new Date(dr.time_begin);
+          dr.time_end = new Date(dr.time_end);
+          dr.time_begin = dr.time_begin.getMonth() + "월" + dr.time_begin.getDate() +"일 " + dr.time_begin.getHours() + ":" + dr.time_begin.getMinutes();
+          dr.time_end = dr.time_end.getMonth() + "월" + dr.time_end.getDate() +"일 " + dr.time_end.getHours() + ":" + dr.time_end.getMinutes();
           var now = moment().format('YYYY-MM-DD');
 
           //        alert(now);
@@ -142,15 +145,18 @@ export class DemandResponsePage {
  
         for(let dr of data.dr_list) //현재 갯수만큼 추가..
         {   
-          if(!dr.time_read){
-            dr.color = "#fff"//읽음처리
-            dr.is_new = false;
+          if(!dr.time_read){//안읽었다면
+            dr.color = "#fff"//안읽음처리
+            dr.is_new = true;
           } 
           else {
-            dr.color="#f1f1f1";//안읽음
-            dr.is_new = true;
-          }           
-         
+            dr.color="#f1f1f1";//읽음
+            dr.is_new = false;
+          }       
+          dr.time_begin = new Date(dr.time_begin);
+          dr.time_end = new Date(dr.time_end);
+          dr.time_begin = dr.time_begin.getMonth() + "월" + dr.time_begin.getDate() +"일 " + dr.time_begin.getHours() + ":" + dr.time_begin.getMinutes();
+          dr.time_end = dr.time_end.getMonth() + "월" + dr.time_end.getDate() +"일 " + dr.time_end.getHours() + ":" + dr.time_end.getMinutes();
 
           var lasttime:string = dr.time_created;
 
@@ -168,6 +174,7 @@ export class DemandResponsePage {
         // this.content_list = data.notice_list;//json배열리스트      
  
  
+
        },
        err=>
        {
@@ -208,10 +215,11 @@ export class DemandResponsePage {
             dr.color = "#f1f1f1"//읽음처리
             dr.is_new = false;
             let alert = this.alertCtrl.create({
+              cssClass: 'my-custom-class',
               title: dr.title,
-              subTitle: dr.content,
-              message: "감축량은 " + dr.kwh +" kWh 입니다." + "\n" + "감축기간은 " + 
-              dr.time_begin + " 부터 " + dr.time_end +" 입니다.",
+              subTitle:   
+            dr.content + "<ul> <li> 감축량: " + dr.kwh +" kWh</li><li>감축기간: </br>" + 
+              dr.time_begin + " ~ " + dr.time_end +"</li></ul>",
               buttons: ['확인']
           });
           alert.present();

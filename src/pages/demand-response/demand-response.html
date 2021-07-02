@@ -33,14 +33,17 @@
     <div *ngFor="let item of content_list; let i=index">
 
   
-      <div style="border-left:6px solid #16ae33;width:100%;background-color:#f1f1f1;padding:10px;margin-bottom:10px;border-top:1px solid #eee;border-bottom:1px solid #eee;" [ngStyle]="{'background-color': item.color}" (click)="close(item.seq_dr)">
+      <div style="border-left:6px solid #16ae33;width:100%;background-color:#f1f1f1;padding:10px;margin-bottom:10px;border-top:1px solid #eee;border-bottom:1px solid #eee;height:130px;" [ngStyle]="{'background-color': item.color}" (click)="close(item.seq_dr)">
           
          <div style="float:right;position:relative;margin-top:5px;margin-right:5px;">{{item.time_created}}</div>
           <div style="font-size:18px;font-weight:700;color:#222;float:left;margin-top:6px;"> {{item.title}}</div><div style="margin-top:4px;" *ngIf="item.is_new==true"><img src="assets/imgs/new_icon.png" style="width:25px;"></div>
           <div style="font-size:14px;color:#555;clear:both;margin-top:5px;">
             {{item.content}}
           </div>
-          <div style="background-color:#16ae33;border-radius:5px;font-size:12px;font-weight:700;padding:5px;color:#fff;width:160px;text-align:center;float:center;margin-top:6px;">감축목표: {{item.kwh}} kWh</div> 
+          <div style="background-color: #16ae33; border-radius: 5px; font-size: 12px; font-weight: 700; 
+                                                            padding: 5px; color: #fff; width: 150px; text-align: center; float: center; margin-top: 6px;">
+                                                               감축목표: {{item.kwh}} kWh </div>
+                                                            <div style="margin-left: 6px; margin-top: 6px">▶ 감축기간: {{item.time_begin}} ~ {{item.time_end}}</div>
     </div>      
                              
     </div>         

@@ -279,7 +279,7 @@ export class ServerComm {
         var version:any;
         if(this.plt.is('android'))
         {
-            platformtype = "Android";
+            platformtype = "android";
         }
         if(this.plt.is('ios'))
         {

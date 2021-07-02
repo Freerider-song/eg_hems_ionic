@@ -50,6 +50,7 @@ export class MyApp {
   apt_dong_name:any="";//아파트동
   apt_ho_name:any="";//아파트호수
   member_name:any="";//회원이름
+  seq_member:any;
 
   alarm_unread_count:any;//알림
   notice_unread_count:any;//공지
@@ -203,6 +204,7 @@ export class MyApp {
                         var myjson:any = JSON.parse(JSON.stringify(data));
                         this.host.password = myjson.password;
                         this.host.userid   = myjson.userid;
+                        
                      //   this.host.nickname = myjson.nickname;
     
                         this.SaveDevicePushID('0000000000000');//푸시 안받기위해서
@@ -399,6 +401,7 @@ export class MyApp {
 
                         this.is_ev_pv_ess = myjson.is_ev_pv_ess;
                         this.is_dr = myjson.is_dr;
+                        this.seq_member = myjson.seq_member;
                         
                         if(fcmflag==true)
                         {
@@ -611,6 +614,39 @@ export class MyApp {
         });
         this.confirm.present();
       }
+
+       // 수요 감축 타입
+       else if (data.push_type == 1116) {
+        this.confirm = this.alertCtrl.create({
+          title: data.title,
+          message: data.body,
+          buttons: [
+            {
+              text: '확인',
+              handler: () => {
+                console.log('DR checked.');
+                this.host.SetDrListAsRead(this.seq_member, data.seq_dr).subscribe(
+                  data => {
+                   
+
+                    
+                  },
+                  err => {
+                    console.log(err);
+                    alert('네트워크 연결을 확인해주세요.');
+             
+                  },
+                  () => console.log('Movie Search Complete')
+                )
+                this.confirm.dismiss();
+                this.confirm = null;
+              }
+            }
+          ]
+        });
+        this.confirm.present();
+      }
+
 
       else {
         this.confirm = this.alertCtrl.create({
